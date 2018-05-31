@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:proforma:v2.0" xmlns:tns="urn:proforma:v2.0"
+           elementFormDefault="qualified">
+
+  <xs:element name="task" type="tns:task-type">
+    <xs:unique name="task-file-id">
+      <xs:selector xpath="./tns:files/tns:file"/>
+      <xs:field xpath="@id"/>
+    </xs:unique>
+    <xs:keyref name="tests-test-testconfiguration-filerefs-fileref" refer="tns:task-file-id">
+      <xs:selector xpath="tns:tests/tns:test/tns:test-configuration/tns:filerefs/tns:fileref"/>
+      <xs:field xpath="@refid"/>
+    </xs:keyref>
+    <!-- TODO: add remaining uniques and keyrefs -->
+  </xs:element>
+
+  <xs:element name="submission" type="tns:submission-type">
+    <!-- TODO: add uniques and keyrefs -->
+  </xs:element>
+
+  <xs:element name="response" type="tns:response-type">
+    <!-- TODO: add uniques and keyrefs -->
+  </xs:element>
+
+  <xs:complexType name="file-type" abstract="true">
+    <xs:attribute name="mimetype" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="embedded-file-type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="filename" type="xs:string"
+                      use="required"/>
+        <xs:attribute name="is-base64-encoded" type="xs:boolean"
+                      default="false"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="attached-file-type">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType name="attached-text-file-type">
+    <xs:simpleContent>
+      <xs:extension base="tns:attached-file-type">
+        <xs:attribute name="encoding" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="attached-text-file-with-natural-language-info-type">
+    <xs:simpleContent>
+      <xs:extension base="tns:attached-text-file-type">
+        <xs:attribute name="natural-language" type="xs:string" use="required"/>
+        <!-- In case no encoding has been specified, natural-language helps the grader guess the encoding used in submitted text files. -->
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="filerefs-type">
+    <xs:sequence maxOccurs="unbounded">
+      <xs:element name="fileref" type="tns:fileref-type"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="fileref-type">
+    <xs:attribute name="refid" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <!--
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  // grading-hints
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <xs:complexType name="grading-hints-type">
+    <xs:sequence>
+      <xs:element name="root" type="tns:node-type"/>
+      <xs:element name="combine" type="tns:node-type" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="node-type">
+    <xs:sequence>
+      <xs:element name="displaytitle" type="xs:string" minOccurs="0"/>
+      <xs:element name="description" type="tns:description-type" minOccurs="0"/>
+      <xs:element name="internal-description" type="tns:description-type" minOccurs="0"/>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="test-ref" type="tns:child-type"/>
+        <xs:element name="combine-ref" type="tns:child-type"/>
+        <xs:element name="double-value-ref" type="tns:child-type"/>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="optional"/>
+    <xs:attribute name="function" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="min"/>
+          <xs:enumeration value="avg"/>
+          <xs:enumeration value="sum"/>
+          <xs:enumeration value="max"/>
+          <xs:enumeration value="mult"/>
+          <xs:enumeration value="thres"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="child-type">
+    <xs:attribute name="ref" type="xs:string" use="required"/>
+    <xs:attribute name="weight" type="xs:double" use="optional"/>
+    <xs:attribute name="nature" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="tree"/>
+          <xs:enumeration value="cross"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:simpleType name="description-type">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <!--
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  // task
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <xs:complexType name="task-type">
+    <xs:sequence>
+      <xs:element name="description" type="tns:description-type"/>
+      <xs:element name="proglang" type="tns:proglang-type"/>
+      <xs:element name="submission-restrictions" type="tns:submission-restrictions-type"/>
+      <xs:element name="files" type="tns:task-files-type"/>
+      <xs:element name="external-resources" type="tns:external-resources-type" minOccurs="0"/>
+      <xs:element name="model-solutions" type="tns:model-solutions-type"/>
+      <xs:element name="tests" type="tns:tests-type"/>
+      <xs:element name="grading-hints" type="tns:grading-hints-type" minOccurs="0"/>
+      <xs:element name="meta-data" type="tns:task-meta-data-type"/>
+    </xs:sequence>
+    <xs:attribute name="uuid" type="xs:string" use="required"/>
+    <!-- The task is identified by attribute "uuid", an automatic generated UUID
+         in Version 3, 4, or 5 (see RFC 4122). Name-based UUIDs (version 3 and 5)
+         may especially be useful when deriving an instance from a task template
+         (the "namespace" of all instances) by resolving the template's variation
+         points to specific instance values (the "name" of the instance). -->
+    <xs:attribute name="parent-uuid" type="xs:string" use="optional"/>
+    <xs:attribute name="lang" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="submission-restrictions-type">
+    <xs:choice>
+      <xs:element name="archive-restriction" type="tns:archive-restr-type"/>
+      <xs:element name="files-restriction" type="tns:file-restr-type"/>
+      <xs:element name="regexp-restriction" type="tns:file-regexp-restr-type"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="file-restr-type">
+    <xs:choice minOccurs="1" maxOccurs="unbounded">
+      <xs:element name="required">
+        <xs:complexType>
+          <xs:attributeGroup ref="tns:mimetype-attr-group"/>
+          <xs:attributeGroup ref="tns:maxsize-attr-group"/>
+          <xs:attribute name="filename" use="required"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="optional">
+        <xs:complexType>
+          <xs:attributeGroup ref="tns:mimetype-attr-group"/>
+          <xs:attributeGroup ref="tns:maxsize-attr-group"/>
+          <xs:attribute name="filename" use="required"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="file-regexp-restr-type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attributeGroup ref="tns:maxsize-attr-group"/>
+        <xs:attributeGroup ref="tns:mimetype-attr-group"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="archive-restr-type">
+    <xs:choice>
+      <xs:element name="unpack-files-from-archive-regexp" type="xs:string"/>
+      <xs:element name="file-restrictions">
+        <xs:complexType>
+          <xs:choice minOccurs="1" maxOccurs="unbounded">
+            <xs:element name="required">
+              <xs:complexType>
+                <xs:attributeGroup ref="tns:mimetype-attr-group"/>
+                <xs:attribute name="path" use="required"/>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="optional">
+              <xs:complexType>
+                <xs:attributeGroup ref="tns:mimetype-attr-group"/>
+                <xs:attribute name="path" use="required"/>
+              </xs:complexType>
+            </xs:element>
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+    <xs:attributeGroup ref="tns:maxsize-attr-group"/>
+    <xs:attributeGroup ref="tns:mimetype-attr-group"/>
+    <xs:attributeGroup ref="tns:archive-attr-group"/>
+  </xs:complexType>
+  <xs:attributeGroup name="maxsize-attr-group">
+    <xs:attribute name="max-size" type="xs:positiveInteger" use="optional"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="mimetype-attr-group">
+    <xs:attribute name="mime-type-regexp" type="xs:string" use="optional"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="archive-attr-group">
+    <xs:attribute name="allowed-archive-filename-regexp" type="xs:string" use="optional"/>
+  </xs:attributeGroup>
+
+  <xs:complexType name="model-solutions-type">
+    <xs:sequence maxOccurs="unbounded">
+      <xs:element name="model-solution" type="tns:model-solution-type"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="model-solution-type">
+    <xs:sequence>
+      <xs:element name="filerefs" type="tns:filerefs-type"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required"/>
+    <xs:attribute name="comment" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="task-meta-data-type">
+    <xs:sequence>
+      <xs:element name="title" type="tns:title-type"/>
+      <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="proglang-type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="version" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="task-file-type">
+        <xs:choice>
+          <xs:element name="embedded-file" type="tns:embedded-file-type"/>
+          <xs:element name="attached-file" type="tns:attached-file-type"/>
+          <xs:element name="attached-text-file" type="tns:attached-text-file-type"/>
+        </xs:choice>
+        <xs:attribute name="id" type="xs:string" use="required"/>
+        <xs:attribute name="comment" type="xs:string" use="optional"/>
+        <xs:attribute name="class" use="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="template"/>
+              <xs:enumeration value="library"/>
+              <xs:enumeration value="inputdata"/>
+              <xs:enumeration value="instruction"/>
+              <xs:enumeration value="source-code"/>
+              <xs:enumeration value="internal-library"/>
+              <xs:enumeration value="internal"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="task-files-type">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="file" type="tns:task-file-type"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="external-resources-type">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="external-resource" type="tns:external-resource-type"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="external-resource-type">
+    <xs:sequence>
+      <xs:element name="description" type="tns:description-type" minOccurs="0"/>
+      <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required"/>
+    <xs:attribute name="reference" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:simpleType name="title-type">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType name="tests-type">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="test" type="tns:test-type"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="test-type-type">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType name="test-configuration-type">
+    <xs:sequence>
+      <xs:element name="filerefs" type="tns:filerefs-type" minOccurs="0"/>
+      <xs:element name="timeout" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:positiveInteger"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="externalresourcerefs" type="tns:externalresourcerefs-type" minOccurs="0"/>
+      <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+      <xs:element name="test-meta-data" type="tns:test-meta-data-type" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="test-type">
+    <xs:sequence>
+      <xs:element name="title" type="tns:title-type"/>
+      <xs:element name="test-type" type="tns:test-type-type"/>
+      <xs:element name="test-configuration" type="tns:test-configuration-type"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required"/>
+    <xs:attribute name="validity" use="optional" default="1.00">
+      <xs:simpleType>
+        <xs:restriction base="xs:decimal">
+          <xs:totalDigits value="3"/>
+          <xs:fractionDigits value="2"/>
+          <xs:minInclusive value="0"/>
+          <xs:maxInclusive value="1.00"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="externalresourcerefs-type">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="externalresourceref" type="tns:externalresourceref-type"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="externalresourceref-type">
+    <xs:attribute name="refid" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="test-meta-data-type">
+    <xs:sequence>
+      <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <!--
+      ////////////////////////////////////////////////////////////////////////////////////////////////////
+      // submission
+      ////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <xs:complexType name="submission-type">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="external-submission" type="tns:external-submission-type"/>
+        <xs:element name="files" type="tns:submission-files-type"/>
+        <!-- Freitextabgaben werden als einzelnes embedded-file in files abgelegt. -->
+      </xs:choice>
+      <xs:choice>
+        <xs:element name="external-task" type="tns:external-task-type"/>
+        <xs:element name="task" type="tns:task-type"/>
+        <xs:element name="inline-task-zip" type="tns:inline-task-zip-type"/>
+      </xs:choice>
+      <xs:element name="lms" type="tns:lms-type" minOccurs="0"/>
+      <!-- optional or required? -->
+
+      <xs:element name="result-spec" type="tns:result-spec-type"/>
+      <xs:element name="grading-hints" type="tns:grading-hints-type" minOccurs="0"/>
+      <!-- Using the grading-hints element at this point is optional.
+           If it is used, it must be preferred over the grading-hints
+           in the task element. -->
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="submission-file-type">
+    <xs:complexContent>
+      <xs:extension base="tns:file-type">
+        <xs:choice>
+          <xs:element name="embedded-file" type="tns:embedded-file-type"/>
+          <xs:element name="attached-file" type="tns:attached-file-type"/>
+          <xs:element name="attached-text-file" type="tns:attached-text-file-type"/>
+          <xs:element name="attached-text-file-with-natural-language-info"
+                      type="tns:attached-text-file-with-natural-language-info-type"/>
+        </xs:choice>
+        <xs:attribute name="id" type="xs:string" use="optional"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="submission-files-type">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="file" type="tns:submission-file-type"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="external-task-type">
+    <!-- The element content stores the URI of the repository the
+         task is located at. -->
+    <!-- uuid ist optional , Wie sieht eine URI zu einem Repository aus, ggf. ein Pfad innerhalb einer ZIP? URL-> einfacher Fall, was gibt es noch? -->
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="uuid" type="xs:string"
+                      use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="external-submission-type">
+    <!-- The element content stores the URI of the repository the
+         task is located at. -->
+    <!-- uuid ist optional , Wie sieht eine URI zu einem Repository aus, ggf. ein Pfad innerhalb einer ZIP? URL-> einfacher Fall, was gibt es noch? -->
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="uuid" type="xs:string"
+                      use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="inline-task-zip-type">
+    <!-- The content of inline-task-zip must be encoded to base64. -->
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="uuid" type="xs:string" use="optional"/>
+        <xs:attribute name="mimetype" type="xs:string" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="lms-type">
+    <xs:sequence>
+      <xs:element name="submission-datetime" type="xs:dateTime"/>
+
+      <xs:element name="user-id" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+      <!-- beliebige ID, wird vom LMS vergeben !optional! -->
+
+      <xs:element name="course-id" type="xs:string" minOccurs="0"/>
+      <!-- beliebige ID, wird vom LMS vergeben !optional! -->
+
+      <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded"
+              processContents="lax"/>
+    </xs:sequence>
+    <xs:attribute name="url" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="result-spec-type">
+    <xs:sequence>
+      <xs:element name="feedback-spec" type="tns:feedback-spec-type"/>
+    </xs:sequence>
+    <xs:attribute name="format" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="xml"/>
+          <xs:enumeration value="zip"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="lang" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="feedback-spec-type">
+    <xs:sequence>
+      <xs:element name="student-level" type="tns:feedback-level-type" minOccurs="0"/>
+      <xs:element name="teacher-level" type="tns:feedback-level-type" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="structure" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="merged-test-feedback"/>
+          <xs:enumeration value="separate-test-feedback"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:simpleType name="feedback-level-type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="debug"/>
+      <xs:enumeration value="info"/>
+      <xs:enumeration value="warn"/>
+      <xs:enumeration value="error"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!--
+      ////////////////////////////////////////////////////////////////////////////////////////////////////
+      // response
+      ////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <xs:complexType name="response-type">
+    <xs:sequence>
+      <!-- The following choice presents two different structure types
+           for the response format. It is up to the LMS to request the
+           preferred structure type in the submission format. -->
+      <xs:choice>
+
+        <xs:element name="merged-test-feedback" type="tns:merged-test-feedback-type"/>
+        <!-- merged-test-feedback:
+             Separate feedback items for both the entire submission and individual tests
+             are merged into a single HTML 'blob'. -->
+
+        <xs:element name="separate-test-feedback" type="tns:separate-test-feedback-type"/>
+        <!-- separate-test-feedback:
+             Contains the separate feedback items for the submission and individual tests.
+             Feedback items are either represented by plain text or HTML fragments.
+             Evaluating the tests' scores as well as presenting the results to the
+             student/teacher is done by the LMS. -->
+      </xs:choice>
+
+      <xs:element name="files" type="tns:response-files-type"/>
+
+      <xs:element name="meta-data" type="tns:response-meta-data-type"/>
+      <!-- The meta-data element holds a namespace for the meta-data of each system
+           (e. g. information about the grader). -->
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="response-meta-data-type">
+    <xs:sequence>
+      <xs:element name="grader-engine" type="tns:grader-engine-type"/>
+      <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="grader-engine-type">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="version" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="result-type">
+    <xs:sequence>
+      <xs:element name="score" type="tns:score-type"/>
+      <xs:element name="validity" minOccurs="0" type="tns:validity-type"/>
+    </xs:sequence>
+
+    <xs:attribute name="is-internal-error" type="xs:boolean" default="false"/>
+    <!-- 'is-internal-error' indicates a system error that should not be attributed to the
+         student's submission (e. g. a fault with the JUnit test). -->
+    <!-- Use case example 1: If a test resulted in an internal error, the LMS would
+         invalidate the entire submission attempt. Since the fault was not with the student's
+         submission but with the grader/middleware itself, the student should not lose their
+         submission attempt (if such restrictions are in place). -->
+    <!-- Use case example 2: The grader is offline and cannot be reached by the middleware. The
+         middleware responds with a response XML file with 'is-internal-error' set to true and
+         an error feedback describing the error. -->
+    <!-- Use case example 3: If an internal-error occurs, send an email to the
+         person/teacher in charge. -->
+  </xs:complexType>
+
+  <xs:simpleType name="score-type">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0.0"/>
+      <xs:maxInclusive value="1.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="validity-type">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0.0"/>
+      <xs:maxInclusive value="1.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="merged-test-feedback-type">
+    <xs:sequence>
+      <xs:element name="overall-result" type="tns:result-type"/>
+      <xs:element name="student-feedback" type="tns:feedback-type" minOccurs="0"/>
+      <xs:element name="teacher-feedback" type="tns:feedback-type" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="separate-test-feedback-type">
+    <xs:sequence>
+      <xs:element name="submission-feedback-list" type="tns:feedback-list-type"/>
+      <!-- The 'submission-feedback-list' represents the feedback for the entire submission rather
+           than for individual tests.
+           Use case examples: the incoming submission XML file was invalid and therefore
+           rejected. Or: a file was referenced in the taskxml format, but the file was not present in the
+           ZIP archive.
+      -->
+
+      <xs:element name="tests-response" type="tns:tests-response-type">
+        <!-- 'tests' contain test-specific test results. -->
+
+        <xs:unique name="testid">
+          <xs:selector xpath=".//tns:test-response-type"/>
+          <xs:field xpath="@id"/>
+        </xs:unique>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="tests-response-type">
+    <xs:sequence>
+      <xs:element name="test-response" type="tns:test-response-type" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="test-response-type">
+    <xs:choice>
+      <xs:element name="test-result" type="tns:test-result-type"/>
+      <xs:element name="subtests-response" type="tns:subtests-response-type">
+        <xs:unique name="subtestid">
+          <xs:selector xpath=".//tns:subtest-response-type"/>
+          <xs:field xpath="@id"/>
+        </xs:unique>
+      </xs:element>
+    </xs:choice>
+    <xs:attribute name="id" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="subtests-response-type">
+    <xs:sequence>
+      <xs:element name="subtest-response" maxOccurs="unbounded" type="tns:subtest-response-type"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="subtest-response-type">
+    <xs:sequence>
+      <xs:element name="test-result" type="tns:test-result-type"/>
+    </xs:sequence>
+    <xs:attribute name="id" use="required" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="test-result-type">
+    <xs:sequence>
+      <xs:element name="result" type="tns:result-type"/>
+      <xs:element name="feedback-list" type="tns:feedback-list-type"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="feedback-list-type">
+    <xs:sequence>
+      <xs:element name="student-feedback" minOccurs="0" maxOccurs="unbounded"
+                  type="tns:feedback-type"/>
+      <xs:element name="teacher-feedback" minOccurs="0" maxOccurs="unbounded"
+                  type="tns:feedback-type"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="feedback-type">
+    <xs:sequence>
+      <!-- title is plain text. Multiple consecutive whitespaces might be
+           presented by the LMS as single spaces.
+           This title does not replace the "displaytitle" of the grading-hints, but
+           it can be used e. g. to output different sub-titles for teacher or student feedback,
+           for info or error feedback, etc. -->
+      <xs:element name="title" minOccurs="0" type="xs:string"/>
+      <!-- title and content are meant to be presented to teachers and students by the LMS
+           as immediately readable text. Images may be embedded as data uri into content. -->
+      <xs:element name="content" minOccurs="0">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute name="format" use="required">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="html"/>
+                    <xs:enumeration value="plaintext"/>
+                    <!-- content includes preformatted whitespace -->
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="filerefs" type="tns:filerefs-type" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="level" type="tns:feedback-level-type"/>
+  </xs:complexType>
+
+  <xs:complexType name="response-file-type">
+        <xs:choice>
+          <xs:element name="embedded-file" type="tns:embedded-file-type"/>
+          <xs:element name="attached-file" type="tns:attached-file-type"/>
+          <xs:element name="attached-text-file" type="tns:attached-text-file-type"/>
+        </xs:choice>
+        <xs:attribute name="id" type="xs:string" use="required"/>
+        <xs:attribute name="title" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="response-files-type">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="file" type="tns:response-file-type"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
