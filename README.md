@@ -10,4 +10,4 @@ Older stable versions are kept here: https://github.com/ProFormA/taskxml
 Up to version 1.1 only the task details were specified by the format. In 2018 it was decided to create a new version (2.0) which also specifies the details for the submission (what information has to be transmitted in addition to the file(s) provided by the student) and the response (what the grader sends back to the LMS). 
 
 
-History: even older versions are at http://teach.ecult.me/proforma/
+History: even older versions are here: http://teach.ecult.me/proforma/
