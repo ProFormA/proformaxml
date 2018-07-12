@@ -30,8 +30,7 @@ which are each described in a separate document.
 ISO 639-1 and 3166-1 ALPHA2 are used for indicating regions. If a ProFormA task contains only one natural
 language, this is indicated using the <b>lang</b> attribute of the <b>task</b> element. In case 
 multiple languages, the <b>lang</b> attribute of the <b>task</b> element contains the main
-language. Where appropriate translations can be supplied (eg. in descriptions and titles) using
-markup with <b>@@@</b> and a file with translations. For example
+language. Where appropriate translations can be supplied using markup with <b>@@@</b> and a file with translations. For example
 ```xml
    <displaytitle>@@@title2@@@</displaytitle>
 ```
@@ -39,3 +38,5 @@ Mixing markup and non-markup is not allowed:
 ```xml
    <displaytitle>@@@title3@@@ is not allowed!!</displaytitle>
 ```
+This is relevant for any elements with these names: <b>description</b>, <b>comment</b>, <b>title</b>, <b>content</b> and <b>displaytitle</b>. Copies of files in different languages 
+can be supplied. TODO: how is that indicated in the XML for files?
