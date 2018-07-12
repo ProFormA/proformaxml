@@ -164,17 +164,21 @@ order to reference this file within this task) and has to be classified
 using the <b>class</b> attribute with one of the following values:
 
 -   <b>template</b>: The file is a template for students to be used as a
-    starting point for their solution.
--   <b>library</b>: The file is a library to be used by students (and might
-    also be required for tests).
--   <b>inputdata</b>: The file contains data which the algorithm of the
-    students should work with.
+    starting point for their solution. (Visible to students/irrelevant for grader)
 -   <b>instruction</b>: The file contains further instructions for handling
-    the task, e.g. an UML activity diagram.
--   <b>internal-library</b>: This file is not visible for students and holds
-    libraries which are required for processing the tests within the system.
+    the task, e.g. an UML activity diagram. (Visible to students/irrelevant for grader)
+-   <b>library</b>: The file is a library to be used by students. (Visible to            
+    students/used by grader)
+-   <b>internal-library</b>: Like library, but not made available to students.
+    (Not visible to students/used by grader)
+-   <b>source-code</b>: Similar to library, but pre-compiled, for example header libraries
+    for C. (Visible to students/used by grader) 
+-   <b>inputdata</b>: The file contains data which the algorithm of the
+    students should work with. In contrast to libraries, inputdata is used at run-time, 
+    not at compile-time. (Visible to students/used by grader)
 -   <b>internal</b>: This file is not visible for students and holds files
-    which are required for processing the task/tests within the system.
+    which may be required for processing the task/tests within the system. Examples are 
+    JUnit tests and model solutions.  
 
 The information about how a file is used in a test is supplied by the
 test-configuration which uses a file (via its ID). Further details can
