@@ -533,6 +533,7 @@
       <!-- The meta-data element holds a namespace for the meta-data of each system
            (e. g. information about the grader). -->
     </xs:sequence>
+    <xs:attribute name="lang" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="response-meta-data-type">
