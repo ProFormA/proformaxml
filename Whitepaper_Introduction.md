@@ -50,6 +50,6 @@ The submission part does not contain any markup. The attribute <b>lang</b> in th
 
 TODO: should be explained here because it relates to all parts
 
-## Gradin Hints
+## Grading Hints
 
 TODO: should be explained here because it relates to several parts
