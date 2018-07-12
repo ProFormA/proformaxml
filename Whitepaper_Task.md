@@ -32,7 +32,7 @@ meant to provide an overview and does not represent a minimal document):
 ### Task attributes
 
 The task is identified by attribute <b>uuid</b>, an automatic generated UUID 
-in Version 4 (see RFC 4122). There is no need for monitoring the uniqueness,
+in Version 3, 4 (see RFC 4122) or 5. There is no need for monitoring the uniqueness,
  the chance of generating two UUIDs having the same value is about 6 x 10^-11.
 
 The optional attribute <b>parent-uuid</b> should be used whenever a task is changed. It is
