@@ -150,7 +150,7 @@
          (the "namespace" of all instances) by resolving the template's variation
          points to specific instance values (the "name" of the instance). -->
     <xs:attribute name="parent-uuid" type="xs:string" use="optional"/>
-    <xs:attribute name="lang" type="xs:string" use="required"/>
+    <xs:attribute name="lang" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="submission-restrictions-type">
