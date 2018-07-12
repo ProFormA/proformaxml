@@ -30,17 +30,18 @@ which are each described in a separate document.
 ISO 639-1 and 3166-1 ALPHA2 are used for indicating regions. If a ProFormA task contains only one natural
 language, this is indicated using the <b>lang</b> attribute of the <b>task</b> element. In case of
 multiple languages, the <b>lang</b> attribute of the <b>task</b> element contains the main
-language and translations can be indicated by using markup with <b>@@@</b>. A file <b>strings.txt</b> contains the translations and is stored in "lang/en/strings.txt", "lang/de/strings.txt", "lang/en_us/strings.txt", etc. 
-For example
+language and translations can be indicated by using markup with <b>@@@</b> and a file <b>strings.txt</b> with translations that is stored in "lang/en/strings.txt", "lang/de/strings.txt", "lang/en_us/strings.txt", etc. 
+For example, multiple languages for a title are indicated by
 ```xml
-   <displaytitle>@@@title2@@@</displaytitle>
+   <title>@@@title2@@@</title>
 ```
-Mixing markup and non-markup is not allowed:
+with a corresponding line in strings.txt. Mixing markup and non-markup is not allowed:
 ```xml
-   <displaytitle>@@@title3@@@ is not allowed!!</displaytitle>
+   <title>@@@title3@@@ is not allowed!!</title>
 ```
 This is relevant for any elements with these names: <b>description</b>, <b>comment</b>, <b>title</b>, <b>content</b> and <b>displaytitle</b>. In the case of files, copies in different languages can be supplied. Such files cannot be embedded in the XML, but their
 filename is marked up:
 ```xml
    <file id="f1" class="internal" type="file">@@@pathtofile1@@@</file>
 ```
+The submission part does not contain any markup. The attribute <b>lang</b> in the <b>result-spec</b> of the submission part indicates a preferred language for the response.
