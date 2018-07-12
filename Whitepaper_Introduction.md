@@ -45,3 +45,11 @@ filename is marked up:
    <file id="f1" class="internal" type="file">@@@pathtofile1@@@</file>
 ```
 The submission part does not contain any markup. The attribute <b>lang</b> in the <b>result-spec</b> of the submission part indicates a preferred language for the response.
+
+## Files
+
+TODO: should be explained here because it relates to all parts
+
+## Gradin Hints
+
+TODO: should be explained here because it relates to several parts
