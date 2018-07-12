@@ -627,7 +627,7 @@
         </xs:unique>
       </xs:element>
     </xs:choice>
-    <xs:attribute name="id" use="required"/>
+    <xs:attribute name="id" use="required" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="subtests-response-type">
