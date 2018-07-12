@@ -38,5 +38,8 @@ Mixing markup and non-markup is not allowed:
 ```xml
    <displaytitle>@@@title3@@@ is not allowed!!</displaytitle>
 ```
-This is relevant for any elements with these names: <b>description</b>, <b>comment</b>, <b>title</b>, <b>content</b> and <b>displaytitle</b>. Copies of files in different languages 
-can be supplied. TODO: how is that indicated in the XML for files?
+This is relevant for any elements with these names: <b>description</b>, <b>comment</b>, <b>title</b>, <b>content</b> and <b>displaytitle</b>. In the case of files, copies in different languages can be supplied. Such files are not embedded in the XML, but their
+filename ist marked up:
+```xml
+   <file id="f1" class="internal" type="file">@@@pathtofile1@@@</file>
+```
