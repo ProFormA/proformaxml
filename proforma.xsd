@@ -529,7 +529,7 @@
 
       <xs:element name="files" type="tns:response-files-type"/>
 
-      <xs:element name="meta-data" type="tns:response-meta-data-type"/>
+      <xs:element name="response-meta-data" type="tns:response-meta-data-type"/>
       <!-- The meta-data element holds a namespace for the meta-data of each system
            (e. g. information about the grader). -->
     </xs:sequence>
