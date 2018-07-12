@@ -25,5 +25,5 @@ markup with <b>@@@</b> and a file with translations. For example
 ```
 Mixing markup and non-markup is not allowed:
 ```xml
-   <displaytitle>@@@title3@@@ ist ein schöner Titel</displaytitle>
+   <displaytitle>@@@title3@@@ is not allowed!!</displaytitle>
 ```
