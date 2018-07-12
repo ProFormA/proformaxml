@@ -169,8 +169,8 @@ using the <b>class</b> attribute with one of the following values:
     (Visible to students/irrelevant for grader)
 -   <b>instruction</b>: The file contains further instructions for handling
     the task, e.g. an UML activity diagram. (Visible to students/irrelevant for grader)
--   <b>library</b>: The file is a library to be used by students. (Visible to        
-    students/used by grader for compiling or linking)
+-   <b>library</b>: The file is a library to be used by students. (Visible to students/used 
+    by grader for compiling or linking)
 -   <b>internal-library</b>: Like library, but not made available to students.
     (Not visible to students/used by grader for compiling or linking)
 -   <b>source-code</b>: Similar to library, but pre-compiled, for example header libraries
