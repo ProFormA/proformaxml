@@ -28,9 +28,10 @@ which are each described in a separate document.
 ## Internalization
 
 ISO 639-1 and 3166-1 ALPHA2 are used for indicating regions. If a ProFormA task contains only one natural
-language, this is indicated using the <b>lang</b> attribute of the <b>task</b> element. In case 
+language, this is indicated using the <b>lang</b> attribute of the <b>task</b> element. In case of
 multiple languages, the <b>lang</b> attribute of the <b>task</b> element contains the main
-language. Where appropriate translations can be supplied using markup with <b>@@@</b> and a file with translations. For example
+language and translations can be indicated by using markup with <b>@@@</b>. A file <b>strings.txt</b> contains the translations and is stored in "lang/en/strings.txt", "lang/de/strings.txt", "lang/en_us/strings.txt", etc. 
+For example
 ```xml
    <displaytitle>@@@title2@@@</displaytitle>
 ```
