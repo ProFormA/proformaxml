@@ -227,6 +227,7 @@ task. More specific information about the test XML is provided in the
 ### The grading-hints element
 
 TODO
+Tests always return a value between 0 and 1.
 
 ### The meta-data element
 
