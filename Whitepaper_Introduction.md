@@ -9,9 +9,21 @@ Technische Universität Clausthal: *Oliver Müller*;
 Hochschule Hannover: *Robert Garmann, Paul Reiser, Peter Werner*;
 Ostfalia Hochschule für Angewandte Wissenschaften: *Karin Borm, Uta Priss, Oliver Rod*
 
-[TOC]
+Based on an earlier version with more contributors:
+https://github.com/ProFormA/taskxml/blob/master/whitepaper.md
+
 
 ## Introduction
+
+This document specifies syntax and semantics for a standardized “ProFormA-XML
+Format” - an exchange format for programming exercises/tasks. It
+formalises the specification of programming exercises, for example, the
+description, required programming language and suggested tests for
+evaluating the student submitted code so that exercises written for one
+tool can be exported and imported into another tool.
+
+The format contains three main parts: <b>task</b>, <b>submission</b> and <b>response</b> 
+which are each described in a separate document.
 
 ## Internalization
 
