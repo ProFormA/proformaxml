@@ -582,11 +582,15 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="merged-feedback-type">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
   <xs:complexType name="merged-test-feedback-type">
     <xs:sequence>
       <xs:element name="overall-result" type="tns:result-type"/>
-      <xs:element name="student-feedback" type="tns:feedback-type" minOccurs="0"/>
-      <xs:element name="teacher-feedback" type="tns:feedback-type" minOccurs="0"/>
+      <xs:element name="student-feedback" type="tns:merged-feedback-type" minOccurs="0"/>
+      <xs:element name="teacher-feedback" type="tns:merged-feedback-type" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
