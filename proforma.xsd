@@ -464,7 +464,8 @@
 
   <xs:complexType name="result-spec-type">
     <xs:sequence>
-      <xs:element name="feedback-spec" type="tns:feedback-spec-type"/>
+      <xs:element name="student-feedback-level" type="tns:feedback-level-type" minOccurs="0"/>
+      <xs:element name="teacher-feedback-level" type="tns:feedback-level-type" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="format" use="required">
       <xs:simpleType>
@@ -474,14 +475,6 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="lang" type="xs:string"/>
-  </xs:complexType>
-
-  <xs:complexType name="feedback-spec-type">
-    <xs:sequence>
-      <xs:element name="student-level" type="tns:feedback-level-type" minOccurs="0"/>
-      <xs:element name="teacher-level" type="tns:feedback-level-type" minOccurs="0"/>
-    </xs:sequence>
     <xs:attribute name="structure" use="required">
       <xs:simpleType>
         <xs:restriction base="xs:string">
@@ -490,6 +483,7 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
+    <xs:attribute name="lang" type="xs:string"/>
   </xs:complexType>
 
   <xs:simpleType name="feedback-level-type">
