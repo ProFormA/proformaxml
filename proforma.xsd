@@ -45,7 +45,7 @@
     <xs:simpleContent>
       <xs:extension base="tns:attached-file-type">
         <xs:attribute name="encoding" type="xs:string"/>
-        <xs:attribute name="natural-language" type="xs:string"/>          
+        <xs:attribute name="natural-language" type="xs:string"/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
@@ -59,12 +59,6 @@
   <xs:complexType name="fileref-type">
     <xs:attribute name="refid" type="xs:string" use="required"/>
   </xs:complexType>
-
-  <!--
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
-  // grading-hints
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
-  -->
 
   <xs:complexType name="grading-hints-type">
     <xs:sequence>
@@ -116,12 +110,6 @@
   <xs:simpleType name="description-type">
     <xs:restriction base="xs:string"/>
   </xs:simpleType>
-
-  <!--
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
-  // task
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
-  -->
 
   <xs:complexType name="task-type">
     <xs:sequence>
@@ -357,13 +345,6 @@
     </xs:sequence>
   </xs:complexType>
 
-
-  <!--
-      ////////////////////////////////////////////////////////////////////////////////////////////////////
-      // submission
-      ////////////////////////////////////////////////////////////////////////////////////////////////////
-  -->
-
   <xs:complexType name="submission-type">
     <xs:sequence>
       <xs:choice>
@@ -372,16 +353,11 @@
         <xs:element name="inline-task-zip" type="tns:inline-task-zip-type"/>
       </xs:choice>
       <xs:element name="grading-hints" type="tns:grading-hints-type" minOccurs="0"/>
-      <!-- Using the grading-hints element at this point is optional.
-           If it is used, it must be preferred over the grading-hints
-           in the task element. -->
       <xs:choice>
         <xs:element name="external-submission" type="tns:external-submission-type"/>
         <xs:element name="files" type="tns:submission-files-type"/>
-        <!-- Freitextabgaben werden als einzelnes embedded-file in files abgelegt. -->
       </xs:choice>
       <xs:element name="lms" type="tns:lms-type" minOccurs="0"/>
-      <!-- optional or required? -->
       <xs:element name="result-spec" type="tns:result-spec-type"/>
     </xs:sequence>
   </xs:complexType>
@@ -406,9 +382,6 @@
   </xs:complexType>
 
   <xs:complexType name="external-task-type">
-    <!-- The element content stores the URI of the repository the
-         task is located at. -->
-    <!-- uuid ist optional , Wie sieht eine URI zu einem Repository aus, ggf. ein Pfad innerhalb einer ZIP? URL-> einfacher Fall, was gibt es noch? -->
     <xs:simpleContent>
       <xs:extension base="xs:string">
         <xs:attribute name="uuid" type="xs:string"
@@ -418,9 +391,6 @@
   </xs:complexType>
 
   <xs:complexType name="external-submission-type">
-    <!-- The element content stores the URI of the repository the
-         task is located at. -->
-    <!-- uuid ist optional , Wie sieht eine URI zu einem Repository aus, ggf. ein Pfad innerhalb einer ZIP? URL-> einfacher Fall, was gibt es noch? -->
     <xs:simpleContent>
       <xs:extension base="xs:string">
         <xs:attribute name="uuid" type="xs:string"
@@ -430,7 +400,6 @@
   </xs:complexType>
 
   <xs:complexType name="inline-task-zip-type">
-    <!-- The content of inline-task-zip must be encoded to base64. -->
     <xs:simpleContent>
       <xs:extension base="xs:string">
         <xs:attribute name="uuid" type="xs:string" use="optional"/>
@@ -442,13 +411,8 @@
   <xs:complexType name="lms-type">
     <xs:sequence>
       <xs:element name="submission-datetime" type="xs:dateTime"/>
-
       <xs:element name="user-id" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
-      <!-- beliebige ID, wird vom LMS vergeben !optional! -->
-
       <xs:element name="course-id" type="xs:string" minOccurs="0"/>
-      <!-- beliebige ID, wird vom LMS vergeben !optional! -->
-
       <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded"
               processContents="lax"/>
     </xs:sequence>
@@ -488,37 +452,14 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <!--
-      ////////////////////////////////////////////////////////////////////////////////////////////////////
-      // response
-      ////////////////////////////////////////////////////////////////////////////////////////////////////
-  -->
-
   <xs:complexType name="response-type">
     <xs:sequence>
-      <!-- The following choice presents two different structure types
-           for the response format. It is up to the LMS to request the
-           preferred structure type in the submission format. -->
       <xs:choice>
-
         <xs:element name="merged-test-feedback" type="tns:merged-test-feedback-type"/>
-        <!-- merged-test-feedback:
-             Separate feedback items for both the entire submission and individual tests
-             are merged into a single HTML 'blob'. -->
-
         <xs:element name="separate-test-feedback" type="tns:separate-test-feedback-type"/>
-        <!-- separate-test-feedback:
-             Contains the separate feedback items for the submission and individual tests.
-             Feedback items are either represented by plain text or HTML fragments.
-             Evaluating the tests' scores as well as presenting the results to the
-             student/teacher is done by the LMS. -->
       </xs:choice>
-
       <xs:element name="files" type="tns:response-files-type"/>
-
       <xs:element name="response-meta-data" type="tns:response-meta-data-type"/>
-      <!-- The meta-data element holds a namespace for the meta-data of each system
-           (e. g. information about the grader). -->
     </xs:sequence>
     <xs:attribute name="lang" type="xs:string"/>
   </xs:complexType>
@@ -540,19 +481,7 @@
       <xs:element name="score" type="tns:score-type"/>
       <xs:element name="validity" minOccurs="0" type="tns:validity-type"/>
     </xs:sequence>
-
     <xs:attribute name="is-internal-error" type="xs:boolean" default="false"/>
-    <!-- 'is-internal-error' indicates a system error that should not be attributed to the
-         student's submission (e. g. a fault with the JUnit test). -->
-    <!-- Use case example 1: If a test resulted in an internal error, the LMS would
-         invalidate the entire submission attempt. Since the fault was not with the student's
-         submission but with the grader/middleware itself, the student should not lose their
-         submission attempt (if such restrictions are in place). -->
-    <!-- Use case example 2: The grader is offline and cannot be reached by the middleware. The
-         middleware responds with a response XML file with 'is-internal-error' set to true and
-         an error feedback describing the error. -->
-    <!-- Use case example 3: If an internal-error occurs, send an email to the
-         person/teacher in charge. -->
   </xs:complexType>
 
   <xs:simpleType name="score-type">
@@ -584,16 +513,7 @@
   <xs:complexType name="separate-test-feedback-type">
     <xs:sequence>
       <xs:element name="submission-feedback-list" type="tns:feedback-list-type"/>
-      <!-- The 'submission-feedback-list' represents the feedback for the entire submission rather
-           than for individual tests.
-           Use case examples: the incoming submission XML file was invalid and therefore
-           rejected. Or: a file was referenced in the taskxml format, but the file was not present in the
-           ZIP archive.
-      -->
-
       <xs:element name="tests-response" type="tns:tests-response-type">
-        <!-- 'tests' contain test-specific test results. -->
-
         <xs:unique name="testid">
           <xs:selector xpath=".//tns:test-response-type"/>
           <xs:field xpath="@id"/>
@@ -652,14 +572,7 @@
 
   <xs:complexType name="feedback-type">
     <xs:sequence>
-      <!-- title is plain text. Multiple consecutive whitespaces might be
-           presented by the LMS as single spaces.
-           This title does not replace the "displaytitle" of the grading-hints, but
-           it can be used e. g. to output different sub-titles for teacher or student feedback,
-           for info or error feedback, etc. -->
       <xs:element name="title" minOccurs="0" type="xs:string"/>
-      <!-- title and content are meant to be presented to teachers and students by the LMS
-           as immediately readable text. Images may be embedded as data uri into content. -->
       <xs:element name="content" minOccurs="0">
         <xs:complexType>
           <xs:simpleContent>
@@ -669,7 +582,6 @@
                   <xs:restriction base="xs:string">
                     <xs:enumeration value="html"/>
                     <xs:enumeration value="plaintext"/>
-                    <!-- content includes preformatted whitespace -->
                   </xs:restriction>
                 </xs:simpleType>
               </xs:attribute>
@@ -702,5 +614,4 @@
       <xs:element name="file" type="tns:response-file-type"/>
     </xs:sequence>
   </xs:complexType>
-
 </xs:schema>
