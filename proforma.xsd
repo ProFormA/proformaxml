@@ -363,23 +363,22 @@
   <xs:complexType name="submission-type">
     <xs:sequence>
       <xs:choice>
-        <xs:element name="external-submission" type="tns:external-submission-type"/>
-        <xs:element name="files" type="tns:submission-files-type"/>
-        <!-- Freitextabgaben werden als einzelnes embedded-file in files abgelegt. -->
-      </xs:choice>
-      <xs:choice>
         <xs:element name="external-task" type="tns:external-task-type"/>
         <xs:element name="task" type="tns:task-type"/>
         <xs:element name="inline-task-zip" type="tns:inline-task-zip-type"/>
       </xs:choice>
-      <xs:element name="lms" type="tns:lms-type" minOccurs="0"/>
-      <!-- optional or required? -->
-
-      <xs:element name="result-spec" type="tns:result-spec-type"/>
       <xs:element name="grading-hints" type="tns:grading-hints-type" minOccurs="0"/>
       <!-- Using the grading-hints element at this point is optional.
            If it is used, it must be preferred over the grading-hints
            in the task element. -->
+      <xs:choice>
+        <xs:element name="external-submission" type="tns:external-submission-type"/>
+        <xs:element name="files" type="tns:submission-files-type"/>
+        <!-- Freitextabgaben werden als einzelnes embedded-file in files abgelegt. -->
+      </xs:choice>
+      <xs:element name="lms" type="tns:lms-type" minOccurs="0"/>
+      <!-- optional or required? -->
+      <xs:element name="result-spec" type="tns:result-spec-type"/>
     </xs:sequence>
   </xs:complexType>
 
