@@ -72,7 +72,7 @@ Teachers may prefer their own (modified) version of the [grading-hints](#) to th
 
 ### The submission files part
 
-Students provide solutions to programming tasks by submitting source code files (among other files). There are two ways to submit such files, either by including them into the submission document as [submission-files](#the-submission-file), or by using an already (existing) [external-submission](#the-external-submission) file.
+Students provide solutions to programming tasks by submitting source code files (among other files). There are two ways to submit such files, either by including them into the submission document as [submission-files](#the-submission-file), or by using an already existing [external-submission](#the-external-submission) file.
 
 #### The submission-file
 
@@ -266,7 +266,7 @@ The following table illustrates which feedback-levels will be visible as part of
     </tr>         
 </table>
 
-While the student-feedback-level and teacher-feedback-level are technically set apart, it is sometimes necessary for the teacher to see both their own and and the student feedback, but not the other way around. It is for this very reason that the teacher-feedback-level element may be omitted entirely to avoid any potential feedback redundancies. However, it is important to note that compared to the student feedback, teacher feedback *may* contain more detailed information than the student feedback. For instance, a teacher feedback might provide more details about the nature of a [error](#) feedback than the corresponding student feedback. The actual extent of the information differences is up to the grader.
+While the student-feedback-level and teacher-feedback-level are technically set apart, it is sometimes necessary for the teacher to see both their own and and the student feedback, but not the other way around. It is for this very reason that the teacher-feedback-level element may be omitted entirely to avoid any potential feedback redundancies. However, it is important to note that compared to the student feedback, teacher feedback *may* contain more detailed information than the student feedback. For instance, a teacher feedback might provide more details about the nature of an [error](#) than the corresponding student feedback. The actual extent of the information differences is up to the grader.
 
 If neither student-feedback-level nor teacher-feedback-level are specified, no [feedback content](#content-element) will be included in the response document in case of [separate-test-feedback](#), and no [merged-feedback](#) in case of [merged-test-feedback](#).
 
