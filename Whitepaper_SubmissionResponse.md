@@ -185,7 +185,7 @@ The result-spec element has the following attributes:
 
 - **format**
 
-    The format element specifies the content type of the response, which may come in two different types. For compatibility reasons, an LMS can prefer one format over the other. The grader should comply with the requested format. When the LMS submits a HTTP request (such as a GET request) to the grader, the grader should return the response as the requested format and indicate the type used in the `Content-Type` field of the HTTP header to let the LMS know how to interpret the body of the response resource.
+    The format element specifies the content type of the response, which may come in two different types. For compatibility reasons, an LMS can prefer one format over the other. The grader should comply with the requested format. When the LMS submits a HTTP request (such as a GET request) to the grader, the grader should return the response in the requested format (xml or zip) and indicate the type used in the `Content-Type` field of the HTTP header to let the LMS know how to interpret the body of the response resource.
 
     * **xml**
     
@@ -333,7 +333,7 @@ The result element holds the score, as well as the [score's validity](#) that a 
     For instance, if a grading system used a faulty JUnit test case to assess the correctness of a student's Java function, and that test case would result in a failure regardless of the correctness of the solution, the result would qualify as an internal error. Since the fault was not with the student's solution but with the grading system itself, the submission should be invalidated so the student would not lose their submission attempt (if such restrictions were in place). In order for this to work, the grader would need to return a response document with the **is-internal-error** attribute set to true in a [test-result](#) and a [feedback](#the-feedback-element) entry detailing the error. 
     TODO: On the other hand, how would the grader even know that the JUnit test is to blame and not the student's code? A failed JUnit test is just a failed test, after all. Probably need a better use case.
 
-    Errors that are not directly related to a test should be indicated by other means rather than the is-internal-error flag. For instance, if a grader received a poorly formatted submission document, it would have no choice but to reject the submission. Instead of using the is-internal-error attribute, it would be more reasonable to use a HTTP status code, such as "400 Bad Request", to indicate a client error.
+    Errors that are not directly related to a test should be indicated by other means rather than the is-internal-error flag. For example, if a grader received a poorly formatted submission document, it would have no choice but to reject the submission. Instead of using the is-internal-error attribute, it would be more reasonable to use a HTTP status code, such as "400 Bad Request" to indicate a client error.
     
 ### The separate-test-feedback element
 
@@ -437,7 +437,7 @@ The feedback element consists of four parts:
 </xs:complexType>
 ```
 
-The test-response element represents the result for a single test. It may consist of a single [test-result]() element or a list of [subtest-responses](). Which one to choose depends on the grading-hints and the situation. For instance, if a test is partitioned into multiple sub-tests, it would make sense for the test-response to contain a list of subtest-responses, each one referring to the corresponding sub-test in the grading-hints. It would also allow for a finer breakdown of the test score and feedback. However, if the entire test case were to fail, it would probably not make a lot of sense to have all subtest-responses contain the same error message. Using a single test-result would be more appropriate in this case, as the error message would appear in the LMS only once.
+The test-response element represents the result for a single test. It may consist of a single [test-result]() element or a list of [subtest-responses](). Which one to choose depends on the situation. For instance, if a test is partitioned into multiple sub-tests in the grading-hints, it would make sense for the test-response to contain a list of subtest-responses, each one referring to the corresponding sub-test in the grading-hints. It would also allow for a finer breakdown of the test score and feedback. However, if the entire test case were to fail, it would probably not make a lot of sense to have all subtest-responses contain the same error message. Using a single test-result would be more appropriate in this case, as the error message would appear in the LMS only once.
 
 - **id**
 
@@ -510,7 +510,7 @@ It has the following attributes:
 
     The title serves as a short description of a file. It may be used as the link text for downloadable file links in the [filerefs](#feedback-type-filerefs) section. This is useful if responses tend to contain files with cryptic filenames.
 
-Note that text, such as source code, written inside an online editor of an LMS can also be represented by a submission-file (specifically the embedded-file and attached-text-file elements).
+Note that text, such as source code, written inside an online editor of an LMS can also be represented by a submission-file (specifically the attached-text-file element).
 
 ### The response-meta-data element
 
@@ -577,9 +577,9 @@ The attached-text-file element is used to exclusively attach plaintext files to 
 
 - **natural-language** 
 
-    The natural-language attribute specifies the natural language of the submitting student. Students tend to use all kinds of encodings in their text files. Most of the time, the encoding will be unknown at the time of submission. To address this problem, the natural-language attribute can be used to help the grader detect the encoding of a submission file.
+    The natural-language attribute specifies the natural language of the submitting student. Students tend to use all kinds of encodings in their text files. Most of the time, the encoding will be unknown at the time of submission. To address this problem, the natural-language attribute can be used to help the grader detect the encoding of a submitted plaintext file file.
     
-    It should be said that the natural-language attribute does not necessarily have to be the same as the one provided in the task's [lang](#) attribute. While the lang attribute indicates the language that the task has been written in, a student might use a different language when writing their text altogether.
+    It should be said that the natural-language attribute does not necessarily have to be the same as the one provided in the task's [lang](#) attribute. While the lang attribute indicates the language that the task has been written in, a student might use a different language when writing their text entirely.
     
     Providing a value for the natural-language attribute could be as simple as retrieving a preconfigured value, like the language the student configured in their user profile of the LMS.
 
