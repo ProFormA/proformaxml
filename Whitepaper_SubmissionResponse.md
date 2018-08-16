@@ -577,7 +577,7 @@ The attached-text-file element is used to exclusively attach plaintext files to 
 
 - **natural-language** 
 
-    The natural-language attribute specifies the natural language of the submitting student. Students tend to use all kinds of encodings in their text files. Most of the time, the encoding will be unknown at the time of submission. To address this problem, the natural-language attribute can be used to help the grader detect the encoding of a submitted plaintext file file.
+    The natural-language attribute specifies the natural language of the submitting student. Students tend to use all kinds of encodings in their text files. Most of the time, the encoding will be unknown at the time of submission. To address this problem, the natural-language attribute can be used to help the grader detect the encoding of a submitted plaintext file.
     
     It should be said that the natural-language attribute does not necessarily have to be the same as the one provided in the task's [lang](#) attribute. While the lang attribute indicates the language that the task has been written in, a student might use a different language when writing their text entirely.
     
