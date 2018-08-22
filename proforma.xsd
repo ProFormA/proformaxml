@@ -390,14 +390,9 @@
     </xs:simpleContent>
   </xs:complexType>
 
-  <xs:complexType name="external-submission-type">
-    <xs:simpleContent>
-      <xs:extension base="xs:string">
-        <xs:attribute name="uuid" type="xs:string"
-                      use="optional"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
+  <xs:simpleType name="external-submission-type">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
 
   <xs:complexType name="inline-task-zip-type">
     <xs:simpleContent>
@@ -587,7 +582,6 @@
               </xs:attribute>
             </xs:extension>
           </xs:simpleContent>
-
         </xs:complexType>
       </xs:element>
       <xs:element name="filerefs" type="tns:filerefs-type" minOccurs="0"/>
