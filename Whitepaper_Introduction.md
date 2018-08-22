@@ -75,7 +75,7 @@ The embedded-file element is used to embed a file directly into XML. Files that 
 
 The attached-file element is used to attach arbitrary files to ZIP archives. This is especially useful when we are dealing with files that we do not want to embed in XML for various reasons (e. g. the files in question are particularly large in size). The element content is the relative path to the file within the ZIP file.
 
-Note that while it is possible to use the attached-file element for any kind of file, the [attached-text-file](#) element should be the preferred way to attach plaintext files to ZIP archives.
+Note that while it is possible to use the attached-file element for any kind of file, the [attached-text-file](#the-attached-text-file-element) element should be the preferred way to attach plaintext files to ZIP archives.
 
 ### The attached-text-file element
 
@@ -100,7 +100,7 @@ The attached-text-file element is used to exclusively attach plaintext files to 
 
     The natural-language attribute specifies the natural language of the submitting student. Students tend to use all kinds of encodings in their text files. Most of the time, the encoding will be unknown at the time of submission. To address this problem, the natural-language attribute can be used to help the grader detect the encoding of a submitted plaintext file.
     
-    It should be said that the natural-language attribute does not necessarily have to be the same as the one provided in the task's [lang](#) attribute. While the lang attribute indicates the language that the task has been written in, a student might use a different language when writing their text entirely.
+    It should be said that the natural-language attribute does not necessarily have to be the same as the one provided in the task's [lang](Whitepaper_Task.md#task-attributes) attribute. While the lang attribute indicates the language that the task has been written in, a student might use a different language when writing their text entirely.
     
     Providing a value for the natural-language attribute could be as simple as retrieving a preconfigured value, like the language the student configured in their user profile of the LMS.
 
@@ -137,7 +137,7 @@ The feedback-level is used for submission and response documents. Usually, feedb
     
 - **error**
 
-    The feedback contains error information, e. g. the student's source code resulted in a compile-time error that caused the entire test case to fail. This error type should not be confused with the response's [is-internal-error](#is-internal-error) flag, which indicates that an error occurred on the part of the grading system.
+    The feedback contains error information, e. g. the student's source code resulted in a compile-time error that caused the entire test case to fail. This error type should not be confused with the response's [is-internal-error](Whitepaper_Response.md#is-internal-error) flag, which indicates that an error occurred on the part of the grading system.
 
 ## Grading Hints
 

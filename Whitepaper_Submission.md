@@ -29,7 +29,7 @@ The task that the submission is for is part of the submission. The grading-hints
 
 ### The task part
 
-There are three different ways to include a task into a submission, either as an [XML element](#task-element), as an [inline-task-zip](#inline-task-zip), or as an [external-task](#external-task). Tasks are likely to be cached intensively by grading or middleware systems, which is why each option provides an easily available task-uuid attribute for quick access.
+There are three different ways to include a task into a submission, either as an [XML element](#the-task-element), as an [inline-task-zip](#the-inline-task-zip-element), or as an [external-task](#the-external-task-element). Tasks are likely to be cached intensively by grading or middleware systems, which is why each option provides an easily available task-uuid attribute for quick access.
 
 #### The task element
 
@@ -66,11 +66,11 @@ TODO
 
 ### The grading-hints part
 
-Teachers may prefer their own (modified) version of the [grading-hints](#) to the default ones that ship as part of a task. The grading-hints element is an optional part, which, if included, overrides the default grading-hints in the [task part](#the-task-part) of the submission. 
+Teachers may prefer their own (modified) version of the [grading-hints](Whitepaper_Introduction.md#grading-hints) to the default ones that ship as part of a task. The grading-hints element is an optional part, which, if included, overrides the default grading-hints in the task part of the submission. 
 
 ### The submission files part
 
-Students provide solutions to programming tasks by submitting source code files (among other files). There are two ways to submit such files, either by including them into the submission document as [submission-files](#the-submission-file), or by using an already existing [external-submission](#the-external-submission) file.
+Students provide solutions to programming tasks by submitting source code files (among other files). There are two ways to submit such files, either by including them into the submission document as [submission-files](#the-submission-files-part), or by using an already existing [external-submission](#the-external-submission-element) file.
 
 #### The submission-file
 
@@ -92,7 +92,7 @@ Students provide solutions to programming tasks by submitting source code files 
 </xs:complexType>
 ```
 
-The submission-file may consist of an [embedded-file](#), an [attached-file](#), or an [attached-text-file](#).
+The submission-file may consist of an [embedded-file](Whitepaper_Introduction.md#the-embedded-file-element), an [attached-file](Whitepaper_Introduction.md#the-attached-file-element), or an [attached-text-file](Whitepaper_Introduction.md#the-attached-text-file-element).
 
 The submission-file has the following attributes:
 
@@ -102,7 +102,7 @@ The submission-file has the following attributes:
 
 - **id**
 
-    An optional ID attribute in case submission files need to be referred to by a response document within the [content element](#) of feedback entries. It should be noted that it is not possible to cross-reference the ID of a submission-files using a [fileref](#) element from within a response document. This is because the filerefs element is closely tied to the ID attribute of the [response-file element](#).
+    An optional ID attribute in case submission files need to be referred to by a response document within the [content element](Whitepaper_Response.md#feedback-type-content) of feedback entries. It should be noted that it is not possible to cross-reference the ID of a submission-files using a [fileref](Whitepaper_Response.md#feedback-type-filerefs) element from within a response document. This is because the filerefs element is closely tied to the ID attribute of the [response-file element](Whitepaper_Response.md#the-response-file-element).
 
 Note that source code (or any kind of text, for that matter) written inside an online text editor of an LMS can also be represented by submission-files (specifically the embedded-file and attached-text-file elements).
 
@@ -137,17 +137,17 @@ The LMS part contains general parameters within the context of the LMS.
 
     The date and time of the submission.
 
-- **user-id**
+- <a name="user-id"/> **user-id**
 
     The user ID of the submitter within the LMS context, as an optional attribute. Multiple user IDs can be specified in case the submission is submitted by a group of students.
 
-- **course-id** <a name="course-id"/>
+- <a name="course-id"/> **course-id**
 
     The id of the course within the LMS context. For instance, it could be an identity string as part of the URL of an LMS course.
 
 If necessary, additional information can be provided in the any namespace element.
 
-Using the [user-id](#) element along with the [task uuid](#) attribute, graders are able to put submissions into context, allowing for submission penalties. For example, if the teacher put submission attempt restrictions in place, such as a submission deadline, late submissions might result in a reduction of the total score.
+Using the [user-id](#user-id) element along with the [task uuid](Whitepaper_Task.md#task-attributes) attribute, graders are able to put submissions into context, allowing for submission penalties. For example, if the teacher put submission attempt restrictions in place, such as a submission deadline, late submissions might result in a reduction of the total score.
 
 ### The result-spec part
 
@@ -189,7 +189,7 @@ The result-spec element has the following attributes:
     
         The response should be in the form of an XML document.
         
-        Note that if the requested format is XML, the grader must include all files in the response document using the [embedded-file](#) element. This is because using the [attached-file](#) and [attached-text-file](#) elements would inevitably require the response document to be in the ZIP format.
+        Note that if the requested format is XML, the grader must include all files in the response document using the [embedded-file](Whitepaper_Introduction.md#the-embedded-file-element) element. This is because using the [attached-file](Whitepaper_Introduction.md#the-attached-file-element) and [attached-text-file](Whitepaper_Introduction.md#the-attached-text-file-element) elements would inevitably require the response document to be in the ZIP format.
         
     * **zip**
 
@@ -199,17 +199,17 @@ The result-spec element has the following attributes:
 
     The structure attribute indicates how feedback should be structured in a response document.
 
-    * **merged-test-feedback**
+    * <a name="merged-test-feedback"/> **merged-test-feedback**
     
-        This option specifies that the response document should contain a single feedback item for each audience (student and teacher). The feedback's [content](#) element is formatted as an HTML fragment containing all test scores and feedback entries in accordance with the specified [feedback-level](#the-student-feedback-level-and-teacher-feedback-level-elements).
+        This option specifies that the response document should contain a single feedback item for each audience (student and teacher). The feedback's [content](Whitepaper_Response.md#feedback-type-content) element is formatted as an HTML fragment containing all test scores and feedback entries in accordance with the specified [feedback-level](#the-student-feedback-level-and-teacher-feedback-level-elements).
     
-        See the [merged-test-feedback](#) element for more details.
+        See the [merged-test-feedback](Whitepaper_Response.md#the-merged-test-feedback-element) element for more details.
 
-    * **separate-test-feedback**
+    * <a name="separate-test-feedback"/> **separate-test-feedback**
     
-        This option specifies that the submission response should contain comprehensive feedback, with a [feedback element](#) for every test and sub-test as listed in the [grading-hints](#the-grading-hints-part).
+        This option specifies that the submission response should contain comprehensive feedback, with a [feedback element](Whitepaper_Response.md#the-feedback-element) for every test and sub-test as listed in the [grading-hints](Whitepaper_Introduction.md#grading-hints).
 
-        See the [separate-test-feedback](#) element for more details.
+        See the [separate-test-feedback](Whitepaper_Response.md#the-separate-test-feedback-element) element for more details.
        
 - **lang**
 
@@ -219,7 +219,7 @@ The result-spec element has the following attributes:
 
 #### The student-feedback-level and teacher-feedback-level elements
 
-These elements set the [minimum](#) [feedback-level](#) for student and teacher feedback that should be included in a response document, as a sort of filtering mechanism. Since a feedback-level also serves as a type of severity level, each feedback-level automatically includes all higher (more severe) levels. The LMS may use this to request for response documents to contain feedback entries with a "minimum" level. For example, if the LMS sets the student-feedback-level to "info", the document should also include all feedback entries with the "warn" and "error" level, but exclude any "debug" feedback in the student view.
+These elements set the minimum [feedback-level](Whitepaper_Introduction.md#the-feedback-level) for student and teacher feedback that should be included in a response document, as a sort of filtering mechanism. Since a feedback-level also serves as a type of severity level, each feedback-level automatically includes all higher (more severe) levels. The LMS may use this to request for response documents to contain feedback entries with a "minimum" level. For example, if the LMS sets the student-feedback-level to "info", the document should also include all feedback entries with the "warn" and "error" level, but exclude any "debug" feedback in the student view.
 
 The following table illustrates which feedback-levels will be visible as part of other levels, based on their severity.
 
@@ -261,6 +261,6 @@ The following table illustrates which feedback-levels will be visible as part of
     </tr>
 </table>
 
-While the student-feedback-level and teacher-feedback-level are technically set apart, it is sometimes necessary for the teacher to see both their own and the student feedback, but not the other way around. It is for this very reason that the teacher-feedback-level element may be omitted entirely to avoid any potential feedback redundancies. However, it is important to note that compared to the student feedback, teacher feedback *may* contain more detailed information content. For instance, a teacher feedback might provide more details about the nature of an [error](#) than the corresponding student feedback. The actual extent of the information differences is up to the grader.
+While the student-feedback-level and teacher-feedback-level are technically set apart, it is sometimes necessary for the teacher to see both their own and the student feedback, but not the other way around. It is for this very reason that the teacher-feedback-level element may be omitted entirely to avoid any potential feedback redundancies. However, it is important to note that compared to the student feedback, teacher feedback *may* contain more detailed information content. For instance, a teacher feedback might provide more details about the nature of an error than the corresponding student feedback. The actual extent of the information differences is up to the grader.
 
-If neither student-feedback-level nor teacher-feedback-level are specified, no [feedback content](#content-element) will be included in the response document in case of [separate-test-feedback](#), and no [merged-feedback](#) in case of [merged-test-feedback](#).
+If neither student-feedback-level nor teacher-feedback-level are specified, no [feedback content](Whitepaper_Response.md#feedback-type-content) will be included in the response document in case of [separate-test-feedback](#separate-test-feedback), and no [merged-feedback](Whitepaper_Response.md#the-merged-feedback-element) in case of [merged-test-feedback](#merged-test-feedback).

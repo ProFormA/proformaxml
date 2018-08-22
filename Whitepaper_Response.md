@@ -58,14 +58,14 @@ The merged-feedback element contains the entire submission feedback formatted as
 
 The result element holds the score, as well as the score's validity that a student achieved for a submission or a particular test (or sub-test). The optional element "validity" is used to partially verify the score of a result.
 
-- **is-internal-error** <a name="is-internal-error"></a>
+- <a name="is-internal-error"/> **is-internal-error**
 
     is-internal-error should be used to indicate an error that is not attributed to a student submission.
-    
+
     For instance, if a grading system used a faulty JUnit test to assess the correctness of a student's Java source code, and that test case would always result in a failure regardless of the correctness of the solution (due to the grader not being able to compile the JUnit test, for example), the result would qualify as an internal error. Since the fault was not with the student's solution but with the grading system itself, the submission should be invalidated so the student would not lose their submission attempt (if such restrictions were in place). In order for this to work, the grader would need to return a response document with the **is-internal-error** attribute set to true in a [test-result](#the-test-result-element) and a [feedback](#the-feedback-element) entry detailing the error.
-    
+
     Errors that are not directly related to a test should be indicated by other means rather than the is-internal-error flag. For example, if a grader received a poorly formatted submission document, it would have no choice but to reject the submission. Instead of using the is-internal-error attribute, it would be more appropriate to use the underlying communication protocol's error handling mechanism, such as using a HTTP status code (e. g. "400 Bad Request") to indicate a client error.
-    
+
 ### The separate-test-feedback element
 
 ```xml
@@ -77,9 +77,9 @@ The result element holds the score, as well as the score's validity that a stude
   </xs:complexType>
 ```
 
-The separate-test-feedback element contains the general feedback for the entire submission and test-specific feedback for individual tests. Feedback may either be represented by plaintext or HTML. Test-specific feedback entries are connected to their corresponding tests via a test id or sub-test id as specified in the grading-hints. 
+The separate-test-feedback element contains the general feedback for the entire submission and test-specific feedback for individual tests. Feedback may either be represented by plaintext or HTML. Test-specific feedback entries are connected to their corresponding tests via a test id or sub-test id as specified in the grading-hints.
 
-Calculating a submission's total score based on partial results of separate tests, as well as presenting these results along with the feedback to the student (or teacher) must be handled by the LMS. 
+Calculating a submission's total score based on partial results of separate tests, as well as presenting these results along with the feedback to the student (or teacher) must be handled by the LMS.
 
 #### The feedback-list element
 
@@ -124,32 +124,32 @@ The feedback-list contains zero or more [feedback](#the-feedback-element) elemen
 </xs:complexType>
 ```
 
-The feedback element is the immediate feedback for a specific test, a sub-test, or a submission as a whole. 
+The feedback element is the immediate feedback for a specific test, a sub-test, or a submission as a whole.
 
 The feedback element consists of four parts:
 
 - **title**
 
-    The title is meant to provide a quick and minimal summary of the feedback's content and should be formatted as plaintext. Multiple consecutive whitespace characters might be collapsed to a single whitespace character by the LMS. 
+    The title is meant to provide a quick and minimal summary of the feedback's content and should be formatted as plaintext. Multiple consecutive whitespace characters might be collapsed to a single whitespace character by the LMS.
 
-- **content**
+- <a name="feedback-type-content"/> **content**
 
      The content element contains the actual feedback text and has a **format** attribute indicating whether the text is formatted as plaintext or HTML.
 
     * **plaintext**
-    
+
         The feedback text is formatted as plaintext and should be displayed as [preformatted text](https://www.w3.org/MarkUp/html3/literal.html) in the LMS.
 
     * **html**
-    
+
         The feedback text is formatted as a HTML fragment, wrapped inside a CDATA or PCDATA section. In case of PCDATA, markup-specific entities such as `<` and `>` must be escaped as `&lt;` and `&gt;`, respectively.
-        
+
         HTML may include files "in-line" using the [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme) or JavaScript.
 
 - <a name="feedback-type-filerefs"/> **filerefs**
 
-    The filerefs element contains a list of file references to [files](#the-response-file-element) that are relevant to a particular feedback element. They are presented as downloadable links to the student and teacher. 
-    
+    The filerefs element contains a list of file references to [files](#the-response-file-element) that are relevant to a particular feedback element. They are presented as downloadable links to the student and teacher.
+
     Since a file can be referred to by multiple feedback elements, response documents use filerefs rather than duplicating [response-file](#the-response-file-element) elements.
 
 - **level**
@@ -234,9 +234,9 @@ It has the following attributes:
 - **id**
 
     The ID attribute is used to refer to files using [filerefs](#feedback-type-filerefs).
-    
+
     Note that within a response document, filerefs must exclusively reference response-file elements to ensure referential integrity.
-    
+
 - **title**
 
     The title serves as a short description of a file. It may be used as the link text for downloadable file links in the [filerefs](#feedback-type-filerefs) section. This is useful if responses tend to contain files with cryptic filenames.
@@ -255,4 +255,3 @@ Note that text, such as source code, written inside an online editor of an LMS c
 ```
 
 The response-meta-data element contains information about the grading system used to grade the submission, like the grader's name and version, as well as an any namespace for any additional meta data relevant to the submission response.
-
