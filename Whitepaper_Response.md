@@ -58,7 +58,7 @@ The merged-feedback element contains the entire submission feedback formatted as
 
 The result element holds the score, as well as the [score's validity](#) that a student achieved for a submission or a particular test (or sub-test).
 
-- **is-internal-error**
+- **is-internal-error** <a name="is-internal-error"></a>
 
     is-internal-error should be used to indicate an error that is not attributed to a student submission.
     
@@ -223,7 +223,7 @@ Using the id attribute, a subtest-response is connected to the corresponding sub
 </xs:complexType>
 ```
 
-The response-file element may consist of an [embedded-file](#), an [attached-file](#), or an [attached-text-file](#).
+The response-file element may consist of an [embedded-file](Whitepaper_Introduction.md), an [attached-file](Whitepaper_Introduction.md#the-embedded-file-element), or an [attached-text-file](#).
 
 It has the following attributes:
 
