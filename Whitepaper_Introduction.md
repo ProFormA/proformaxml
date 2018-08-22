@@ -6,7 +6,7 @@ THIS DOCUMENT IS CURRENTLY BEING EDITED AND NOT FINISHED
 contributors listed in alphabetical order:
 
 Technische Universität Clausthal: *Oliver Müller*;
-Hochschule Hannover: *Robert Garmann, Paul Reiser, Peter Werner*;
+Hochschule Hannover: *Robert Garmann, Peter Fricke, Paul Reiser*;
 Ostfalia Hochschule für Angewandte Wissenschaften: *Karin Borm, Uta Priss, Oliver Rod*
 
 Based on an earlier version with more contributors:
@@ -48,7 +48,96 @@ The submission part does not contain any markup. The attribute <b>lang</b> in th
 
 ## Files
 
-TODO: should be explained here because it relates to all parts
+### The embedded-file element
+
+```xml
+<xs:complexType name="embedded-file-type">
+  <xs:simpleContent>
+    <xs:extension base="xs:string">
+      <xs:attribute name="filename" type="xs:string"
+                    use="required"/>
+      <xs:attribute name="is-base64-encoded" type="xs:boolean"
+                    default="false"/>
+    </xs:extension>
+  </xs:simpleContent>
+</xs:complexType>
+```
+
+The embedded-file element is used to embed a file directly into XML. Files that contain binary data must be encoded to Base64 and the **is-base64-encoded** attribute set to true. Plaintext file content must be encoded to UTF-8. Embedded files also require a **filename**.
+
+### The attached-file element
+
+```xml
+<xs:simpleType name="attached-file-type">
+  <xs:restriction base="xs:string"/>
+</xs:simpleType>
+```
+
+The attached-file element is used to attach arbitrary files to ZIP archives. This is especially useful when we are dealing with files that we do not want to embed in XML for various reasons (e. g. the files in question are particularly large in size). The element content is the relative path to the file within the ZIP file.
+
+Note that while it is possible to use the attached-file element for any kind of file, the [attached-text-file](#) element should be the preferred way to attach plaintext files to ZIP archives.
+
+### The attached-text-file element
+
+```xml
+<xs:complexType name="attached-text-file-type">
+  <xs:simpleContent>
+    <xs:extension base="tns:attached-file-type">
+      <xs:attribute name="encoding" type="xs:string"/>
+      <xs:attribute name="natural-language" type="xs:string"/>
+    </xs:extension>
+  </xs:simpleContent>
+</xs:complexType>
+```
+
+The attached-text-file element is used to exclusively attach plaintext files to a ZIP archive. It comes with a few optional attributes that are particularly useful when dealing with plaintext.
+
+- **encoding** 
+
+    The encoding of the text file, as an optional attribute.
+
+- **natural-language** 
+
+    The natural-language attribute specifies the natural language of the submitting student. Students tend to use all kinds of encodings in their text files. Most of the time, the encoding will be unknown at the time of submission. To address this problem, the natural-language attribute can be used to help the grader detect the encoding of a submitted plaintext file.
+    
+    It should be said that the natural-language attribute does not necessarily have to be the same as the one provided in the task's [lang](#) attribute. While the lang attribute indicates the language that the task has been written in, a student might use a different language when writing their text entirely.
+    
+    Providing a value for the natural-language attribute could be as simple as retrieving a preconfigured value, like the language the student configured in their user profile of the LMS.
+
+    In the case that encoding and natural-language should happen to contradict each other, encoding is given precedence.
+
+    The natural-language value should be formatted as ISO 639-1 for language codes, and ISO 3166-1 alpha-2 for country codes.
+
+### The feedback-level
+
+```xml
+<xs:simpleType name="feedback-level-type">
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="debug"/>
+    <xs:enumeration value="info"/>
+    <xs:enumeration value="warn"/>
+    <xs:enumeration value="error"/>
+  </xs:restriction>
+</xs:simpleType>
+```
+
+The feedback-level is used for submission and response documents. Usually, feedback can be grouped into different types of information.
+
+- **debug**
+
+    Debug feedback contains information normally only relevant to debugging a grading system.
+        
+- **info**
+
+    Generally useful information to students and teachers, e. g. a specific test case passed successfully.
+    
+- **warn**
+
+    The feedback contains a warning, e. g. the function being tested took up too much processing time. Or the student used a deprecated class method.
+    
+- **error**
+
+    The feedback contains error information, e. g. the student's source code resulted in a compile-time error that caused the entire test case to fail. This error type should not be confused with the response's [is-internal-error](#is-internal-error) flag, which indicates that an error occurred on the part of the grading system.
 
 ## Grading Hints
 
