@@ -32,7 +32,7 @@ The response contains the results of a graded submission.
 </xs:complexType>
 ```
 
-The merged-test-feedback element holds two feedback elements that act as a single HTML "blob". This blob can be embedded and displayed accordingly in LMS that are less capable in terms of handling complex feedback structures. Additionally, merged-test-feedback provides a precalculated [overall-result](#overall-result) element, making the total score of a task easily accessible.
+The merged-test-feedback element holds two feedback elements that act as a single HTML "blob". This blob can be embedded and displayed accordingly in LMS that are less capable in terms of handling complex feedback structures. Additionally, merged-test-feedback provides a precalculated [overall-result](#the-result-element) element, making the total score of a task easily accessible.
 
 #### The merged-feedback element
 
@@ -42,7 +42,7 @@ The merged-test-feedback element holds two feedback elements that act as a singl
 </xs:simpleType>
 ```
 
-The merged-feedback element contains the entire submission feedback formatted as a single HTML fragment. How the information is structured is up to the grader. For the sake of completeness, the feedback should include the feedback text, score, as well as any files relevant to the tests and sub-tests listed in the [grading-hints](#) element. Files should be included "in-line" in the HTML using the [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme) or JavaScript.
+The merged-feedback element contains the entire submission feedback formatted as a single HTML fragment. How the information is structured is up to the grader. For the sake of completeness, the feedback should include the feedback text, score, as well as any files relevant to the tests and sub-tests listed in the [grading-hints](Whitepaper_Introduction.md) element. Files should be included "in-line" in the HTML using the [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme) or JavaScript.
 
 #### The result element
 
@@ -56,13 +56,13 @@ The merged-feedback element contains the entire submission feedback formatted as
   </xs:complexType>
 ```
 
-The result element holds the score, as well as the [score's validity](#) that a student achieved for a submission or a particular test (or sub-test).
+The result element holds the score, as well as the score's validity that a student achieved for a submission or a particular test (or sub-test). The optional element "validity" is used to partially verify the score of a result.
 
 - **is-internal-error** <a name="is-internal-error"></a>
 
     is-internal-error should be used to indicate an error that is not attributed to a student submission.
     
-    For instance, if a grading system used a faulty JUnit test to assess the correctness of a student's Java source code, and that test case would always result in a failure regardless of the correctness of the solution (due to the grader not being able to compile the JUnit test, for example), the result would qualify as an internal error. Since the fault was not with the student's solution but with the grading system itself, the submission should be invalidated so the student would not lose their submission attempt (if such restrictions were in place). In order for this to work, the grader would need to return a response document with the **is-internal-error** attribute set to true in a [test-result](#) and a [feedback](#the-feedback-element) entry detailing the error. 
+    For instance, if a grading system used a faulty JUnit test to assess the correctness of a student's Java source code, and that test case would always result in a failure regardless of the correctness of the solution (due to the grader not being able to compile the JUnit test, for example), the result would qualify as an internal error. Since the fault was not with the student's solution but with the grading system itself, the submission should be invalidated so the student would not lose their submission attempt (if such restrictions were in place). In order for this to work, the grader would need to return a response document with the **is-internal-error** attribute set to true in a [test-result](#the-test-result-element) and a [feedback](#the-feedback-element) entry detailing the error.
     
     Errors that are not directly related to a test should be indicated by other means rather than the is-internal-error flag. For example, if a grader received a poorly formatted submission document, it would have no choice but to reject the submission. Instead of using the is-internal-error attribute, it would be more appropriate to use the underlying communication protocol's error handling mechanism, such as using a HTTP status code (e. g. "400 Bad Request") to indicate a client error.
     
@@ -94,7 +94,7 @@ Calculating a submission's total score based on partial results of separate test
 </xs:complexType>
 ```
 
-The feedback-list contains zero or more [feedback](#the-feedback-element) elements for both the student and teacher. While a response document structured in the form of [separate-test-feedback](#) must contain a [result](#) element for each [test-response](), the test-responses are not required to have any feedback, depending on the settings used in the result specification (see [student-feedback-level and teacher-feedback-level](#)).
+The feedback-list contains zero or more [feedback](#the-feedback-element) elements for both the student and teacher. While a response document structured in the form of [separate-test-feedback](#the-separate-test-feedback-element) must contain a [result](#the-result-element) element for each [test-response](#the-test-response-element), the test-responses are not required to have any feedback, depending on the settings used in the result specification (see [student-feedback-level and teacher-feedback-level](Whitepaper_Submission.md#the-student-feedback-level-and-teacher-feedback-level-elements)).
 
 #### The feedback element
 
@@ -146,15 +146,15 @@ The feedback element consists of four parts:
         
         HTML may include files "in-line" using the [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme) or JavaScript.
 
-- **filerefs** <a name="feedback-type-filerefs"/>
+- <a name="feedback-type-filerefs"/> **filerefs**
 
-    The filerefs element contains a list of file references to [files](#) that are relevant to a particular feedback element. They are presented as downloadable links to the student and teacher. 
+    The filerefs element contains a list of file references to [files](#the-response-file-element) that are relevant to a particular feedback element. They are presented as downloadable links to the student and teacher. 
     
-    Since a file can be referred to by multiple feedback elements, response documents use filerefs rather than duplicating [response-file](#) elements.
+    Since a file can be referred to by multiple feedback elements, response documents use filerefs rather than duplicating [response-file](#the-response-file-element) elements.
 
 - **level**
 
-    The [level](#) of a feedback entry. Specifying a level is optional.
+    The [level](Whitepaper_Introduction.md#the-feedback-level) of a feedback entry. Specifying a level is optional.
 
 #### The test-response element
 
@@ -168,7 +168,7 @@ The feedback element consists of four parts:
 </xs:complexType>
 ```
 
-The test-response element represents the result for a single test. It may consist of a single [test-result]() element or a list of [subtest-responses](). Which one to choose depends on the situation. For instance, if a test is partitioned into multiple sub-tests in the grading-hints, it would make sense for the test-response to contain a list of subtest-responses, each one referring to the corresponding sub-test in the grading-hints. It would also allow for a finer breakdown of the test score and feedback. However, if the entire test case were to fail, it would probably not make a lot of sense to have all subtest-responses contain the same error message. Using a single test-result would be more appropriate in this case, as the error message would appear in the LMS only once.
+The test-response element represents the result for a single test. It may consist of a single [test-result](#the-test-result-element) element or a list of [subtest-responses](#the-subtest-response-element). Which one to choose depends on the situation. For instance, if a test is partitioned into multiple sub-tests in the grading-hints, it would make sense for the test-response to contain a list of subtest-responses, each one referring to the corresponding sub-test in the grading-hints. It would also allow for a finer breakdown of the test score and feedback. However, if the entire test case were to fail, it would probably not make a lot of sense to have all subtest-responses contain the same error message. Using a single test-result would be more appropriate in this case, as the error message would appear in the LMS only once.
 
 - **id**
 
@@ -185,7 +185,7 @@ The test-response element represents the result for a single test. It may consis
 </xs:complexType>
 ```
 
-The test-result element holds the result and the [feedback](#feedback-list) for a submission or an individual test.
+The test-result element holds the result and the [feedback](#the-feedback-list-element) for a submission or an individual test.
 
 #### The subtest-response element
 
@@ -198,7 +198,7 @@ The test-result element holds the result and the [feedback](#feedback-list) for 
 </xs:complexType>
 ```
 
-The subtest-response element consists of a [test-result](#) element and an **id** attribute. The test-result element contains the results for this particular sub-test.
+The subtest-response element consists of a [test-result](#the-test-result-element) element and an **id** attribute. The test-result element contains the results for this particular sub-test.
 
 Using the id attribute, a subtest-response is connected to the corresponding sub-test (and thus, the parent test) that is listed in the grading-hints.
 
@@ -223,7 +223,7 @@ Using the id attribute, a subtest-response is connected to the corresponding sub
 </xs:complexType>
 ```
 
-The response-file element may consist of an [embedded-file](Whitepaper_Introduction.md), an [attached-file](Whitepaper_Introduction.md#the-embedded-file-element), or an [attached-text-file](#).
+The response-file element may consist of an [embedded-file](Whitepaper_Introduction.md#the-embedded-file-element), an [attached-file](Whitepaper_Introduction.md#the-attached-file-element), or an [attached-text-file](Whitepaper_Introduction.md#the-attached-text-file-element).
 
 It has the following attributes:
 
@@ -233,7 +233,7 @@ It has the following attributes:
 
 - **id**
 
-    The ID attribute is used to refer to files using [filerefs](#).
+    The ID attribute is used to refer to files using [filerefs](#feedback-type-filerefs).
     
     Note that within a response document, filerefs must exclusively reference response-file elements to ensure referential integrity.
     
