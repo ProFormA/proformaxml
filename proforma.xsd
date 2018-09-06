@@ -108,6 +108,7 @@
       </xs:any>
     </xs:sequence>
   </xs:complexType>
+
   <xs:complexType name="grades-node-type">
     <xs:annotation>
       <xs:documentation xml:lang="en">Inner node of the grading scheme hierarchy. There are only two types of inner
@@ -198,6 +199,7 @@
       </xs:simpleType>
     </xs:attribute>
   </xs:complexType>
+
   <xs:complexType name="grades-base-ref-child-type">
     <xs:annotation>
       <xs:documentation xml:lang="en">Inner nodes of the grading scheme hierarchy carry pointers to children. This
@@ -238,6 +240,7 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
+
   <xs:complexType name="grades-test-ref-child-type">
     <xs:annotation>
       <xs:documentation xml:lang="en">A "test-ref" node points to a test in a ProFormA task. As such the result of the
@@ -290,6 +293,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+
   <xs:complexType name="grades-combine-ref-child-type">
     <xs:annotation>
       <xs:documentation xml:lang="en">A "combine-ref" node points to a "combine" node in the grading scheme hierarchy.
@@ -307,6 +311,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+
   <xs:complexType name="grades-nullify-base-type">
     <xs:annotation>
       <xs:documentation xml:lang="en">Specifies an operand of a composite nullify condition.</xs:documentation>
@@ -337,6 +342,7 @@
       </xs:element>
     </xs:sequence>
   </xs:complexType>
+
   <xs:complexType name="grades-nullify-conditions-type">
     <xs:annotation>
       <xs:documentation xml:lang="en">Specifies a composite condition when the sub result of a pointed-at node should
@@ -378,6 +384,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+
   <xs:complexType name="grades-nullify-condition-type">
     <xs:annotation>
       <xs:documentation xml:lang="en">Specifies a simple comparison condition when the sub result of a pointed-at node
@@ -457,11 +464,13 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+
   <xs:complexType name="grades-nullify-comparison-operand-type">
     <xs:annotation>
       <xs:documentation xml:lang="en">Specifies an operand of a comparison nullify condition.</xs:documentation>
     </xs:annotation>
   </xs:complexType>
+
   <xs:complexType name="grades-nullify-combine-ref-type">
     <xs:annotation>
       <xs:documentation xml:lang="en">An operand of a comparison expression pointing to a "combine" node.
