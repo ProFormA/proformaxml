@@ -22,10 +22,6 @@
     <!-- TODO: add uniques and keyrefs -->
   </xs:element>
 
-  <xs:complexType name="file-type" abstract="true">
-    <xs:attribute name="mimetype" type="xs:string" use="optional"/>
-  </xs:complexType>
-
   <xs:complexType name="embedded-file-type">
     <xs:simpleContent>
       <xs:extension base="xs:string">
@@ -235,30 +231,27 @@
   </xs:complexType>
 
   <xs:complexType name="task-file-type">
-    <xs:complexContent>
-      <xs:extension base="tns:file-type">
-        <xs:choice>
-          <xs:element name="embedded-file" type="tns:embedded-file-type"/>
-          <xs:element name="attached-file" type="tns:attached-file-type"/>
-          <xs:element name="attached-text-file" type="tns:attached-text-file-type"/>
-        </xs:choice>
-        <xs:attribute name="id" type="xs:string" use="required"/>
-        <xs:attribute name="comment" type="xs:string" use="optional"/>
-        <xs:attribute name="class" use="required">
-          <xs:simpleType>
-            <xs:restriction base="xs:string">
-              <xs:enumeration value="template"/>
-              <xs:enumeration value="library"/>
-              <xs:enumeration value="inputdata"/>
-              <xs:enumeration value="instruction"/>
-              <xs:enumeration value="source-code"/>
-              <xs:enumeration value="internal-library"/>
-              <xs:enumeration value="internal"/>
-            </xs:restriction>
-          </xs:simpleType>
-        </xs:attribute>
-      </xs:extension>
-    </xs:complexContent>
+    <xs:choice>
+      <xs:element name="embedded-file" type="tns:embedded-file-type"/>
+      <xs:element name="attached-file" type="tns:attached-file-type"/>
+      <xs:element name="attached-text-file" type="tns:attached-text-file-type"/>
+    </xs:choice>
+    <xs:attribute name="id" type="xs:string" use="required"/>
+    <xs:attribute name="mimetype" type="xs:string" use="optional"/>
+    <xs:attribute name="comment" type="xs:string" use="optional"/>
+    <xs:attribute name="class" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="template"/>
+          <xs:enumeration value="library"/>
+          <xs:enumeration value="inputdata"/>
+          <xs:enumeration value="instruction"/>
+          <xs:enumeration value="source-code"/>
+          <xs:enumeration value="internal-library"/>
+          <xs:enumeration value="internal"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
   </xs:complexType>
 
   <xs:complexType name="task-files-type">
@@ -363,16 +356,13 @@
   </xs:complexType>
 
   <xs:complexType name="submission-file-type">
-    <xs:complexContent>
-      <xs:extension base="tns:file-type">
-        <xs:choice>
-          <xs:element name="embedded-file" type="tns:embedded-file-type"/>
-          <xs:element name="attached-file" type="tns:attached-file-type"/>
-          <xs:element name="attached-text-file" type="tns:attached-text-file-type"/>
-        </xs:choice>
-        <xs:attribute name="id" type="xs:string" use="optional"/>
-      </xs:extension>
-    </xs:complexContent>
+    <xs:choice>
+      <xs:element name="embedded-file" type="tns:embedded-file-type"/>
+      <xs:element name="attached-file" type="tns:attached-file-type"/>
+      <xs:element name="attached-text-file" type="tns:attached-text-file-type"/>
+    </xs:choice>
+    <xs:attribute name="id" type="xs:string" use="optional"/>
+    <xs:attribute name="mimetype" type="xs:string" use="optional"/>
   </xs:complexType>
 
   <xs:complexType name="submission-files-type">
@@ -590,17 +580,14 @@
   </xs:complexType>
 
   <xs:complexType name="response-file-type">
-    <xs:complexContent>
-      <xs:extension base="tns:file-type">
-        <xs:choice>
-          <xs:element name="embedded-file" type="tns:embedded-file-type"/>
-          <xs:element name="attached-file" type="tns:attached-file-type"/>
-          <xs:element name="attached-text-file" type="tns:attached-text-file-type"/>
-        </xs:choice>
-        <xs:attribute name="id" type="xs:string" use="required"/>
-        <xs:attribute name="title" type="xs:string" use="required"/>
-      </xs:extension>
-    </xs:complexContent>
+    <xs:choice>
+      <xs:element name="embedded-file" type="tns:embedded-file-type"/>
+      <xs:element name="attached-file" type="tns:attached-file-type"/>
+      <xs:element name="attached-text-file" type="tns:attached-text-file-type"/>
+    </xs:choice>
+    <xs:attribute name="id" type="xs:string" use="required"/>
+    <xs:attribute name="mimetype" type="xs:string" use="optional"/>
+    <xs:attribute name="title" type="xs:string" use="required"/>
   </xs:complexType>
 
   <xs:complexType name="response-files-type">
