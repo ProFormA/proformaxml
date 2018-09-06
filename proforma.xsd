@@ -22,29 +22,43 @@
     <!-- TODO: add uniques and keyrefs -->
   </xs:element>
 
-  <xs:complexType name="embedded-file-type">
+  <xs:complexType name="embedded-txt-file-type">
     <xs:simpleContent>
       <xs:extension base="xs:string">
-        <xs:attribute name="filename" type="xs:string"
-                      use="required"/>
-        <xs:attribute name="is-base64-encoded" type="xs:boolean"
-                      default="false"/>
+        <xs:attribute name="filename" type="xs:string" use="required"/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
 
-  <xs:simpleType name="attached-file-type">
+  <xs:complexType name="embedded-bin-file-type">
+    <xs:simpleContent>
+      <xs:extension base="xs:base64Binary">
+        <xs:attribute name="filename" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="attached-bin-file-type">
     <xs:restriction base="xs:string"/>
   </xs:simpleType>
 
-  <xs:complexType name="attached-text-file-type">
+  <xs:complexType name="attached-txt-file-type">
     <xs:simpleContent>
-      <xs:extension base="tns:attached-file-type">
+      <xs:extension base="xs:string">
         <xs:attribute name="encoding" type="xs:string"/>
         <xs:attribute name="natural-language" type="xs:string"/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
+
+  <xs:group name="file-choice-group">
+    <xs:choice>
+      <xs:element name="embedded-bin-file" type="tns:embedded-bin-file-type"/>
+      <xs:element name="embedded-txt-file" type="tns:embedded-txt-file-type"/>
+      <xs:element name="attached-bin-file" type="tns:attached-bin-file-type"/>
+      <xs:element name="attached-txt-file" type="tns:attached-txt-file-type"/>
+    </xs:choice>
+  </xs:group>
 
   <xs:complexType name="filerefs-type">
     <xs:sequence maxOccurs="unbounded">
@@ -231,11 +245,7 @@
   </xs:complexType>
 
   <xs:complexType name="task-file-type">
-    <xs:choice>
-      <xs:element name="embedded-file" type="tns:embedded-file-type"/>
-      <xs:element name="attached-file" type="tns:attached-file-type"/>
-      <xs:element name="attached-text-file" type="tns:attached-text-file-type"/>
-    </xs:choice>
+    <xs:group ref="tns:file-choice-group"/>
     <xs:attribute name="id" type="xs:string" use="required"/>
     <xs:attribute name="mimetype" type="xs:string" use="optional"/>
     <xs:attribute name="comment" type="xs:string" use="optional"/>
@@ -356,11 +366,7 @@
   </xs:complexType>
 
   <xs:complexType name="submission-file-type">
-    <xs:choice>
-      <xs:element name="embedded-file" type="tns:embedded-file-type"/>
-      <xs:element name="attached-file" type="tns:attached-file-type"/>
-      <xs:element name="attached-text-file" type="tns:attached-text-file-type"/>
-    </xs:choice>
+    <xs:group ref="tns:file-choice-group"/>
     <xs:attribute name="id" type="xs:string" use="optional"/>
     <xs:attribute name="mimetype" type="xs:string" use="optional"/>
   </xs:complexType>
@@ -386,7 +392,7 @@
 
   <xs:complexType name="inline-task-zip-type">
     <xs:simpleContent>
-      <xs:extension base="xs:string">
+      <xs:extension base="xs:base64Binary">
         <xs:attribute name="uuid" type="xs:string" use="optional"/>
         <xs:attribute name="mimetype" type="xs:string" use="optional"/>
       </xs:extension>
@@ -580,11 +586,7 @@
   </xs:complexType>
 
   <xs:complexType name="response-file-type">
-    <xs:choice>
-      <xs:element name="embedded-file" type="tns:embedded-file-type"/>
-      <xs:element name="attached-file" type="tns:attached-file-type"/>
-      <xs:element name="attached-text-file" type="tns:attached-text-file-type"/>
-    </xs:choice>
+    <xs:group ref="tns:file-choice-group"/>
     <xs:attribute name="id" type="xs:string" use="required"/>
     <xs:attribute name="mimetype" type="xs:string" use="optional"/>
     <xs:attribute name="title" type="xs:string" use="required"/>
