@@ -232,8 +232,7 @@ task. More specific information about the test XML is provided in the
 
 ### The grading-hints element
 
-TODO
-Tests always return a value between 0 and 1.
+The [grading-hints](Whitepaper_Introduction.md#grading-hints) element specifies, how a grader should calculate a total result from individual test results. Most ProFormA tasks define several tests. Every test is expected to generate a score from the interval [0,1]. The grading-hints element defines groups of tests and groups of groups in a tree like manner. The grading-hints element is specified as part of a task which can be overriden by a grading-hints element specified in a submission.
 
 ### The meta-data element
 
