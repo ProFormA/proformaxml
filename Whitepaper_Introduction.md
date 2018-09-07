@@ -25,12 +25,12 @@ tool can be exported and imported into another tool.
 The format contains three main parts: <b>task</b>, <b>submission</b> and <b>response</b> 
 which are each described in a separate document.
 
-## Internalization
+## Internationalization
 
 If a ProFormA task contains only one natural
 language, this is indicated by using the <b>lang</b> attribute of the <b>task</b> element. In case of
 multiple languages, the <b>lang</b> attribute of the <b>task</b> element contains the main
-language and translations can be indicated by using markup with <b>@@@</b> and a file <b>strings.txt</b> with translations that is stored in "lang/en/strings.txt", "lang/de/strings.txt", "lang/en_us/strings.txt", etc. ISO 639-1 and 3166-1 ALPHA2 are used for indicating regions.
+language and translations can be indicated by using markup with <b>@@@</b> and a file <b>strings.txt</b> with translations that is stored in "lang/en/strings.txt", "lang/de/strings.txt", "lang/en_us/strings.txt", etc. ISO 639-1 and 3166-1 ALPHA2 are used for indicating languages and regions.
 For example, multiple languages for a title are indicated by
 ```xml
    <title>@@@title2@@@</title>
@@ -45,6 +45,12 @@ filename is marked up:
    <file id="f1" class="internal" type="file">@@@pathtofile1@@@</file>
 ```
 The submission part does not contain any markup. The attribute <b>lang</b> in the <b>result-spec</b> of the submission part indicates a preferred language for the response.
+
+TODO: strings.txt files:
+
+- what's in it? key/value pairs separated by equals sign? Spaces around the equals sign are neither part of the key nor the value?
+- What about multiline values?
+- UTF8 encoded?
 
 ## Files
 
