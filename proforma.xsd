@@ -767,8 +767,8 @@
     <xs:sequence>
       <xs:choice>
         <xs:element name="external-task" type="tns:external-task-type"/>
+        <xs:element name="included-task-file" type="tns:included-task-file-type"/>
         <xs:element name="task" type="tns:task-type"/>
-        <xs:element name="inline-task-zip" type="tns:inline-task-zip-type"/>
       </xs:choice>
       <xs:element name="grading-hints" type="tns:grading-hints-type" minOccurs="0">
         <xs:key name="subm-gh-combineids">
@@ -804,8 +804,7 @@
   <xs:complexType name="external-task-type">
     <xs:simpleContent>
       <xs:extension base="xs:string">
-        <xs:attribute name="uuid" type="xs:string"
-                      use="optional"/>
+        <xs:attribute name="uuid" type="xs:string" use="optional"/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
@@ -814,13 +813,14 @@
     <xs:restriction base="xs:string"/>
   </xs:simpleType>
 
-  <xs:complexType name="inline-task-zip-type">
-    <xs:simpleContent>
-      <xs:extension base="xs:base64Binary">
-        <xs:attribute name="uuid" type="xs:string" use="optional"/>
-        <xs:attribute name="mimetype" type="xs:string" use="optional"/>
-      </xs:extension>
-    </xs:simpleContent>
+  <xs:complexType name="included-task-file-type">
+    <xs:choice>
+      <xs:element name="embedded-bin-file" type="tns:embedded-bin-file-type"/>
+      <xs:element name="attached-bin-file" type="tns:attached-bin-file-type"/>
+      <xs:element name="attached-txt-file" type="tns:attached-txt-file-type"/>
+    </xs:choice>
+    <xs:attribute name="uuid" type="xs:string" use="optional"/>
+    <xs:attribute name="mimetype" type="xs:string" use="optional"/>
   </xs:complexType>
 
   <xs:complexType name="lms-type">
