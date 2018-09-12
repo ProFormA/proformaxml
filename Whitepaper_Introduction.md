@@ -54,7 +54,11 @@ TODO: strings.txt files:
 
 ## Files
 
-#### The embedded-file element
+### The embedded-file element
+
+The embedded-file element is used to embed a file directly into XML. Files that contain binary data must be encoded to Base64 and the **is-base64-encoded** attribute set to true. Plaintext file content must be encoded to UTF-8. Embedded files also require a **filename**.
+
+##### Code-Beispiel
 
 ```xml
 <xs:complexType name="embedded-file-type">
@@ -68,36 +72,19 @@ TODO: strings.txt files:
   </xs:simpleContent>
 </xs:complexType>
 ```
-### The embedded-file element
-
-The embedded-file element is used to embed a file directly into XML. Files that contain binary data must be encoded to Base64 and the **is-base64-encoded** attribute set to true. Plaintext file content must be encoded to UTF-8. Embedded files also require a **filename**.
-
-#### The attached-file element
-
-```xml
-<xs:simpleType name="attached-file-type">
-  <xs:restriction base="xs:string"/>
-</xs:simpleType>
-```
 ### The attached-file element
 
 The attached-file element is used to attach arbitrary files to ZIP archives. This is especially useful when we are dealing with files that we do not want to embed in XML for various reasons (e. g. the files in question are particularly large in size). The element content is the relative path to the file within the ZIP file.
 
 Note that while it is possible to use the attached-file element for any kind of file, the [attached-text-file](#the-attached-text-file-element) element should be the preferred way to attach plaintext files to ZIP archives.
 
-#### The attached-text-file element
+##### Code-Beispiel
 
 ```xml
-<xs:complexType name="attached-text-file-type">
-  <xs:simpleContent>
-    <xs:extension base="tns:attached-file-type">
-      <xs:attribute name="encoding" type="xs:string"/>
-      <xs:attribute name="natural-language" type="xs:string"/>
-    </xs:extension>
-  </xs:simpleContent>
-</xs:complexType>
+<xs:simpleType name="attached-file-type">
+  <xs:restriction base="xs:string"/>
+</xs:simpleType>
 ```
-
 ### The attached-text-file element
 
 The attached-text-file element is used to exclusively attach plaintext files to a ZIP archive. It comes with a few optional attributes that are particularly useful when dealing with plaintext.
@@ -117,6 +104,19 @@ The attached-text-file element is used to exclusively attach plaintext files to 
     In the case that encoding and natural-language should happen to contradict each other, encoding is given precedence.
 
     The natural-language value should be formatted as ISO 639-1 for language codes, and ISO 3166-1 alpha-2 for country codes.
+
+##### Code-Beispiel
+
+```xml
+<xs:complexType name="attached-text-file-type">
+  <xs:simpleContent>
+    <xs:extension base="tns:attached-file-type">
+      <xs:attribute name="encoding" type="xs:string"/>
+      <xs:attribute name="natural-language" type="xs:string"/>
+    </xs:extension>
+  </xs:simpleContent>
+</xs:complexType>
+```
 
 ### The feedback-level
 
