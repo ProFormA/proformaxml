@@ -58,8 +58,6 @@ All three main parts of the ProFormA format make use of files in various ways. T
 
 ### The embedded-bin-file element
 
-The embedded-bin-file element is used to embed a file containing binary content directly into XML. The file content must be encoded to Base64. embedded-bin-file requires a **filename**.
-
 ##### Code-Beispiel
 ```xml
 <xs:complexType name="embedded-bin-file-type">
@@ -71,9 +69,9 @@ The embedded-bin-file element is used to embed a file containing binary content 
 </xs:complexType>
 ```
 
-### The embedded-txt-file element
+The embedded-bin-file element is used to embed a file containing binary content directly into XML. The file content must be encoded to Base64. embedded-bin-file requires a **filename**.
 
-The embedded-txt-file element is used to embed a file containing plaintext content directly into XML. The file content must be encoded to UTF-8, which is the same encoding that the XML document is encoded in. embedded-txt-file requires a **filename**.
+### The embedded-txt-file element
 
 ##### Code-Beispiel
 ```xml
@@ -86,11 +84,9 @@ The embedded-txt-file element is used to embed a file containing plaintext conte
 </xs:complexType>
 ```
 
+The embedded-txt-file element is used to embed a file containing plaintext content directly into XML. The file content must be encoded to UTF-8, which is the same encoding that the XML document is encoded in. embedded-txt-file requires a **filename**.
+
 ### The attached-bin-file element
-
-The attached-bin-file element is used to attach files containing binary content to ZIP archives. This is especially useful when we are dealing with files that we do not want to embed in XML for various reasons (e. g. the files in question are particularly large in size).
-
-The relative path to the binary file within the ZIP archive is specified in the element content (i. e. the element's text node).
 
 ##### Code-Beispiel
 ```xml
@@ -99,7 +95,23 @@ The relative path to the binary file within the ZIP archive is specified in the 
 </xs:simpleType>
 ```
 
+The attached-bin-file element is used to attach files containing binary content to ZIP archives. This is especially useful when we are dealing with files that we do not want to embed in XML for various reasons (e. g. the files in question are particularly large in size).
+
+The relative path to the binary file within the ZIP archive is specified in the element content (i. e. the element's text node).
+
 ### The attached-text-file element
+
+##### Code-Beispiel
+```xml
+<xs:complexType name="attached-txt-file-type">
+  <xs:simpleContent>
+    <xs:extension base="xs:string">
+      <xs:attribute name="encoding" type="xs:string"/>
+      <xs:attribute name="natural-language" type="xs:string"/>
+    </xs:extension>
+  </xs:simpleContent>
+</xs:complexType>
+```
 
 The attached-txt-file element is used to attach files containing plaintext content to ZIP archives. It comes with a few optional attributes that are particularly useful when dealing with plaintext.
 
@@ -121,19 +133,7 @@ The attached-txt-file element is used to attach files containing plaintext conte
 
 The relative path to the plaintext file within the ZIP archive is specified in the element content (i. e. the element's text node).
 
-##### Code-Beispiel
-```xml
-<xs:complexType name="attached-txt-file-type">
-  <xs:simpleContent>
-    <xs:extension base="xs:string">
-      <xs:attribute name="encoding" type="xs:string"/>
-      <xs:attribute name="natural-language" type="xs:string"/>
-    </xs:extension>
-  </xs:simpleContent>
-</xs:complexType>
-```
-
-### The feedback-level
+## The feedback-level
 
 ```xml
 <xs:simpleType name="feedback-level-type">
