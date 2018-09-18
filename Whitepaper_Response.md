@@ -62,7 +62,7 @@ The result element holds the score, as well as the score's validity that a stude
 
     is-internal-error should be used to indicate an error that is not attributed to a student submission.
 
-    For instance, if a grading system used a faulty JUnit test to assess the correctness of a student's Java source code, and that test case would always result in a failure regardless of the correctness of the solution (due to the grader not being able to compile the JUnit test, for example), the result would qualify as an internal error. Since the fault was not with the student's solution but with the grading system itself, the submission should be invalidated so the student would not lose their submission attempt (if such restrictions were in place). In order for this to work, the grader would need to return a response document with the **is-internal-error** attribute set to true in a [test-result](#the-test-result-element) and a [feedback](#the-feedback-element) entry detailing the error.
+    For instance, if a grading system used a faulty JUnit test to assess the correctness of a student's Java source code, and that test case would always result in a failure regardless of the correctness of the solution (due to the grader not being able to compile the JUnit test, for example), the result would qualify as an internal error. Since the fault was not with the student's solution but with the grading system itself, the submission should be invalidated so the student would not lose their submission attempt, if such restrictions were in place. In order for this to work, the grader would need to return a response document with the **is-internal-error** attribute set to true in a [test-result](#the-test-result-element) and a [feedback](#the-feedback-element) entry detailing the error.
 
     Errors that are not directly related to a test should be indicated by other means rather than the is-internal-error flag. For example, if a grader received a poorly formatted submission document, it would have no choice but to reject the submission. Instead of using the is-internal-error attribute, it would be more appropriate to use the underlying communication protocol's error handling mechanism, such as using a HTTP status code (e. g. "400 Bad Request") to indicate a client error.
 
@@ -206,26 +206,22 @@ Using the id attribute, a subtest-response is connected to the corresponding sub
 
 ```xml
 <xs:complexType name="response-file-type">
-  <xs:complexContent>
-    <xs:extension base="tns:file-type">
-      <xs:choice>
-        <xs:element name="embedded-file" type="tns:embedded-file-type"/>
-        <xs:element name="attached-file" type="tns:attached-file-type"/>
-        <xs:element name="attached-text-file" type="tns:attached-text-file-type"/>
-      </xs:choice>
-      <xs:attribute name="id" type="xs:string" use="required"/>
-      <xs:attribute name="title" type="xs:string" use="required"/>
-    </xs:extension>
-  </xs:complexContent>
-</xs:complexType>
-<xs:complexType name="file-type" abstract="true">
+  <xs:group ref="tns:file-choice-group"/>
+  <xs:attribute name="id" type="xs:string" use="required"/>
   <xs:attribute name="mimetype" type="xs:string" use="optional"/>
+  <xs:attribute name="title" type="xs:string" use="required"/>
 </xs:complexType>
+<xs:group name="file-choice-group">
+  <xs:choice>
+    <xs:element name="embedded-bin-file" type="tns:embedded-bin-file-type"/>
+    <xs:element name="embedded-txt-file" type="tns:embedded-txt-file-type"/>
+    <xs:element name="attached-bin-file" type="tns:attached-bin-file-type"/>
+    <xs:element name="attached-txt-file" type="tns:attached-txt-file-type"/>
+  </xs:choice>
+</xs:group>
 ```
 
-The response-file element may consist of an [embedded-file](Whitepaper_Introduction.md#the-embedded-file-element), an [attached-file](Whitepaper_Introduction.md#the-attached-file-element), or an [attached-text-file](Whitepaper_Introduction.md#the-attached-text-file-element).
-
-It has the following attributes:
+The response-file-type consists of one of the [file types](Whitepaper_Introduction.md#files) used to attach and embed files to a response. It has the following attributes.
 
 - **mimetype**
 
@@ -240,8 +236,6 @@ It has the following attributes:
 - **title**
 
     The title serves as a short description of a file. It may be used as the link text for downloadable file links in the [filerefs](#feedback-type-filerefs) section. This is useful if responses tend to contain files with cryptic filenames.
-
-Note that text, such as source code, written inside an online editor of an LMS can also be represented by a submission-file (specifically the attached-text-file element).
 
 ### The response-meta-data element
 

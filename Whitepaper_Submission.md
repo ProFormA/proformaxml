@@ -11,8 +11,8 @@ Students provide submissions to tasks, usually by uploading them to an LMS. A su
   <xs:sequence>
     <xs:choice>
       <xs:element name="external-task" type="tns:external-task-type"/>
+      <xs:element name="included-task-file" type="tns:included-task-file-type"/>
       <xs:element name="task" type="tns:task-type"/>
-      <xs:element name="inline-task-zip" type="tns:inline-task-zip-type"/>
     </xs:choice>
     <xs:element name="grading-hints" type="tns:grading-hints-type" minOccurs="0"/>
     <xs:choice>
@@ -29,36 +29,37 @@ The task that the submission is for is part of the submission. The grading-hints
 
 ### The task part
 
-There are three different ways to include a task into a submission, either as an [XML element](#the-task-element), as an [inline-task-zip](#the-inline-task-zip-element), or as an [external-task](#the-external-task-element). Tasks are likely to be cached intensively by grading or middleware systems, which is why each option provides an easily available task-uuid attribute for quick access.
+There are three different ways to include a task into a submission, either as an [XML element](#the-task-element), as an [included-task-file](#the-included-task-file-element), or as an [external-task](#the-external-task-element). Tasks are likely to be cached by grading or middleware systems, which is why each option provides an easily available task-uuid attribute for quick access.
 
 #### The task element
 
 A task may be included as a regular XML element in the submission.
 
-#### The inline-task-zip element
+#### The included-task-file element
 
 ```xml
-<xs:complexType name="inline-task-zip-type">
-  <xs:simpleContent>
-    <xs:extension base="xs:string">
-      <xs:attribute name="uuid" type="xs:string" use="optional"/>
-      <xs:attribute name="mimetype" type="xs:string" use="optional"/>
-    </xs:extension>
-  </xs:simpleContent>
+<xs:complexType name="included-task-file-type">
+  <xs:choice>
+    <xs:element name="embedded-bin-file" type="tns:embedded-bin-file-type"/>
+    <xs:element name="attached-bin-file" type="tns:attached-bin-file-type"/>
+    <xs:element name="attached-txt-file" type="tns:attached-txt-file-type"/>
+  </xs:choice>
+  <xs:attribute name="uuid" type="xs:string" use="optional"/>
+  <xs:attribute name="mimetype" type="xs:string" use="optional"/>
 </xs:complexType>
 ```
 
-Using the inline-task-zip element, a task may be included as a ZIP file in the submission. The content of the inline-task-zip element must be encoded to Base64.
+Using the included-task-file element, a task may be attached to a submission ZIP archive as a binary file or a plaintext file. The task file itself must be named `task.zip` or `task.xml`, respectively. The task must also be placed in the ZIP archive's root directory. The purpose of this is to ensure that graders know how and where to find a task in a submission's ZIP archive. Alternatively, a task ZIP may be embedded into the submission's XML document. This is useful in case submissions are transferred as bare XML rather than ZIP files between the systems involved.
 
-The inline-task-zip has the following attributes:
+The included-task-file has the following attributes:
 
 - **uuid**
 
-    The uuid of the task. Inline tasks are likely to be cached, so the uuid serves as a convenience attribute to avoid repeated unpacking of (large) archive files.
+    The uuid of the task. Tasks are likely to be cached, so the uuid serves as a convenience attribute to avoid repeated unpacking of (large) archive files.
 
 - **mimetype**
 
-    By default, the inline-task-zip should be formatted as ZIP. The mimetype may be specified in case another archive file format should be used.
+    The optional mimetype attribute specifies the archive file format used for the task file, which is ZIP by default.
 
 #### The external-task element
 
@@ -76,25 +77,21 @@ Students provide solutions to programming tasks by submitting source code files 
 
 ```xml
 <xs:complexType name="submission-file-type">
-  <xs:complexContent>
-    <xs:extension base="tns:file-type">
-      <xs:choice>
-        <xs:element name="embedded-file" type="tns:embedded-file-type"/>
-        <xs:element name="attached-file" type="tns:attached-file-type"/>
-        <xs:element name="attached-text-file" type="tns:attached-text-file-type"/>
-      </xs:choice>
-      <xs:attribute name="id" type="xs:string" use="optional"/>
-    </xs:extension>
-  </xs:complexContent>
-</xs:complexType>
-<xs:complexType name="file-type" abstract="true">
+  <xs:group ref="tns:file-choice-group"/>
+  <xs:attribute name="id" type="xs:string" use="optional"/>
   <xs:attribute name="mimetype" type="xs:string" use="optional"/>
 </xs:complexType>
+<xs:group name="file-choice-group">
+  <xs:choice>
+    <xs:element name="embedded-bin-file" type="tns:embedded-bin-file-type"/>
+    <xs:element name="embedded-txt-file" type="tns:embedded-txt-file-type"/>
+    <xs:element name="attached-bin-file" type="tns:attached-bin-file-type"/>
+    <xs:element name="attached-txt-file" type="tns:attached-txt-file-type"/>
+  </xs:choice>
+</xs:group>
 ```
 
-The submission-file may consist of an [embedded-file](Whitepaper_Introduction.md#the-embedded-file-element), an [attached-file](Whitepaper_Introduction.md#the-attached-file-element), or an [attached-text-file](Whitepaper_Introduction.md#the-attached-text-file-element).
-
-The submission-file has the following attributes:
+The submission-file-type consists of one of the [file types](Whitepaper_Introduction.md#files) used to attach and embed files to a submission. It has the following attributes.
 
 - **mimetype**
 
@@ -104,7 +101,7 @@ The submission-file has the following attributes:
 
     An optional ID attribute in case submission files need to be referred to by a response document within the [content element](Whitepaper_Response.md#feedback-type-content) of feedback entries. It should be noted that it is not possible to cross-reference the ID of a submission-files using a [fileref](Whitepaper_Response.md#feedback-type-filerefs) element from within a response document. This is because the filerefs element is closely tied to the ID attribute of the [response-file element](Whitepaper_Response.md#the-response-file-element).
 
-Note that source code (or any kind of text, for that matter) written inside an online text editor of an LMS can also be represented by submission-files (specifically the embedded-file and attached-text-file elements).
+Note that source code (or any kind of text, for that matter) written inside an online text editor of an LMS can also be represented by a submission-file, specifically the embedded-txt-file and attached-txt-file elements.
 
 #### The external-submission element
 
@@ -189,7 +186,7 @@ The result-spec element has the following attributes:
     
         The response should be in the form of an XML document.
         
-        Note that if the requested format is XML, the grader must include all files in the response document using the [embedded-file](Whitepaper_Introduction.md#the-embedded-file-element) element. This is because using the [attached-file](Whitepaper_Introduction.md#the-attached-file-element) and [attached-text-file](Whitepaper_Introduction.md#the-attached-text-file-element) elements would inevitably require the response document to be in the ZIP format.
+        Note that if the requested format is XML, the grader must include all files in the response document using the [embedded-bin-file](Whitepaper_Introduction.md#the-embedded-bin-file-element) or [embedded-txt-file](Whitepaper_Introduction.md#the-embedded-txt-file-element) elements. This is because using the [attached-bin-file](Whitepaper_Introduction.md#the-attached-bin-file-element) and [attached-txt-file](Whitepaper_Introduction.md#the-attached-txt-file-element) elements would inevitably require the response document to be in the ZIP format.
         
     * **zip**
 

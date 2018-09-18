@@ -54,42 +54,56 @@ TODO: strings.txt files:
 
 ## Files
 
-### The embedded-file element
+All three main parts of the ProFormA format make use of files in various ways. The following file elements present different ways to attach files of any kind to a task, a submission, and a response document.
 
-The embedded-file element is used to embed a file directly into XML. Files that contain binary data must be encoded to Base64 and the **is-base64-encoded** attribute set to true. Plaintext file content must be encoded to UTF-8. Embedded files also require a **filename**.
+### The embedded-bin-file element
+
+The embedded-bin-file element is used to embed a file containing binary content directly into XML. The file content must be encoded to Base64. embedded-bin-file requires a **filename**.
 
 ##### Code-Beispiel
-
 ```xml
-<xs:complexType name="embedded-file-type">
+<xs:complexType name="embedded-bin-file-type">
   <xs:simpleContent>
-    <xs:extension base="xs:string">
-      <xs:attribute name="filename" type="xs:string"
-                    use="required"/>
-      <xs:attribute name="is-base64-encoded" type="xs:boolean"
-                    default="false"/>
+    <xs:extension base="xs:base64Binary">
+      <xs:attribute name="filename" type="xs:string" use="required"/>
     </xs:extension>
   </xs:simpleContent>
 </xs:complexType>
 ```
-### The attached-file element
 
-The attached-file element is used to attach arbitrary files to ZIP archives. This is especially useful when we are dealing with files that we do not want to embed in XML for various reasons (e. g. the files in question are particularly large in size). The element content is the relative path to the file within the ZIP file.
+### The embedded-txt-file element
 
-Note that while it is possible to use the attached-file element for any kind of file, the [attached-text-file](#the-attached-text-file-element) element should be the preferred way to attach plaintext files to ZIP archives.
+The embedded-txt-file element is used to embed a file containing plaintext content directly into XML. The file content must be encoded to UTF-8, which is the same encoding that the XML document is encoded in. embedded-txt-file requires a **filename**.
 
 ##### Code-Beispiel
-
 ```xml
-<xs:simpleType name="attached-file-type">
+<xs:complexType name="embedded-txt-file-type">
+  <xs:simpleContent>
+    <xs:extension base="xs:string">
+      <xs:attribute name="filename" type="xs:string" use="required"/>
+    </xs:extension>
+  </xs:simpleContent>
+</xs:complexType>
+```
+
+### The attached-bin-file element
+
+The attached-bin-file element is used to attach files containing binary content to ZIP archives. This is especially useful when we are dealing with files that we do not want to embed in XML for various reasons (e. g. the files in question are particularly large in size).
+
+The relative path to the binary file within the ZIP archive is specified in the element content (i. e. the element's text node).
+
+##### Code-Beispiel
+```xml
+<xs:simpleType name="attached-bin-file-type">
   <xs:restriction base="xs:string"/>
 </xs:simpleType>
 ```
+
 ### The attached-text-file element
 
-The attached-text-file element is used to exclusively attach plaintext files to a ZIP archive. It comes with a few optional attributes that are particularly useful when dealing with plaintext.
+The attached-txt-file element is used to attach files containing plaintext content to ZIP archives. It comes with a few optional attributes that are particularly useful when dealing with plaintext.
 
-- **encoding** 
+- **encoding**
 
     The encoding of the text file, as an optional attribute.
 
@@ -101,16 +115,17 @@ The attached-text-file element is used to exclusively attach plaintext files to 
     
     Providing a value for the natural-language attribute could be as simple as retrieving a preconfigured value, like the language the student configured in their user profile of the LMS.
 
-    In the case that encoding and natural-language should happen to contradict each other, encoding is given precedence.
+    In case encoding and natural-language should happen to contradict each other, encoding is given precedence.
 
     The natural-language value should be formatted as ISO 639-1 for language codes, and ISO 3166-1 alpha-2 for country codes.
 
-##### Code-Beispiel
+The relative path to the plaintext file within the ZIP archive is specified in the element content (i. e. the element's text node).
 
+##### Code-Beispiel
 ```xml
-<xs:complexType name="attached-text-file-type">
+<xs:complexType name="attached-txt-file-type">
   <xs:simpleContent>
-    <xs:extension base="tns:attached-file-type">
+    <xs:extension base="xs:string">
       <xs:attribute name="encoding" type="xs:string"/>
       <xs:attribute name="natural-language" type="xs:string"/>
     </xs:extension>
