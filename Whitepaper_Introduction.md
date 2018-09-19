@@ -54,7 +54,7 @@ TODO: strings.txt files:
 
 ## Files
 
-All three main parts of the ProFormA format make use of files in various ways. The following file elements present different ways to attach files of any kind to a task, a submission, and a response document.
+All three main parts of the ProFormA format make use of files in various ways. The following file elements present different ways to attach binary and plaintext files to a task, a submission, and a response document.
 
 ### The embedded-bin-file element
 

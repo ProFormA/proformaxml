@@ -49,7 +49,7 @@ A task may be included as a regular XML element in the submission.
 </xs:complexType>
 ```
 
-Using the included-task-file element, a task may be attached to a submission ZIP archive as a binary file or a plaintext file. The task file itself must be named `task.zip` or `task.xml`, respectively. The task must also be placed in the ZIP archive's root directory. The purpose of this is to ensure that graders know how and where to find a task in a submission's ZIP archive. Alternatively, a task ZIP may be embedded into the submission's XML document. This is useful in case submissions are transferred as bare XML rather than ZIP files between the systems involved.
+Using the included-task-file element, a task may be attached to a submission ZIP archive as a plaintext or binary file. The task file itself must be named `task.xml` or `task.xml.zip`, respectively. The task must also be placed in the ZIP archive's root directory so that grading systems know how and where to find the task. Alternatively, a task ZIP file may be encoded to Base64 and embedded into the submission's XML document. This is useful when submissions are transferred as bare XML files rather than ZIPs between participating systems.
 
 The included-task-file has the following attributes:
 
@@ -59,7 +59,7 @@ The included-task-file has the following attributes:
 
 - **mimetype**
 
-    The optional mimetype attribute specifies the archive file format used for the task file, which is ZIP by default.
+    The optional mimetype attribute specifies the archive file format used for the task file.
 
 #### The external-task element
 
@@ -180,7 +180,7 @@ The result-spec element has the following attributes:
 
 - **format**
 
-    The format element specifies the content type of the response, which may come in two different types. For compatibility reasons, an LMS can prefer one format over the other. The grader should comply with the requested format. When the LMS submits a request (such as a HTTP GET request) for a response document, the grader should return the response in the requested format (xml or zip) and indicate the type used (as in the `Content-Type` field of the HTTP header to let the LMS know how to interpret the body of the response resource).
+    The format element specifies the content type of the response, which may come in two different types. For compatibility reasons, an LMS can prefer one format over the other. The grader should comply with the requested format. When the LMS submits a request (such as a HTTP GET request) for a response document, the grader should return the response in the requested format (XML or ZIP) and indicate the type used (as in the `Content-Type` field of the HTTP header to let the LMS know how to interpret the body of the response resource).
 
     * **xml**
     
@@ -190,7 +190,7 @@ The result-spec element has the following attributes:
         
     * **zip**
 
-        The response should be in the ZIP file format.
+    The response should be in the ZIP file format. The ZIP archive's root directory must contain the actual XML response document named `response.xml`.
 
 - **structure**
 
