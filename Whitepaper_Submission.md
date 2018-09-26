@@ -4,7 +4,7 @@
 
 ## Submission
 
-Students provide submissions to tasks, usually by uploading them to an LMS. A submission consists of five parts that contain everything needed to grade a submission for a given task. 
+Students provide submissions to tasks, usually by uploading them to an LMS. A submissions contains all parts necessary to grade a submission for a given task.
 
 ```xml
 <xs:complexType name="submission-type">
@@ -49,7 +49,7 @@ A task may be included as a regular XML element in the submission.
 </xs:complexType>
 ```
 
-Using the included-task-file element, a task may be attached to a submission ZIP archive as a plaintext or binary file. The task file itself must be named `task.xml` or `task.xml.zip`, respectively. The task must also be placed in the ZIP archive's root directory so that grading systems know how and where to find the task. Alternatively, a task ZIP file may be encoded to Base64 and embedded into the submission's XML document. This is useful when submissions are transferred as bare XML files rather than ZIPs between participating systems.
+Using the included-task-file element, a task may be attached to a submission ZIP archive as a plaintext or binary file. The task file itself must be named `task.xml` or `task.xml.zip`, respectively. The task must also be placed in the ZIP archive's root directory so that grading systems know how and where to find the task. Alternatively, a task ZIP file may be encoded to Base64 and embedded into the submission's XML document. This is useful when submissions are transferred as bare XML files rather than ZIP files between participating systems.
 
 The included-task-file has the following attributes:
 
@@ -99,7 +99,7 @@ The submission-file-type consists of one of the [file types](Whitepaper_Introduc
 
 - **id**
 
-    An optional ID attribute in case submission files need to be referred to by a response document within the [content element](Whitepaper_Response.md#feedback-type-content) of feedback entries. It should be noted that it is not possible to cross-reference the ID of a submission-files using a [fileref](Whitepaper_Response.md#feedback-type-filerefs) element from within a response document. This is because the filerefs element is closely tied to the ID attribute of the [response-file element](Whitepaper_Response.md#the-response-file-element).
+    An optional ID attribute in case submission files need to be referred to by a response document within the [content element](Whitepaper_Response.md#feedback-type-content) of feedback entries. It should be noted that it is not possible to cross-reference the ID of a submission-files using a [fileref](Whitepaper_Response.md#feedback-type-filerefs) element from within a response document. This is because the filerefs element is tied to the ID attribute of the [response-file element](Whitepaper_Response.md#the-response-file-element), which is enforced by referential integrity constraints within response XML documents.
 
 Note that source code (or any kind of text, for that matter) written inside an online text editor of an LMS can also be represented by a submission-file, specifically the embedded-txt-file and attached-txt-file elements.
 
