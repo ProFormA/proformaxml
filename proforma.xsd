@@ -3,23 +3,72 @@
            elementFormDefault="qualified">
 
   <xs:element name="task" type="tns:task-type">
-    <xs:unique name="task-file-id">
-      <xs:selector xpath="./tns:files/tns:file"/>
+    <xs:key name="task-fileids">
+      <xs:selector xpath=".//tns:file"/>
       <xs:field xpath="@id"/>
-    </xs:unique>
-    <xs:keyref name="tests-test-testconfiguration-filerefs-fileref" refer="tns:task-file-id">
-      <xs:selector xpath="tns:tests/tns:test/tns:test-configuration/tns:filerefs/tns:fileref"/>
+    </xs:key>
+    <xs:key name="testids">
+      <xs:selector xpath=".//tns:test"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:key name="model-solutionids">
+      <xs:selector xpath=".//tns:model-solution"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:key name="external-resourceids">
+      <xs:selector xpath=".//tns:external-resource"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="task-filerefs" refer="tns:task-fileids">
+      <xs:selector xpath=".//tns:fileref"/>
       <xs:field xpath="@refid"/>
     </xs:keyref>
-    <!-- TODO: add remaining uniques and keyrefs -->
+    <xs:keyref name="tests-extresrefs-extresref" refer="tns:external-resourceids">
+      <xs:selector xpath=".//tns:externalresourceref"/>
+      <xs:field xpath="@refid"/>
+    </xs:keyref>
   </xs:element>
 
   <xs:element name="submission" type="tns:submission-type">
-    <!-- TODO: add uniques and keyrefs -->
+    <xs:key name="submtask-fileids">
+      <xs:selector xpath="./tns:task/tns:files/tns:file"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:key name="submtask-testids">
+      <xs:selector xpath=".//tns:test"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:key name="submtask-model-solutionids">
+      <xs:selector xpath=".//tns:model-solution"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:key name="submtask-external-resourceids">
+      <xs:selector xpath=".//tns:external-resource"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="submtask-filerefs" refer="tns:submtask-fileids">
+      <xs:selector xpath=".//tns:fileref"/>
+      <xs:field xpath="@refid"/>
+    </xs:keyref>
+    <xs:keyref name="submtask-tests-extresrefs-extresref" refer="tns:submtask-external-resourceids">
+      <xs:selector xpath=".//tns:externalresourceref"/>
+      <xs:field xpath="@refid"/>
+    </xs:keyref>
   </xs:element>
 
   <xs:element name="response" type="tns:response-type">
-    <!-- TODO: add uniques and keyrefs -->
+    <xs:key name="resp-fileids">
+      <xs:selector xpath=".//tns:file"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:key name="resp-testrespids">
+      <xs:selector xpath=".//tns:test-response"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="resp-filerefs" refer="tns:resp-fileids">
+      <xs:selector xpath=".//tns:fileref"/>
+      <xs:field xpath="@refid"/>
+    </xs:keyref>
   </xs:element>
 
   <xs:complexType name="embedded-txt-file-type">
@@ -928,12 +977,7 @@
   <xs:complexType name="separate-test-feedback-type">
     <xs:sequence>
       <xs:element name="submission-feedback-list" type="tns:feedback-list-type"/>
-      <xs:element name="tests-response" type="tns:tests-response-type">
-        <xs:unique name="testid">
-          <xs:selector xpath=".//tns:test-response-type"/>
-          <xs:field xpath="@id"/>
-        </xs:unique>
-      </xs:element>
+      <xs:element name="tests-response" type="tns:tests-response-type"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -947,10 +991,10 @@
     <xs:choice>
       <xs:element name="test-result" type="tns:test-result-type"/>
       <xs:element name="subtests-response" type="tns:subtests-response-type">
-        <xs:unique name="subtestid">
-          <xs:selector xpath=".//tns:subtest-response-type"/>
+        <xs:key name="subtestrespids">
+          <xs:selector xpath=".//tns:subtest-response"/>
           <xs:field xpath="@id"/>
-        </xs:unique>
+        </xs:key>
       </xs:element>
     </xs:choice>
     <xs:attribute name="id" use="required" type="xs:string"/>
