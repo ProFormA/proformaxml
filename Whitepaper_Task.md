@@ -15,6 +15,9 @@ task can have many tests.
 
 The general structure of the task part is given as follows (this is
 meant to provide an overview and does not represent a minimal document):
+
+###### Code-Beispiel
+
 ```xml
     <tns:task>
         <tns:description></tns:description>
@@ -86,23 +89,30 @@ All restriction types have two optional attributes
  
 There is a choice for handling the file restrictions.
 
-1. by regexp: The archive may contain many files. The regular expression specifies, which files will be extracted from the archive
+##### 1. By regexp
+
+The archive may contain many files. The regular expression specifies, which files will be extracted from the archive.
+
+- “unpack-files-from-archive-regexp” holds a regular expression that controls which files are automatically extracted. Only matching files (the whole path of the zip-items matches with “/” as path separator) are extracted from the archive (specified regexp language in [regexp-language-restriction] (#regexp-language-specification)).
+
+###### Code-Beispiel
 
 ```xml
    <tns:submission-restrictions>
         <tns:archive-restrictions max-size="[size in bytes]" mime-type-regexp="[mimetype regexp]" unpack-files-from-archive="[true/false]">
-              <tns:unpack-files-from-archive-regexp>regular expression</tns:unpack-files-from-archive-regexp>
+        <tns:unpack-files-from-archive-regexp>regular expression</tns:unpack-files-from-archive-regexp>
         </tns:archive-restrictions>
     </tns:submission-restrictions>
-``` 
-
- -   “unpack-files-from-archive-regexp” holds a regular expression that
-     controls which files are automatically extracted. Only matching files (the
-     whole path of the zip-items matches with “/” as path separator) are
-     extracted from the archive (specified regexp language in [regexp-language-restriction]
-     (#regexp-language-specification)).
+```  
  
-2. by filenames: The archive must or may contain files as specified by the following file restrictions
+##### 2. By filenames
+
+The archive must or may contain files as specified by the following file restrictions.
+
+- <b>required</b> the archive must contain a file with specified "path" (rooted at the archive root) and optional "mime-type-regexp". Otherwise the submission should be rejected.
+- <b>optional</b> the archive may contain a file with specified attributes
+
+###### Code-Beispiel
 
 ```xml
    <tns:submission-restrictions>
@@ -115,12 +125,14 @@ There is a choice for handling the file restrictions.
     </tns:submission-restrictions>
 ```
 
-- <b>required</b> the archive must contain a file with specified "path" (rooted at the archive root) and optional "mime-type-regexp". Otherwise the submission should be rejected.
-- <b>optional</b> the archive may contain a file with specified attributes
-
 #### File restriction
 
 A submission must or may consist of files as specified by the file restrictions. A submission should be rejected, if it does not match the restrictions.
+
+- <b>required</b> the submission must have a file with specified "path" (rooted at the archive root). Otherwise the submission should be rejected.
+- <b>optional</b> the submission may have a file with specified attributes.
+
+###### Code-Beispiel
 
 ```xml
    <tns:submission-restrictions>
@@ -131,20 +143,19 @@ A submission must or may consist of files as specified by the file restrictions.
     </tns:submission-restrictions>
 ```
 
-- <b>required</b> the submission must have a file with specified "path" (rooted at the archive root). Otherwise the submission should be rejected.
-- <b>optional</b> the submission may have a file with specified attributes.
-
 #### Regexp restriction
 
 A submission must consist of one or several files, where all file names must adhere to the regular expression.
+
+- <b>regexp-restriction</b> holds a regular expression of the filenames (only the filename, without path) which the system should accept. Regular expressions can contain less than/greater than signs. CDATA is allowed.
+
+###### Code-Beispiel
 
 ```xml
    <tns:submission-restrictions>
             <tns:regexp-restriction mime-type-regexp="[mimetype regexp]" max-size="[size in bytes]">regular expression</tns:regexp-restriction>
     </tns:submission-restrictions>
 ```
-
-- <b>regexp-restriction</b> holds a regular expression of the filenames (only the filename, without path) which the system should accept. Regular expressions can contain less than/greater than signs. CDATA is allowed.
 
 #### Regexp language specification
 
@@ -248,6 +259,8 @@ test-meta-data element.
 ### XML Specification
 
 The general structure of the test part is given as follows:
+
+###### Code-Beispiel
 
 ```xml
     <tns:tests>
