@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- This is meant for blackbox tests of the output of a program. For regexp tests of 
+sourcecode something like checkstyle can be used.-->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="urn:proforma:tests:regexptest:v0.9"
     targetNamespace="urn:proforma:tests:regexptest:v0.9" elementFormDefault="qualified"
     attributeFormDefault="unqualified">
