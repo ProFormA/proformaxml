@@ -709,11 +709,11 @@ can be explained why there are several solutions.
 
 The tests element is used to provide automatic checks and tests for the
 task. More specific information about the test XML is provided in the
-[second section](#6-the-test-section-of-the-task-part) of this paper.
+[section](#6-the-test-section-of-the-task-part) below.
 
 ### 5.10 The grading-hints element
 
-The [grading-hints](#6-grading-hints) element specifies, how a grader should calculate a total result from individual test results. Most ProFormA tasks define several tests. Every test is expected to generate a score from the interval [0,1]. The grading-hints element defines groups of tests and groups of groups in a tree like manner. The grading-hints element is specified as part of a task which can be overriden by a grading-hints element specified in a submission.
+The [grading-hints](#4-grading-hints) element specifies, how a grader should calculate a total result from individual test results. Most ProFormA tasks define several tests. Every test is expected to generate a score from the interval [0,1]. The grading-hints element defines groups of tests and groups of groups in a tree like manner. The grading-hints element is specified as part of a task which can be overriden by a grading-hints element specified in a submission.
 
 ### 5.11 The meta-data element
 
