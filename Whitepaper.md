@@ -13,7 +13,7 @@ Based on an earlier version with more contributors:
 https://github.com/ProFormA/taskxml/blob/master/whitepaper.md
 
 
-## Introduction
+## 1 Introduction
 
 This document specifies syntax and semantics for a standardized “ProFormA-XML
 Format” - an exchange format for programming exercises/tasks. It
@@ -27,7 +27,7 @@ which are each described in a separate document.
 
 (Because of the length of this whitepaper, it can be helpful to use a userscript that collapses markdown.)
 
-## Internationalization
+## 2 Internationalization
 
 If a ProFormA task contains only one natural
 language, this is indicated by using the <b>lang</b> attribute of the <b>task</b> element. In case of
@@ -54,9 +54,9 @@ TODO: strings.txt files:
 - What about multiline values?
 - UTF8 encoded?
 
-## Elements and Types that are used in many parts of the XSD
+## 3 Elements and Types that are used in many parts of the XSD
 
-### Files
+### 3.1 Files
 
 All three main parts of the ProFormA format make use of files in various ways. The following file elements present different ways to attach binary and plaintext files to a task, a submission, and a response document.
 
@@ -115,7 +115,7 @@ The attached-txt-file element is used to attach files containing plaintext conte
 
     The natural-language attribute specifies the natural language of the submitting student. Students tend to use all kinds of encodings in their text files. Most of the time, the encoding will be unknown at the time of submission. To address this problem, the natural-language attribute can be used to help the grader detect the encoding of a submitted plaintext file.
     
-    It should be said that the natural-language attribute does not necessarily have to be the same as the one provided in the task's [lang](Whitepaper_Task.md#task-attributes) attribute. While the lang attribute indicates the language that the task has been written in, a student might use a different language when writing their text entirely.
+    It should be said that the natural-language attribute does not necessarily have to be the same as the one provided in the task's [lang](Whitepaper.md#task-attributes) attribute. While the lang attribute indicates the language that the task has been written in, a student might use a different language when writing their text entirely.
     
     Providing a value for the natural-language attribute could be as simple as retrieving a preconfigured value, like the language the student configured in their user profile of the LMS.
 
@@ -137,7 +137,7 @@ The relative path to the plaintext file within the ZIP archive is specified in t
 </xs:complexType>
 ```
 
-### The feedback-level
+### 3.2 The feedback-level
 
 The feedback-level is used for submission and response documents. Usually, feedback can be grouped into different types of information.
 
@@ -155,7 +155,7 @@ The feedback-level is used for submission and response documents. Usually, feedb
     
 - **error**
 
-    The feedback contains error information, e. g. the student's source code resulted in a compile-time error that caused the entire test case to fail. This error type should not be confused with the response's [is-internal-error](Whitepaper_Response.md#is-internal-error) flag, which indicates that an error occurred on the part of the grading system.
+    The feedback contains error information, e. g. the student's source code resulted in a compile-time error that caused the entire test case to fail. This error type should not be confused with the response's [is-internal-error](Whitepaper.md#is-internal-error) flag, which indicates that an error occurred on the part of the grading system.
 
 ###### Code-Beispiel
 ```xml
@@ -169,7 +169,7 @@ The feedback-level is used for submission and response documents. Usually, feedb
 </xs:simpleType>
 ```
 
-## Grading Hints
+## 4 Grading Hints
 
 A grading-hints section of a ProFormA task or a ProFormA submission defines, how a grader should calculate a total result from individual test results. Most ProFormA tasks define several tests. Every test is expected to generate a score from the interval [0,1]. The grading-hints element defines groups of tests and groups of groups in a tree like manner. This way the grading-hints element includes the complete hierarchical grading scheme with all tests references, weights, accumulating functions and nullify conditions. Hierarchy nodes and conditions can get a displaytitle and descriptions. All information below the grading-hints element except the root node is optional. 
 
@@ -184,7 +184,7 @@ A grading-hints section of a ProFormA task or a ProFormA submission defines, how
 </xs:complexType>
 ```
 
-### The top elements in the grading hints section
+### 4.1 The top elements in the grading hints section
 
 First the grading-hints-type defines the root element. This is the root node of the grading scheme hierarchy. If the root does not specify any child nodes, the total grading score will be obtained by including all test results scores. A "function" attribute (see below) specifies the accumulator function.
 
@@ -192,7 +192,7 @@ combine elements are inner nodes of the grading scheme hierarchy - either as an 
 
 Grader-specific hints from other XML namespaces can be included with the grading-hints element (xs:any). This could be any non-standard information that can be used by a grader or humans to calculate a total result from tests results.
 
-### The elements root and combine
+### 4.2 The elements root and combine
 
 The above root and combine elements both are of the following grades-node-type:
 
@@ -237,7 +237,7 @@ The ``id`` attribute is optional for the root element and required for combine e
 
 A valid grading-hints element requires every combine element to be referenced by another combine or root element. All combine elements must have a parent node. Currently the format requires a combine node's parent to be unique. Especially, orphan combine elements are not allowed. The root element is the only element without a parent.
 
-### The elements test-ref and combine-ref
+### 4.3 The elements test-ref and combine-ref
 
 The above combine-ref and test-ref elements both are derived from a common base type, namely grades-base-ref-child-type which is described below. To illustrate these elements, let's think about the following typical example of two combine elements and one root element:
 
@@ -306,7 +306,7 @@ A special feature for the test-ref element are the displaytitle, description and
    
 A last important element of a child reference (test-ref or combine-ref) are so-called nullify conditions, that are described in the following section.
 
-### Nullify conditions
+### 4.4 Nullify conditions
 
 Sometimes a teacher or a task author wants to nullify scores for advanced style aspects if the basic functionality aspects do not exceed a certain threshold. This seems reasonable when we take a closer look at static code analysis tools ("style checker") that often count rule violations. In the above example a student can easily achieve high scores in test3 and test4 when submitting a minimal program that has near to zero functionality. For this, the task author includes a nullify condition at the child reference to the advanced child:
 
@@ -474,7 +474,7 @@ Further it contains operands that refer to tests (grades-nullify-test-ref-type) 
 
 A grading-hints element is valid only, if there are no cyclic dependencies in nullify conditions.
 
-## General Structure of the Task Part
+## 5 The Task Part
 
 The task part consists of two parts: The first section shows
 the description/specification of a task, including supporting files; and
@@ -482,7 +482,7 @@ the second section demonstrates a specification of tests which are to be
 included in the specification of a task under the \<tests\> tag. Each
 task can have many tests.
 
-### XML Specification
+### 5.1 Overview
 
 The general structure of the task part is given as follows (this is
 meant to provide an overview and does not represent a minimal document):
@@ -503,7 +503,7 @@ meant to provide an overview and does not represent a minimal document):
     </tns:task>
 ```
 
-### Task attributes
+### 5.2 Task attributes
 
 The task is identified by attribute <b>uuid</b>, an automatic generated UUID 
 in Version 3, 4 (see RFC 4122) or 5. There is no need for monitoring the uniqueness,
@@ -517,12 +517,12 @@ used. The description, title etc should be written in this language. The content
 of the “lang” attribute must comply with the IETF BCP 47, RFC 4647 and
 ISO 639-1:2002 standards.
 
-### The description part
+### 5.3 The description part
 
 The description element contains the task description as text. A
 subset of HTML is allowed (see Appendix A).
 
-### The proglang part
+### 5.4 The proglang part
 
 The progrlang element contains the programming/modelling/query
 language to which this task applies. A valid list of values is specified
@@ -532,7 +532,7 @@ to work with that version – any other requirements about version
 compatibility must be checked externally.)  The “version” must be
 entered as a “point” separated list of up to four unsigned integers.
 
-### The submission-restrictions part
+### 5.5 The submission-restrictions part
 
 The submission-restrictions element can specify restrictions for the upload of
 (submission) files - by default there are no restrictions. There is a choice
@@ -632,13 +632,13 @@ A submission must consist of one or several files, where all file names must adh
 
 TODO!!!
 
-### The files part
+### 5.6 The files part
 
 The files element contains 0 or more file elements. A file element is
 used to attach files to a task. Files can be external or embedded into
 the XML file.
 
-### The file element
+#### The file element
 
 The file element includes or links a single file to a task. Each
 instance/file must have a (task) unique string in its <b>id</b> attribute (in
@@ -679,12 +679,12 @@ file is not embedded, the <b>type</b> attribute must be set to “file” and th
 text content of the element contain the filename within the task ZIP
 archive (which can be different from the filename attribute).
 
-### The external-resources part
+### 5.7 The external-resources part
 
 The external-resources element contains 0 or more external-resource elements. An external-resource element is
 used to refer to a resource that is neither embedded nor directly attached to the task.
 
-### The external-resource element
+#### The external-resource element
 
 Normally task files should be self-contained, but in rare cases the use of external resources is unavoidable for fulfilling or grading the task.  The external-resource element basically contains a reference to that kind of resources. In its simplest form, the resource is identified by an identifier contained in the <b>reference</b> attribute. More complicated references can be specified in child elements of any namespace.
 
@@ -692,12 +692,12 @@ The idea behind external resources is that sometimes large files needed by a gra
 
 Each external resource element can be identified by its mandatory <b>id</b> attribute and is referenced by the test-configuration (see below in the test section).
 
-### The model-solutions part
+### 5.8 The model-solutions part
 
 The model solutions element is used to provide one or more solutions of
 the task. For each model-solution a new <b>model-solution</b> element is added.
 
-### The model-solution element
+#### The model-solution element
 
 The model-solution element links one single model-solution to a task. Each
 solution must have a (task) unique string in its <b>id</b> attribute.
@@ -706,17 +706,17 @@ The optional attribute <b>comment</b> can be used for additional
 information, for example if more than one model solution is provided it
 can be explained why there are several solutions.
 
-### The tests part
+### 5.9 The tests part
 
 The tests element is used to provide automatic checks and tests for the
 task. More specific information about the test XML is provided in the
 [second section](#test-section) of this paper.
 
-### The grading-hints element
+### 5.10 The grading-hints element
 
-The [grading-hints](Whitepaper_Introduction.md#grading-hints) element specifies, how a grader should calculate a total result from individual test results. Most ProFormA tasks define several tests. Every test is expected to generate a score from the interval [0,1]. The grading-hints element defines groups of tests and groups of groups in a tree like manner. The grading-hints element is specified as part of a task which can be overriden by a grading-hints element specified in a submission.
+The [grading-hints](Whitepaper.md#grading-hints) element specifies, how a grader should calculate a total result from individual test results. Most ProFormA tasks define several tests. Every test is expected to generate a score from the interval [0,1]. The grading-hints element defines groups of tests and groups of groups in a tree like manner. The grading-hints element is specified as part of a task which can be overriden by a grading-hints element specified in a submission.
 
-### The meta-data element
+### 5.11 The meta-data element
 
 The meta-data element holds a namespace for the meta-data of each
 system. Because meta-data are already standardized in other systems, it
@@ -725,9 +725,9 @@ meta-data relevant for the whole task should be entered here. Meta-data
 that is specific to an individual test should be entered in the
 test-meta-data element.
 
-## The test section of the task part
+## 6 The Test Section of the Task Part
 
-### XML Specification
+### 6.1 Overview
 
 The general structure of the test part is given as follows:
 
@@ -750,13 +750,13 @@ The general structure of the test part is given as follows:
         </tns:test>
     </tns:tests>
 ```
-### The test element
+### 6.1 The test element
 
 The test element has a required attribute <b>id</b> and an optional attribute
 <b>validity</b>. The optional attribute “validity” is used by some systems
 (such as Vips) for tests which only partially verify the solution code.
 
-### The title element
+### 6.2 The title element
 
 The title element is used to provide a short and clear name for the test
 that can be displayed to students as part of their results. It should be
@@ -764,47 +764,46 @@ noted that the title does not have a language attribute because it is
 assumed that the title is written in the same natural language as
 specified for the task itself.
 
-### The test-type element
+### 6.3 The test-type element
 
 Examples of values are: java-syntax, unittest. A list of allowed
 entries is specified in Appendix C.
 
-### The test-configuration part
+### 6.4 The test-configuration part
 
 The test-configuration contains all parameters which are needed for
 configuring this specific test. Each test can
 also have elements of its own namespace for test-type specific
 configuration options.
 
-### The filerefs part
+#### The filerefs part
 
 Several filerefs can be specified via fileref elements.
 
-### The fileref element
+#### The fileref element
 
 The fileref element links a single file to a test based on the ID of the
 file which has to be defined in task/files. The ID has to be entered as
 the refid attribute.
 
-### The externalresourcerefs part
+#### The externalresourcerefs part
 
 Several externalresourcerefs can be specified via externalresourceref elements.
 
-### The externalresourceref element
+#### The externalresourceref element
 
 The externalresourceref element links a single external-resource to a test based on the ID of the
 external-resource which has to be defined in task/external-resources. The ID has to be entered as
 the refid attribute.
 
-### The test-meta-data element
+#### The test-meta-data element
 
 The test-meta-data element holds a namespace for test-specific meta-data
 of each system. This is particularly useful for attributes that are
 required for ex- and import in one system but which are not relevant for
 other systems.
 
-
-## The Submission Part
+## 7 The Submission Part
 
 Students provide submissions to tasks, usually by uploading them to an LMS. A submissions contains all parts necessary to grade a submission for a given task.
 
@@ -831,7 +830,7 @@ The task that the submission is for is part of the submission. The grading-hints
 </xs:complexType>
 ```
 
-### The task part
+### 7.1 The task part
 
 There are three different ways to include a task into a submission, either as an [XML element](#the-task-element), as an [included-task-file](#the-included-task-file-element), or as an [external-task](#the-external-task-element). Tasks are likely to be cached by grading or middleware systems, which is why each option provides an easily available task-uuid attribute for quick access.
 
@@ -873,11 +872,11 @@ The included-task-file has the following attributes:
 
 TODO
 
-### The grading-hints part
+### 7.2 The grading-hints part
 
-Teachers may prefer their own (modified) version of the [grading-hints](Whitepaper_Introduction.md#grading-hints) to the default ones that ship as part of a task. The grading-hints element is an optional part, which, if included, overrides the default grading-hints in the task part of the submission. 
+Teachers may prefer their own (modified) version of the [grading-hints](Whitepaper.md#grading-hints) to the default ones that ship as part of a task. The grading-hints element is an optional part, which, if included, overrides the default grading-hints in the task part of the submission. 
 
-### The submission files part
+### 7.3 The submission files part
 
 Students provide solutions to programming tasks by submitting source code files (among other files). There are two ways to submit such files, either by including them into the submission document as [submission-files](#the-submission-files-part), or by using an already existing [external-submission](#the-external-submission-element) file.
 
@@ -902,7 +901,7 @@ Students provide solutions to programming tasks by submitting source code files 
 ```
 ##### Explanations
 
-The submission-file-type consists of one of the [file types](Whitepaper_Introduction.md#files) used to attach and embed files to a submission. It has the following attributes.
+The submission-file-type consists of one of the [file types](Whitepaper.md#files) used to attach and embed files to a submission. It has the following attributes.
 
 - **mimetype**
 
@@ -910,7 +909,7 @@ The submission-file-type consists of one of the [file types](Whitepaper_Introduc
 
 - **id**
 
-    An optional ID attribute in case submission files need to be referred to by a response document within the [content element](Whitepaper_Response.md#feedback-type-content) of feedback entries. It should be noted that it is not possible to cross-reference the ID of a submission-files using a [fileref](Whitepaper_Response.md#feedback-type-filerefs) element from within a response document. This is because the filerefs element is tied to the ID attribute of the [response-file element](Whitepaper_Response.md#the-response-file-element), which is enforced by referential integrity constraints within response XML documents.
+    An optional ID attribute in case submission files need to be referred to by a response document within the [content element](Whitepaper.md#feedback-type-content) of feedback entries. It should be noted that it is not possible to cross-reference the ID of a submission-files using a [fileref](Whitepaper.md#feedback-type-filerefs) element from within a response document. This is because the filerefs element is tied to the ID attribute of the [response-file element](Whitepaper.md#the-response-file-element), which is enforced by referential integrity constraints within response XML documents.
 
 Note that source code (or any kind of text, for that matter) written inside an online text editor of an LMS can also be represented by a submission-file, specifically the embedded-txt-file and attached-txt-file elements.
 
@@ -920,7 +919,7 @@ Another way to specify a student submission is to provide a reference to an alre
 
 TODO
 
-### The LMS part
+### 7.4 The LMS part
 
 ###### Code-Beispiel
 
@@ -959,9 +958,9 @@ The LMS part contains general parameters within the context of the LMS.
 
 If necessary, additional information can be provided in the any namespace element.
 
-Using the [user-id](#user-id) element along with the [task uuid](Whitepaper_Task.md#task-attributes) attribute, graders are able to put submissions into context, allowing for submission penalties. For example, if the teacher put submission attempt restrictions in place, such as a submission deadline, late submissions might result in a reduction of the total score.
+Using the [user-id](#user-id) element along with the [task uuid](Whitepaper.md#task-attributes) attribute, graders are able to put submissions into context, allowing for submission penalties. For example, if the teacher put submission attempt restrictions in place, such as a submission deadline, late submissions might result in a reduction of the total score.
 
-### The result-spec part
+### 7.5 The result-spec part
 
 ###### Code-Beispiel
 
@@ -1005,7 +1004,7 @@ The result-spec element has the following attributes:
     
         The response should be in the form of an XML document.
         
-        Note that if the requested format is XML, the grader must include all files in the response document using the [embedded-bin-file](Whitepaper_Introduction.md#the-embedded-bin-file-element) or [embedded-txt-file](Whitepaper_Introduction.md#the-embedded-txt-file-element) elements. This is because using the [attached-bin-file](Whitepaper_Introduction.md#the-attached-bin-file-element) and [attached-txt-file](Whitepaper_Introduction.md#the-attached-txt-file-element) elements would inevitably require the response document to be in the ZIP format.
+        Note that if the requested format is XML, the grader must include all files in the response document using the [embedded-bin-file](Whitepaper.md#the-embedded-bin-file-element) or [embedded-txt-file](Whitepaper.md#the-embedded-txt-file-element) elements. This is because using the [attached-bin-file](Whitepaper.md#the-attached-bin-file-element) and [attached-txt-file](Whitepaper.md#the-attached-txt-file-element) elements would inevitably require the response document to be in the ZIP format.
         
     * **zip**
 
@@ -1017,15 +1016,15 @@ The result-spec element has the following attributes:
 
     * <a name="merged-test-feedback"/> **merged-test-feedback**
     
-        This option specifies that the response document should contain a single feedback item for each audience (student and teacher). The feedback's [content](Whitepaper_Response.md#feedback-type-content) element is formatted as an HTML fragment containing all test scores and feedback entries in accordance with the specified [feedback-level](#the-student-feedback-level-and-teacher-feedback-level-elements).
+        This option specifies that the response document should contain a single feedback item for each audience (student and teacher). The feedback's [content](Whitepaper.md#feedback-type-content) element is formatted as an HTML fragment containing all test scores and feedback entries in accordance with the specified [feedback-level](#the-student-feedback-level-and-teacher-feedback-level-elements).
     
         See the [merged-test-feedback](Whitepaper_Response.md#the-merged-test-feedback-element) element for more details.
 
     * <a name="separate-test-feedback"/> **separate-test-feedback**
     
-        This option specifies that the submission response should contain comprehensive feedback, with a [feedback element](Whitepaper_Response.md#the-feedback-element) for every test and sub-test as listed in the [grading-hints](Whitepaper_Introduction.md#grading-hints).
+        This option specifies that the submission response should contain comprehensive feedback, with a [feedback element](Whitepaper.md#the-feedback-element) for every test and sub-test as listed in the [grading-hints](Whitepaper.md#grading-hints).
 
-        See the [separate-test-feedback](Whitepaper_Response.md#the-separate-test-feedback-element) element for more details.
+        See the [separate-test-feedback](Whitepaper.md#the-separate-test-feedback-element) element for more details.
        
 - **lang**
 
@@ -1035,7 +1034,7 @@ The result-spec element has the following attributes:
 
 #### The student-feedback-level and teacher-feedback-level elements
 
-These elements set the minimum [feedback-level](Whitepaper_Introduction.md#the-feedback-level) for student and teacher feedback that should be included in a response document, as a sort of filtering mechanism. Since a feedback-level also serves as a type of severity level, each feedback-level automatically includes all higher (more severe) levels. The LMS may use this to request for response documents to contain feedback entries with a "minimum" level. For example, if the LMS sets the student-feedback-level to "info", the document should also include all feedback entries with the "warn" and "error" level, but exclude any "debug" feedback in the student view.
+These elements set the minimum [feedback-level](Whitepaper.md#the-feedback-level) for student and teacher feedback that should be included in a response document, as a sort of filtering mechanism. Since a feedback-level also serves as a type of severity level, each feedback-level automatically includes all higher (more severe) levels. The LMS may use this to request for response documents to contain feedback entries with a "minimum" level. For example, if the LMS sets the student-feedback-level to "info", the document should also include all feedback entries with the "warn" and "error" level, but exclude any "debug" feedback in the student view.
 
 The following table illustrates which feedback-levels will be visible as part of other levels, based on their severity.
 
@@ -1079,9 +1078,9 @@ The following table illustrates which feedback-levels will be visible as part of
 
 While the student-feedback-level and teacher-feedback-level are technically set apart, it is sometimes necessary for the teacher to see both their own and the student feedback, but not the other way around. It is for this very reason that the teacher-feedback-level element may be omitted entirely to avoid any potential feedback redundancies. However, it is important to note that compared to the student feedback, teacher feedback *may* contain more detailed information content. For instance, a teacher feedback might provide more details about the nature of an error than the corresponding student feedback. The actual extent of the information differences is up to the grader.
 
-If neither student-feedback-level nor teacher-feedback-level are specified, no [feedback content](Whitepaper_Response.md#feedback-type-content) will be included in the response document in case of [separate-test-feedback](#separate-test-feedback), and no [merged-feedback](Whitepaper_Response.md#the-merged-feedback-element) in case of [merged-test-feedback](#merged-test-feedback).
+If neither student-feedback-level nor teacher-feedback-level are specified, no [feedback content](Whitepaper.md#feedback-type-content) will be included in the response document in case of [separate-test-feedback](#separate-test-feedback), and no [merged-feedback](Whitepaper.md#the-merged-feedback-element) in case of [merged-test-feedback](#merged-test-feedback).
 
-## The Response Part
+## 8 The Response Part
 
 The response contains the results of a graded submission.
 
@@ -1101,7 +1100,7 @@ The response contains the results of a graded submission.
 </xs:complexType>
 ```
 
-### The merged-test-feedback element
+### 8.1 The merged-test-feedback element
 
 The merged-test-feedback element holds two feedback elements that act as a single HTML "blob". This blob can be embedded and displayed accordingly in LMS that are less capable in terms of handling complex feedback structures. Additionally, merged-test-feedback provides a precalculated [overall-result](#the-result-element) element, making the total score of a task easily accessible.
 
@@ -1119,7 +1118,7 @@ The merged-test-feedback element holds two feedback elements that act as a singl
 
 #### The merged-feedback element
 
-The merged-feedback element contains the entire submission feedback formatted as a single HTML fragment. How the information is structured is up to the grader. For the sake of completeness, the feedback should include the feedback text, score, as well as any files relevant to the tests and sub-tests listed in the [grading-hints](Whitepaper_Introduction.md) element. Files should be included "in-line" in the HTML using the [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme) or JavaScript.
+The merged-feedback element contains the entire submission feedback formatted as a single HTML fragment. How the information is structured is up to the grader. For the sake of completeness, the feedback should include the feedback text, score, as well as any files relevant to the tests and sub-tests listed in the [grading-hints](Whitepaper.md) element. Files should be included "in-line" in the HTML using the [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme) or JavaScript.
 
 ###### Code-Beispiel
 
@@ -1154,7 +1153,7 @@ The result element holds the score, as well as the score's validity that a stude
 
     Errors that are not directly related to a test should be indicated by other means rather than the is-internal-error flag. For example, if a grader received a poorly formatted submission document, it would have no choice but to reject the submission. Instead of using the is-internal-error attribute, it would be more appropriate to use the underlying communication protocol's error handling mechanism, such as using a HTTP status code (e. g. "400 Bad Request") to indicate a client error.
 
-### The separate-test-feedback element
+### 8.2 The separate-test-feedback element
 
 The separate-test-feedback element contains the general feedback for the entire submission and test-specific feedback for individual tests. Feedback may either be represented by plaintext or HTML. Test-specific feedback entries are connected to their corresponding tests via a test id or sub-test id as specified in the grading-hints.
 
@@ -1173,7 +1172,7 @@ Calculating a submission's total score based on partial results of separate test
 
 #### The feedback-list element
 
-The feedback-list contains zero or more [feedback](#the-feedback-element) elements for both the student and teacher. While a response document structured in the form of [separate-test-feedback](#the-separate-test-feedback-element) must contain a [result](#the-result-element) element for each [test-response](#the-test-response-element), the test-responses are not required to have any feedback, depending on the settings used in the result specification (see [student-feedback-level and teacher-feedback-level](Whitepaper_Submission.md#the-student-feedback-level-and-teacher-feedback-level-elements)).
+The feedback-list contains zero or more [feedback](#the-feedback-element) elements for both the student and teacher. While a response document structured in the form of [separate-test-feedback](#the-separate-test-feedback-element) must contain a [result](#the-result-element) element for each [test-response](#the-test-response-element), the test-responses are not required to have any feedback, depending on the settings used in the result specification (see [student-feedback-level and teacher-feedback-level](Whitepaper.md#the-student-feedback-level-and-teacher-feedback-level-elements)).
 
 ###### Code-Beispiel
 
@@ -1247,7 +1246,7 @@ The feedback element is the immediate feedback for a specific test, a sub-test, 
 
 - **level**
 
-    The [level](Whitepaper_Introduction.md#the-feedback-level) of a feedback entry. Specifying a level is optional.
+    The [level](Whitepaper.md#the-feedback-level) of a feedback entry. Specifying a level is optional.
 
 #### The test-response element
 
@@ -1301,7 +1300,7 @@ Using the id attribute, a subtest-response is connected to the corresponding sub
 </xs:complexType>
 ```
 
-### The response-file element
+### 8.3 The response-file element
 
 The response-file-type consists of one of the [file types](Whitepaper_Introduction.md#files) used to attach and embed files to a response. 
 
@@ -1340,7 +1339,7 @@ The response-file-type consists of one of the [file types](Whitepaper_Introducti
 
     The title serves as a short description of a file. It may be used as the link text for downloadable file links in the [filerefs](#feedback-type-filerefs) section. This is useful if responses tend to contain files with cryptic filenames.
 
-### The response-meta-data element
+### 8.4 The response-meta-data element
 
 The response-meta-data element contains information about the grading system used to grade the submission, like the grader's name and version, as well as an any namespace for any additional meta data relevant to the submission response.
 
