@@ -1015,13 +1015,13 @@ The result-spec element has the following attributes:
 
     * <a name="merged-test-feedback"/> **merged-test-feedback**
     
-        This option specifies that the response document should contain a single feedback item for each audience (student and teacher). The feedback's [content](Whitepaper.md#feedback-type-content) element is formatted as an HTML fragment containing all test scores and feedback entries in accordance with the specified [feedback-level](#the-student-feedback-level-and-teacher-feedback-level-elements).
+        This option specifies that the response document should contain a single feedback item for each audience (student and teacher). The feedback's [content](#feedback-type-content) element is formatted as an HTML fragment containing all test scores and feedback entries in accordance with the specified [feedback-level](#the-student-feedback-level-and-teacher-feedback-level-elements).
     
-        See the [merged-test-feedback](Whitepaper_Response.md#the-merged-test-feedback-element) element for more details.
+        See the [merged-test-feedback](#81-the-merged-test-feedback-element) element for more details.
 
     * <a name="separate-test-feedback"/> **separate-test-feedback**
     
-        This option specifies that the submission response should contain comprehensive feedback, with a [feedback element](Whitepaper.md#the-feedback-element) for every test and sub-test as listed in the [grading-hints](Whitepaper.md#grading-hints).
+        This option specifies that the submission response should contain comprehensive feedback, with a [feedback element](#the-feedback-element) for every test and sub-test as listed in the [grading-hints](#4-grading-hints).
 
         See the [separate-test-feedback](Whitepaper.md#the-separate-test-feedback-element) element for more details.
        
@@ -1033,7 +1033,7 @@ The result-spec element has the following attributes:
 
 #### The student-feedback-level and teacher-feedback-level elements
 
-These elements set the minimum [feedback-level](Whitepaper.md#the-feedback-level) for student and teacher feedback that should be included in a response document, as a sort of filtering mechanism. Since a feedback-level also serves as a type of severity level, each feedback-level automatically includes all higher (more severe) levels. The LMS may use this to request for response documents to contain feedback entries with a "minimum" level. For example, if the LMS sets the student-feedback-level to "info", the document should also include all feedback entries with the "warn" and "error" level, but exclude any "debug" feedback in the student view.
+These elements set the minimum [feedback-level](#32-the-feedback-level) for student and teacher feedback that should be included in a response document, as a sort of filtering mechanism. Since a feedback-level also serves as a type of severity level, each feedback-level automatically includes all higher (more severe) levels. The LMS may use this to request for response documents to contain feedback entries with a "minimum" level. For example, if the LMS sets the student-feedback-level to "info", the document should also include all feedback entries with the "warn" and "error" level, but exclude any "debug" feedback in the student view.
 
 The following table illustrates which feedback-levels will be visible as part of other levels, based on their severity.
 
