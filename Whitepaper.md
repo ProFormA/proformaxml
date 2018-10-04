@@ -1301,7 +1301,7 @@ Using the id attribute, a subtest-response is connected to the corresponding sub
 
 ### 8.3 The response-file element
 
-The response-file-type consists of one of the [file types](Whitepaper_Introduction.md#files) used to attach and embed files to a response. 
+The response-file-type consists of one of the [file types](#31-files) used to attach and embed files to a response. 
 
 ###### Code-Beispiel
 
