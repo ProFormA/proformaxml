@@ -873,11 +873,11 @@ TODO
 
 ### 7.2 The grading-hints part
 
-Teachers may prefer their own (modified) version of the [grading-hints](Whitepaper.md#grading-hints) to the default ones that ship as part of a task. The grading-hints element is an optional part, which, if included, overrides the default grading-hints in the task part of the submission. 
+Teachers may prefer their own (modified) version of the [grading-hints](#4-grading-hints) to the default ones that ship as part of a task. The grading-hints element is an optional part, which, if included, overrides the default grading-hints in the task part of the submission. 
 
 ### 7.3 The submission files part
 
-Students provide solutions to programming tasks by submitting source code files (among other files). There are two ways to submit such files, either by including them into the submission document as [submission-files](#the-submission-files-part), or by using an already existing [external-submission](#the-external-submission-element) file.
+Students provide solutions to programming tasks by submitting source code files (among other files). There are two ways to submit such files, either by including them into the submission document as [submission-files](#the-submission-file), or by using an already existing [external-submission](#the-external-submission-element) file.
 
 #### The submission-file
 
@@ -900,7 +900,7 @@ Students provide solutions to programming tasks by submitting source code files 
 ```
 ##### Explanations
 
-The submission-file-type consists of one of the [file types](Whitepaper.md#files) used to attach and embed files to a submission. It has the following attributes.
+The submission-file-type consists of one of the [file types](#31-files) used to attach and embed files to a submission. It has the following attributes.
 
 - **mimetype**
 
@@ -908,7 +908,7 @@ The submission-file-type consists of one of the [file types](Whitepaper.md#files
 
 - **id**
 
-    An optional ID attribute in case submission files need to be referred to by a response document within the [content element](Whitepaper.md#feedback-type-content) of feedback entries. It should be noted that it is not possible to cross-reference the ID of a submission-files using a [fileref](Whitepaper.md#feedback-type-filerefs) element from within a response document. This is because the filerefs element is tied to the ID attribute of the [response-file element](Whitepaper.md#the-response-file-element), which is enforced by referential integrity constraints within response XML documents.
+    An optional ID attribute in case submission files need to be referred to by a response document within the [content element](#feedback-type-content) of feedback entries. It should be noted that it is not possible to cross-reference the ID of a submission-files using a [fileref](#feedback-type-filerefs) element from within a response document. This is because the filerefs element is tied to the ID attribute of the [response-file element](#83-the-response-file-element), which is enforced by referential integrity constraints within response XML documents.
 
 Note that source code (or any kind of text, for that matter) written inside an online text editor of an LMS can also be represented by a submission-file, specifically the embedded-txt-file and attached-txt-file elements.
 
@@ -957,7 +957,7 @@ The LMS part contains general parameters within the context of the LMS.
 
 If necessary, additional information can be provided in the any namespace element.
 
-Using the [user-id](#user-id) element along with the [task uuid](Whitepaper.md#task-attributes) attribute, graders are able to put submissions into context, allowing for submission penalties. For example, if the teacher put submission attempt restrictions in place, such as a submission deadline, late submissions might result in a reduction of the total score.
+Using the [user-id](#user-id) element along with the [task uuid](#52-task-attributes) attribute, graders are able to put submissions into context, allowing for submission penalties. For example, if the teacher put submission attempt restrictions in place, such as a submission deadline, late submissions might result in a reduction of the total score.
 
 ### 7.5 The result-spec part
 
