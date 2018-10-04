@@ -115,7 +115,7 @@ The attached-txt-file element is used to attach files containing plaintext conte
 
     The natural-language attribute specifies the natural language of the submitting student. Students tend to use all kinds of encodings in their text files. Most of the time, the encoding will be unknown at the time of submission. To address this problem, the natural-language attribute can be used to help the grader detect the encoding of a submitted plaintext file.
     
-    It should be said that the natural-language attribute does not necessarily have to be the same as the one provided in the task's [lang](Whitepaper.md#task-attributes) attribute. While the lang attribute indicates the language that the task has been written in, a student might use a different language when writing their text entirely.
+    It should be said that the natural-language attribute does not necessarily have to be the same as the one provided in the task's [lang](#5.2-task-attributes) attribute. While the lang attribute indicates the language that the task has been written in, a student might use a different language when writing their text entirely.
     
     Providing a value for the natural-language attribute could be as simple as retrieving a preconfigured value, like the language the student configured in their user profile of the LMS.
 
@@ -503,7 +503,7 @@ meant to provide an overview and does not represent a minimal document):
     </tns:task>
 ```
 
-### 5.2 [Task attributes](#task-attributes)
+### 5.2 Task attributes
 
 The task is identified by attribute <b>uuid</b>, an automatic generated UUID 
 in Version 3, 4 (see RFC 4122) or 5. There is no need for monitoring the uniqueness,
