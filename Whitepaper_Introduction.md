@@ -474,11 +474,6 @@ Further it contains operands that refer to tests (grades-nullify-test-ref-type) 
 
 A grading-hints element is valid only, if there are no cyclic dependencies in nullify conditions.
 
-# An XML exchange format for (programming) tasks
-THIS DOCUMENT IS CURRENTLY BEING EDITED AND NOT FINISHED
-
-**Version 2.0**
-
 ## General Structure of the Task Part
 
 The task part consists of two parts: The first section shows
