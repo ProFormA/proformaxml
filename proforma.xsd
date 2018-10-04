@@ -688,9 +688,10 @@
   <xs:complexType name="model-solution-type">
     <xs:sequence>
       <xs:element name="filerefs" type="tns:filerefs-type"/>
+      <xs:element name="description" type="tns:description-type" minOccurs="0"/>
+      <xs:element name="internal-description" type="tns:description-type" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:string" use="required"/>
-    <xs:attribute name="comment" type="xs:string" use="optional"/>
   </xs:complexType>
 
   <xs:complexType name="task-meta-data-type">
