@@ -2,9 +2,13 @@
 
 **Version 2.0**
 
-## Submission
+## The Submission Part
 
 Students provide submissions to tasks, usually by uploading them to an LMS. A submissions contains all parts necessary to grade a submission for a given task.
+
+The task that the submission is for is part of the submission. The grading-hints may also be included, which, if specified, override the task's default version of the grading-hints. This is followed by the actual submission files, along with the submission context, such as LMS and submitting student details. At the end is the result specification as requested by the LMS.
+
+###### Code-Beispiel
 
 ```xml
 <xs:complexType name="submission-type">
@@ -25,8 +29,6 @@ Students provide submissions to tasks, usually by uploading them to an LMS. A su
 </xs:complexType>
 ```
 
-The task that the submission is for is part of the submission. The grading-hints may also be included, which, if specified, override the task's default version of the grading-hints. This is followed by the actual submission files, along with the submission context, such as LMS and submitting student details. At the end is the result specification as requested by the LMS.
-
 ### The task part
 
 There are three different ways to include a task into a submission, either as an [XML element](#the-task-element), as an [included-task-file](#the-included-task-file-element), or as an [external-task](#the-external-task-element). Tasks are likely to be cached by grading or middleware systems, which is why each option provides an easily available task-uuid attribute for quick access.
@@ -36,6 +38,8 @@ There are three different ways to include a task into a submission, either as an
 A task may be included as a regular XML element in the submission.
 
 #### The included-task-file element
+
+###### Code-Beispiel
 
 ```xml
 <xs:complexType name="included-task-file-type">
@@ -48,6 +52,8 @@ A task may be included as a regular XML element in the submission.
   <xs:attribute name="mimetype" type="xs:string" use="optional"/>
 </xs:complexType>
 ```
+
+##### Explanations
 
 Using the included-task-file element, a task may be attached to a submission ZIP archive as a plaintext or binary file. The task file itself must be named `task.xml` or `task.xml.zip`, respectively. The task must also be placed in the ZIP archive's root directory so that grading systems know how and where to find the task. Alternatively, a task ZIP file may be encoded to Base64 and embedded into the submission's XML document. This is useful when submissions are transferred as bare XML files rather than ZIP files between participating systems.
 
@@ -75,6 +81,8 @@ Students provide solutions to programming tasks by submitting source code files 
 
 #### The submission-file
 
+###### Code-Beispiel
+
 ```xml
 <xs:complexType name="submission-file-type">
   <xs:group ref="tns:file-choice-group"/>
@@ -90,6 +98,7 @@ Students provide solutions to programming tasks by submitting source code files 
   </xs:choice>
 </xs:group>
 ```
+##### Explanations
 
 The submission-file-type consists of one of the [file types](Whitepaper_Introduction.md#files) used to attach and embed files to a submission. It has the following attributes.
 
@@ -111,6 +120,8 @@ TODO
 
 ### The LMS part
 
+###### Code-Beispiel
+
 ```xml
 <xs:complexType name="lms-type">
   <xs:sequence>
@@ -123,6 +134,8 @@ TODO
   <xs:attribute name="url" type="xs:string" use="optional"/>
 </xs:complexType>
 ```
+
+##### Explanations
 
 The LMS part contains general parameters within the context of the LMS.
 
@@ -147,6 +160,8 @@ If necessary, additional information can be provided in the any namespace elemen
 Using the [user-id](#user-id) element along with the [task uuid](Whitepaper_Task.md#task-attributes) attribute, graders are able to put submissions into context, allowing for submission penalties. For example, if the teacher put submission attempt restrictions in place, such as a submission deadline, late submissions might result in a reduction of the total score.
 
 ### The result-spec part
+
+###### Code-Beispiel
 
 ```xml
 <xs:complexType name="result-spec-type">
@@ -173,6 +188,8 @@ Using the [user-id](#user-id) element along with the [task uuid](Whitepaper_Task
   <xs:attribute name="lang" type="xs:string"/>
 </xs:complexType>
 ```
+
+##### The result-spec element
 
 The result-spec element is a result specification that the LMS may request from the grader. The element specifies the requested structure and format of response documents, the type of feedback, as well as the natural language preferred by the student. A grader should comply with the request (or part of it) whenever possible.
 
