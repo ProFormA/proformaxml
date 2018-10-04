@@ -710,10 +710,12 @@
   </xs:complexType>
 
   <xs:complexType name="task-file-type">
-    <xs:group ref="tns:file-choice-group"/>
+    <xs:sequence>
+      <xs:group ref="tns:file-choice-group"/>
+      <xs:element name="internal-description" type="tns:description-type" minOccurs="0"/>
+    </xs:sequence>
     <xs:attribute name="id" type="xs:string" use="required"/>
     <xs:attribute name="mimetype" type="xs:string" use="optional"/>
-    <xs:attribute name="comment" type="xs:string" use="optional"/>
     <xs:attribute name="class" use="required">
       <xs:simpleType>
         <xs:restriction base="xs:string">
