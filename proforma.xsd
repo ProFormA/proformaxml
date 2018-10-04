@@ -745,7 +745,7 @@
 
   <xs:complexType name="external-resource-type">
     <xs:sequence>
-      <xs:element name="description" type="tns:description-type" minOccurs="0"/>
+      <xs:element name="internal-description" type="tns:description-type" minOccurs="0"/>
       <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:string" use="required"/>
