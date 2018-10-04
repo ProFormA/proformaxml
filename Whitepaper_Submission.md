@@ -147,11 +147,11 @@ The LMS part contains general parameters within the context of the LMS.
 
     The date and time of the submission.
 
-- <a name="user-id"/> **user-id**
+- **user-id** <a name="user-id"/> 
 
     The user ID of the submitter within the LMS context, as an optional attribute. Multiple user IDs can be specified in case the submission is submitted by a group of students.
 
-- <a name="course-id"/> **course-id**
+- **course-id** <a name="course-id"/> 
 
     The id of the course within the LMS context. For instance, it could be an identity string as part of the URL of an LMS course.
 
