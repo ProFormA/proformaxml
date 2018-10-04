@@ -760,7 +760,16 @@
   </xs:complexType>
 
   <xs:simpleType name="test-type-type">
-    <xs:restriction base="xs:string"/>
+    <xs:restriction base="xs:string">
+      <xs:annotation>
+         <xs:documentation xml:lang="en">
+             For common test types one of the following strings should be used:
+             "java-compilation", "java-checkstyle", "java-code-coverage-emma", "java-findbugs",
+             "java-pmd", "unittest", "dejagnu", "setlx", "regexptest". For some of these
+             an xsd is provided by the format.
+         </xs:documentation>
+      </xs:annotation>    
+    </xs:restriction>
   </xs:simpleType>
 
   <xs:complexType name="test-configuration-type">
