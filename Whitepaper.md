@@ -1171,7 +1171,7 @@ Calculating a submission's total score based on partial results of separate test
 
 #### The feedback-list element
 
-The feedback-list contains zero or more [feedback](#the-feedback-element) elements for both the student and teacher. While a response document structured in the form of [separate-test-feedback](#the-separate-test-feedback-element) must contain a [result](#the-result-element) element for each [test-response](#the-test-response-element), the test-responses are not required to have any feedback, depending on the settings used in the result specification (see [student-feedback-level and teacher-feedback-level](Whitepaper.md#the-student-feedback-level-and-teacher-feedback-level-elements)).
+The feedback-list contains zero or more [feedback](#the-feedback-element) elements for both the student and teacher. While a response document structured in the form of [separate-test-feedback](#82-the-separate-test-feedback-element) must contain a [result](#the-result-element) element for each [test-response](#the-test-response-element), the test-responses are not required to have any feedback, depending on the settings used in the result specification (see [student-feedback-level and teacher-feedback-level](Whitepaper.md#the-student-feedback-level-and-teacher-feedback-level-elements)).
 
 ###### Code-Beispiel
 
@@ -1239,13 +1239,13 @@ The feedback element is the immediate feedback for a specific test, a sub-test, 
 
 - <a name="feedback-type-filerefs"/> **filerefs**
 
-    The filerefs element contains a list of file references to [files](#the-response-file-element) that are relevant to a particular feedback element. They are presented as downloadable links to the student and teacher.
+    The filerefs element contains a list of file references to [files](#83-the-response-file-element) that are relevant to a particular feedback element. They are presented as downloadable links to the student and teacher.
 
-    Since a file can be referred to by multiple feedback elements, response documents use filerefs rather than duplicating [response-file](#the-response-file-element) elements.
+    Since a file can be referred to by multiple feedback elements, response documents use filerefs rather than duplicating [response-file](#83-the-response-file-element) elements.
 
 - **level**
 
-    The [level](Whitepaper.md#the-feedback-level) of a feedback entry. Specifying a level is optional.
+    The [level](#32-the-feedback-level) of a feedback entry. Specifying a level is optional.
 
 #### The test-response element
 
