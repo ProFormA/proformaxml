@@ -23,7 +23,7 @@ evaluating the student submitted code so that exercises written for one
 tool can be exported and imported into another tool.
 
 The format contains three main parts: <b>task</b>, <b>submission</b> and <b>response</b> 
-which are each described in a separate document. 
+which are each described below. 
 
 (Because of the length of this whitepaper, it can be helpful to use a userscript that collapses markdown.)
 
@@ -54,7 +54,7 @@ TODO: strings.txt files:
 - What about multiline values?
 - UTF8 encoded?
 
-## 3 Elements and Types that are used in many parts of the XSD
+## 3 Elements and Types that are used in several parts of the XSD
 
 ### 3.1 Files
 
@@ -103,7 +103,7 @@ The relative path to the binary file within the ZIP archive is specified in the 
 </xs:simpleType>
 ```
 
-#### The attached-text-file element
+#### The attached-txt-file element
 
 The attached-txt-file element is used to attach files containing plaintext content to ZIP archives. It comes with a few optional attributes that are particularly useful when dealing with plaintext.
 
@@ -503,7 +503,7 @@ meant to provide an overview and does not represent a minimal document):
     </tns:task>
 ```
 
-### 5.2 Task attributes
+### 5.2 [Task attributes](#task-attributes)
 
 The task is identified by attribute <b>uuid</b>, an automatic generated UUID 
 in Version 3, 4 (see RFC 4122) or 5. There is no need for monitoring the uniqueness,
