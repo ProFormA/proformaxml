@@ -1023,7 +1023,7 @@ The result-spec element has the following attributes:
     
         This option specifies that the submission response should contain comprehensive feedback, with a [feedback element](#the-feedback-element) for every test and sub-test as listed in the [grading-hints](#4-grading-hints).
 
-        See the [separate-test-feedback](Whitepaper.md#the-separate-test-feedback-element) element for more details.
+        See the [separate-test-feedback](#82-the-separate-test-feedback-element) element for more details.
        
 - **lang**
 
@@ -1117,7 +1117,7 @@ The merged-test-feedback element holds two feedback elements that act as a singl
 
 #### The merged-feedback element
 
-The merged-feedback element contains the entire submission feedback formatted as a single HTML fragment. How the information is structured is up to the grader. For the sake of completeness, the feedback should include the feedback text, score, as well as any files relevant to the tests and sub-tests listed in the [grading-hints](Whitepaper.md) element. Files should be included "in-line" in the HTML using the [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme) or JavaScript.
+The merged-feedback element contains the entire submission feedback formatted as a single HTML fragment. How the information is structured is up to the grader. For the sake of completeness, the feedback should include the feedback text, score, as well as any files relevant to the tests and sub-tests listed in the [grading-hints](#4-grading-hints) element. Files should be included "in-line" in the HTML using the [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme) or JavaScript.
 
 ###### Code-Beispiel
 
