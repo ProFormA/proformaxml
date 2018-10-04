@@ -23,7 +23,9 @@ evaluating the student submitted code so that exercises written for one
 tool can be exported and imported into another tool.
 
 The format contains three main parts: <b>task</b>, <b>submission</b> and <b>response</b> 
-which are each described in a separate document.
+which are each described in a separate document. 
+
+(Because of the length of this whitepaper, it can be helpful to use a userscript that collapses markdown.)
 
 ## Internationalization
 
@@ -52,13 +54,17 @@ TODO: strings.txt files:
 - What about multiline values?
 - UTF8 encoded?
 
-## Files
+## Elements and Types that are used in many parts of the XSD
+
+### Files
 
 All three main parts of the ProFormA format make use of files in various ways. The following file elements present different ways to attach binary and plaintext files to a task, a submission, and a response document.
 
-### The embedded-bin-file element
+#### The embedded-bin-file element
 
-##### Code-Beispiel
+The embedded-bin-file element is used to embed a file containing binary content directly into XML. The file content must be encoded to Base64. embedded-bin-file requires a **filename**.
+
+###### Code-Beispiel
 ```xml
 <xs:complexType name="embedded-bin-file-type">
   <xs:simpleContent>
@@ -69,11 +75,11 @@ All three main parts of the ProFormA format make use of files in various ways. T
 </xs:complexType>
 ```
 
-The embedded-bin-file element is used to embed a file containing binary content directly into XML. The file content must be encoded to Base64. embedded-bin-file requires a **filename**.
+#### The embedded-txt-file element
 
-### The embedded-txt-file element
+The embedded-txt-file element is used to embed a file containing plaintext content directly into XML. The file content must be encoded to UTF-8, which is the same encoding that the XML document is encoded in. embedded-txt-file requires a **filename**.
 
-##### Code-Beispiel
+###### Code-Beispiel
 ```xml
 <xs:complexType name="embedded-txt-file-type">
   <xs:simpleContent>
@@ -84,34 +90,20 @@ The embedded-bin-file element is used to embed a file containing binary content 
 </xs:complexType>
 ```
 
-The embedded-txt-file element is used to embed a file containing plaintext content directly into XML. The file content must be encoded to UTF-8, which is the same encoding that the XML document is encoded in. embedded-txt-file requires a **filename**.
+#### The attached-bin-file element
 
-### The attached-bin-file element
+The attached-bin-file element is used to attach files containing binary content to ZIP archives. This is especially useful when we are dealing with files that we do not want to embed in XML for various reasons (e. g. the files in question are particularly large in size).
 
-##### Code-Beispiel
+The relative path to the binary file within the ZIP archive is specified in the element content (i. e. the element's text node).
+
+###### Code-Beispiel
 ```xml
 <xs:simpleType name="attached-bin-file-type">
   <xs:restriction base="xs:string"/>
 </xs:simpleType>
 ```
 
-The attached-bin-file element is used to attach files containing binary content to ZIP archives. This is especially useful when we are dealing with files that we do not want to embed in XML for various reasons (e. g. the files in question are particularly large in size).
-
-The relative path to the binary file within the ZIP archive is specified in the element content (i. e. the element's text node).
-
-### The attached-text-file element
-
-##### Code-Beispiel
-```xml
-<xs:complexType name="attached-txt-file-type">
-  <xs:simpleContent>
-    <xs:extension base="xs:string">
-      <xs:attribute name="encoding" type="xs:string"/>
-      <xs:attribute name="natural-language" type="xs:string"/>
-    </xs:extension>
-  </xs:simpleContent>
-</xs:complexType>
-```
+#### The attached-text-file element
 
 The attached-txt-file element is used to attach files containing plaintext content to ZIP archives. It comes with a few optional attributes that are particularly useful when dealing with plaintext.
 
@@ -133,18 +125,19 @@ The attached-txt-file element is used to attach files containing plaintext conte
 
 The relative path to the plaintext file within the ZIP archive is specified in the element content (i. e. the element's text node).
 
-## The feedback-level
-
+###### Code-Beispiel
 ```xml
-<xs:simpleType name="feedback-level-type">
-  <xs:restriction base="xs:string">
-    <xs:enumeration value="debug"/>
-    <xs:enumeration value="info"/>
-    <xs:enumeration value="warn"/>
-    <xs:enumeration value="error"/>
-  </xs:restriction>
-</xs:simpleType>
+<xs:complexType name="attached-txt-file-type">
+  <xs:simpleContent>
+    <xs:extension base="xs:string">
+      <xs:attribute name="encoding" type="xs:string"/>
+      <xs:attribute name="natural-language" type="xs:string"/>
+    </xs:extension>
+  </xs:simpleContent>
+</xs:complexType>
 ```
+
+### The feedback-level
 
 The feedback-level is used for submission and response documents. Usually, feedback can be grouped into different types of information.
 
@@ -164,10 +157,23 @@ The feedback-level is used for submission and response documents. Usually, feedb
 
     The feedback contains error information, e. g. the student's source code resulted in a compile-time error that caused the entire test case to fail. This error type should not be confused with the response's [is-internal-error](Whitepaper_Response.md#is-internal-error) flag, which indicates that an error occurred on the part of the grading system.
 
+###### Code-Beispiel
+```xml
+<xs:simpleType name="feedback-level-type">
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="debug"/>
+    <xs:enumeration value="info"/>
+    <xs:enumeration value="warn"/>
+    <xs:enumeration value="error"/>
+  </xs:restriction>
+</xs:simpleType>
+```
+
 ## Grading Hints
 
 A grading-hints section of a ProFormA task or a ProFormA submission defines, how a grader should calculate a total result from individual test results. Most ProFormA tasks define several tests. Every test is expected to generate a score from the interval [0,1]. The grading-hints element defines groups of tests and groups of groups in a tree like manner. This way the grading-hints element includes the complete hierarchical grading scheme with all tests references, weights, accumulating functions and nullify conditions. Hierarchy nodes and conditions can get a displaytitle and descriptions. All information below the grading-hints element except the root node is optional. 
 
+###### Code-Beispiel
 ```xml
 <xs:complexType name="grading-hints-type">
   <xs:sequence>
@@ -178,16 +184,19 @@ A grading-hints section of a ProFormA task or a ProFormA submission defines, how
 </xs:complexType>
 ```
 
+### The top elements in the grading hints section
+
 First the grading-hints-type defines the root element. This is the root node of the grading scheme hierarchy. If the root does not specify any child nodes, the total grading score will be obtained by including all test results scores. A "function" attribute (see below) specifies the accumulator function.
 
 combine elements are inner nodes of the grading scheme hierarchy - either as an immediate child of the root node or as a further descendant node. A combine node specifies how to condense several sub results. Sub results can be test results or again "combined" results.
 
 Grader-specific hints from other XML namespaces can be included with the grading-hints element (xs:any). This could be any non-standard information that can be used by a grader or humans to calculate a total result from tests results.
 
-### root and combine elements
+### The elements root and combine
 
 The above root and combine elements both are of the following grades-node-type:
 
+###### Code-Beispiel
 ```xml
 <xs:complexType name="grades-node-type">
   <xs:sequence>
@@ -212,6 +221,8 @@ The above root and combine elements both are of the following grades-node-type:
 </xs:complexType>
 ```
 
+#### The grades-node-type
+
 The grades-node-type represents an inner node of the grading scheme hierarchy. There are only two types of inner nodes: the "root" node and "combine" nodes. Both define a sequence of child references. All child references point to objects representing either a test result or a combined result. The combine node includes these referenced results in a bottom-up fashion to calculate an accumulated combined result. The function attribute defines the accumulator function. 
 
 A test-ref element points to a test element in a ProFormA task. A combine-ref element points to a combine element in the grading scheme hierarchy. Both elements are described in detail below.
@@ -226,10 +237,11 @@ The ``id`` attribute is optional for the root element and required for combine e
 
 A valid grading-hints element requires every combine element to be referenced by another combine or root element. All combine elements must have a parent node. Currently the format requires a combine node's parent to be unique. Especially, orphan combine elements are not allowed. The root element is the only element without a parent.
 
-### test-ref and combine-ref
+### The elements test-ref and combine-ref
 
 The above combine-ref and test-ref elements both are derived from a common base type, namely grades-base-ref-child-type which is described below. To illustrate these elements, let's think about the following typical example of two combine elements and one root element:
 
+###### Code-Beispiel
 ```xml
 <tns:grading-hints>
   <tns:root function="sum">
@@ -252,6 +264,7 @@ The above combine-ref and test-ref elements both are derived from a common base 
 
 The example demonstrates that test-ref and combine-ref elements define an optional weight and a referenced identifier. Both elements are specified as follows: 
 
+###### Code-Beispiel
 ```xml
 <xs:complexType name="grades-base-ref-child-type">
   <xs:sequence>
@@ -283,6 +296,7 @@ The example demonstrates that test-ref and combine-ref elements define an option
   </xs:complexContent>
 </xs:complexType>
 ```
+#### Explanations
 
 A combine-ref element's ``ref`` attribute points to the ``id`` attribute of the referenced combine element. The same way a test-ref element's ``ref`` attribute points to the ``id`` attribute of the referenced test element. When the pointed at test exhibits sub test results, the sub-ref attribute points to one of the sub results. Examples are individual test cases in a unit test specification, individual violation rules in a static code sytle analyzer, individual error classes in a compilation step, etc. Since the sub-ref format or content is test-tool-specific, it is not normed in the ProFormA format.
 
@@ -296,6 +310,7 @@ A last important element of a child reference (test-ref or combine-ref) are so-c
 
 Sometimes a teacher or a task author wants to nullify scores for advanced style aspects if the basic functionality aspects do not exceed a certain threshold. This seems reasonable when we take a closer look at static code analysis tools ("style checker") that often count rule violations. In the above example a student can easily achieve high scores in test3 and test4 when submitting a minimal program that has near to zero functionality. For this, the task author includes a nullify condition at the child reference to the advanced child:
 
+###### Code-Beispiel
 ```xml
 <tns:grading-hints>
   <tns:root function="sum">
@@ -320,6 +335,7 @@ Sometimes a teacher or a task author wants to nullify scores for advanced style 
   </tns:combine>
 </tns:grading-hints>
 ```
+#### Explanations
 
 Nullify conditions specify conditions when the sub result of a pointed-at node should get nullified. It is possible to express simple comparison conditions like above ("basic functionality is less than 50%"). Also composite boolean expressions with boolean and- and or-operators can be formulated.
 
@@ -345,6 +361,11 @@ A simple comparison condition is represented by the nullify-condition element. C
 
 #### The nullify-conditions element for composite boolean expressions
 
+A nullify-conditions element is attributed with one of the boolean operators { and, or }. Further it contains operands that usually are of the nullify-condition type, which represents a simple comparison. Nevertheless a composite condition can have nested composite conditions as operands as well.
+
+The nullify-conditions element's base type (grades-nullify-base-type) defines titles and descriptions that could be displayed by a grader when explaining a score nullification to students or teachers. 
+
+###### Code-Beispiel
 ```xml
 <xs:complexType name="grades-nullify-base-type">
   <xs:sequence>
@@ -375,15 +396,11 @@ A simple comparison condition is represented by the nullify-condition element. C
 </xs:complexType>
 ```
 
-
-A nullify-conditions element is attributed with one of the boolean operators { and, or }. Further it contains operands that usually are of the nullify-condition type, which represents a simple comparison. Nevertheless a composite condition can have nested composite conditions as operands as well.
-
-The nullify-conditions element's base type (grades-nullify-base-type) defines titles and descriptions that could be displayed by a grader when explaining a score nullification to students or teachers. 
-
 #### The nullify-condition element for simple comparison expressions
 
 A simple comparison condition is represented by the following nullify-condition element.
 
+###### Code-Beispiel
 ```xml
 <xs:complexType name="grades-nullify-condition-type">
   <xs:complexContent>
@@ -435,6 +452,8 @@ A simple comparison condition is represented by the following nullify-condition 
   </xs:complexContent>
 </xs:complexType>
 ```
+
+##### Explanations
 
 The simple comparison condition is attributed with one of the following six common comparison operators:
 
