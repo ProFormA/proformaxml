@@ -665,7 +665,7 @@ using the <b>class</b> attribute with one of the following values:
 
 The information about how a file is used in a test is supplied by the
 test-configuration which uses a file (via its ID). Further details can
-be provided in the optional <b>comment</b> attribute. The file itself can be
+be provided in the optional <b>internal-description</b> element. The file itself can be
 embedded into the XML (recommended for shorter plain text files) or can
 be included in the ZIP-archive (recommended for binary files). If a file
 is embedded, the <b>type</b> attribute must be set to “embedded” and the text
@@ -687,7 +687,7 @@ used to refer to a resource that is neither embedded nor directly attached to th
 
 Normally task files should be self-contained, but in rare cases the use of external resources is unavoidable for fulfilling or grading the task.  The external-resource element basically contains a reference to that kind of resources. In its simplest form, the resource is identified by an identifier contained in the <b>reference</b> attribute. More complicated references can be specified in child elements of any namespace.
 
-The idea behind external resources is that sometimes large files needed by a grader, files that change frequently or web services cannot be bundled reasonably with the task itself. In these cases, the task part may reference the external resource by a unique name or any other identifier. Examples are the name or URL of a widely known database dump (e. g. ftp://ftp.fu-berlin.de/pub/misc/movies/database/) or the name and version number of a library (e. g. urn:mvn:groupId=org.mockito:artifactId=mockito-core:packaging=jar:version=1.9.5) or a web service URL. The semantics and the format of references is not defined by this exchange format. It could be a URL, URN or any other identifier. Also the exchange format does not define the distribution mechanism of resources (e. g. push from LMS to grader, active pull by the grader, etc.). Taken to the extreme, an external-resource element may mean, that the administrator has to install some software, service, or data in a grader specific location, before the task can be used to grade submissions. The identifier therefore does not need to be in a machine readable format. Further details about the semantics of the external-resource can be provided in the optional <b>description</b> element. The description may provide instructions in natural language how to install the required resource prior to grading so that the grader can interpret and resolve the reference attribute successfully when grading a submission.
+The idea behind external resources is that sometimes large files needed by a grader, files that change frequently or web services cannot be bundled reasonably with the task itself. In these cases, the task part may reference the external resource by a unique name or any other identifier. Examples are the name or URL of a widely known database dump (e. g. ftp://ftp.fu-berlin.de/pub/misc/movies/database/) or the name and version number of a library (e. g. urn:mvn:groupId=org.mockito:artifactId=mockito-core:packaging=jar:version=1.9.5) or a web service URL. The semantics and the format of references is not defined by this exchange format. It could be a URL, URN or any other identifier. Also the exchange format does not define the distribution mechanism of resources (e. g. push from LMS to grader, active pull by the grader, etc.). Taken to the extreme, an external-resource element may mean, that the administrator has to install some software, service, or data in a grader specific location, before the task can be used to grade submissions. The identifier therefore does not need to be in a machine readable format. Further details about the semantics of the external-resource can be provided in the optional <b>internal-description</b> element. The description may provide instructions in natural language how to install the required resource prior to grading so that the grader can interpret and resolve the reference attribute successfully when grading a submission.
 
 Each external resource element can be identified by its mandatory <b>id</b> attribute and is referenced by the test-configuration (see below in the test section).
 
@@ -701,9 +701,7 @@ the task. For each model-solution a new <b>model-solution</b> element is added.
 The model-solution element links one single model-solution to a task. Each
 solution must have a (task) unique string in its <b>id</b> attribute.
 The model-solution must refer to one or more files using the filerefs/fileref tag.
-The optional attribute <b>comment</b> can be used for additional
-information, for example if more than one model solution is provided it
-can be explained why there are several solutions.
+The optional element <b>description</b> can be used to describe the model solution in detail. Additionally, the optional element <b>internal-description</b> may provide instructions to teachers and tutors on how to manually evaluate a student's solution. Text in description and internal-description may be formatted as HTML if required.
 
 ### 5.9 The tests part
 
@@ -844,28 +842,23 @@ A task may be included as a regular XML element in the submission.
 ```xml
 <xs:complexType name="included-task-file-type">
   <xs:choice>
-    <xs:element name="embedded-bin-file" type="tns:embedded-bin-file-type"/>
-    <xs:element name="attached-bin-file" type="tns:attached-bin-file-type"/>
-    <xs:element name="attached-txt-file" type="tns:attached-txt-file-type"/>
+    <xs:element name="embedded-zip-file" type="tns:embedded-bin-file-type"/>
+    <xs:element name="attached-zip-file" type="tns:attached-bin-file-type"/>
+    <xs:element name="attached-xml-file" type="tns:attached-txt-file-type"/>
   </xs:choice>
   <xs:attribute name="uuid" type="xs:string" use="optional"/>
-  <xs:attribute name="mimetype" type="xs:string" use="optional"/>
 </xs:complexType>
 ```
 
 ##### Explanations
 
-Using the included-task-file element, a task may be attached to a submission ZIP archive as a plaintext or binary file. The task file itself must be named `task.xml` or `task.xml.zip`, respectively. The task must also be placed in the ZIP archive's root directory so that grading systems know how and where to find the task. Alternatively, a task ZIP file may be encoded to Base64 and embedded into the submission's XML document. This is useful when submissions are transferred as bare XML files rather than ZIP files between participating systems.
+Using the included-task-file element, a task may be attached to a submission ZIP archive as an XML using the attached-xml-file element, or a ZIP file using the attached-zip-file element. Alternatively, a task ZIP may be encoded to Base64 and embedded into the submission's XML document. This is useful when submission documents are transferred as bare XML files rather than ZIP files between participating systems.
 
 The included-task-file has the following attributes:
 
 - **uuid**
 
     The uuid of the task. Tasks are likely to be cached, so the uuid serves as a convenience attribute to avoid repeated unpacking of (large) archive files.
-
-- **mimetype**
-
-    The optional mimetype attribute specifies the archive file format used for the task file.
 
 #### The external-task element
 
@@ -1007,7 +1000,7 @@ The result-spec element has the following attributes:
         
     * **zip**
 
-    The response should be in the ZIP file format. The ZIP archive's root directory must contain the actual XML response document named `response.xml`.
+        The response should be in the ZIP file format. The ZIP archive's root directory must contain the actual XML response document named `response.xml`.
 
 - **structure**
 
