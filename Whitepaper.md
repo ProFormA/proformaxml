@@ -13,14 +13,14 @@ Based on an earlier version with more contributors:
 https://github.com/ProFormA/taskxml/blob/master/whitepaper.md
 
 ## Table of Contents
-1. [Introduction](#1-Introduction)
-2. [Internationalization](#2-Internationalization)
-3. [Elements and Types that are used in several parts of the XSD](#3-Elements-and-Types-that-are-used-in-several-parts-of-the-XSD)
-4. [Grading Hints](#4-Grading-Hints)
-5. [The Task Part](#5-The-Task-Part)
-6. [The Test Section of the Task Part](#6-The-Test-Section-of-the-Task-Part)
-7. [The Submission Part](#7-The-Submission-Part)
-8. [The Response Part](#8-The-Response-Part)
+1. [Introduction](#1-introduction)
+2. [Internationalization](#2-internationalization)
+3. [Elements and Types that are used in several parts of the XSD](#3-elements-and-types-that-are-used-in-several-parts-of-the-xsd)
+4. [Grading Hints](#4-grading-hints)
+5. [The Task Part](#5-the-task-part)
+6. [The Test Section of the Task Part](#6-the-test-section-of-the-task-part)
+7. [The Submission Part](#7-the-submission-part)
+8. [The Response Part](#8-the-response-part)
 
 ## 1 Introduction
 
