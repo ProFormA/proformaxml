@@ -130,7 +130,7 @@ The attached-txt-file element is used to attach files containing plaintext conte
 
     In case encoding and natural-language should happen to contradict each other, encoding is given precedence.
 
-    The natural-language value should be formatted as ISO 639-1 for language codes, and ISO 3166-1 alpha-2 for country codes.
+    Its value should be formatted as ISO 639-1 for language codes and ISO 3166-1 alpha-2 for country codes, e. g. "de-DE".
 
 The relative path to the plaintext file within the ZIP archive is specified in the element content (i. e. the element's text node).
 
@@ -1031,7 +1031,7 @@ The result-spec element has the following attributes:
 
     This is the student's preferred natural language that the feedback should be presented in.
     
-    Its value should be formatted as ISO 639-1 for language codes, and as ISO 3166-1 alpha-2 for country codes.
+    Its value should be formatted as ISO 639-1 for language codes and ISO 3166-1 alpha-2 for country codes, e. g. "de-DE".
 
 #### The student-feedback-level and teacher-feedback-level elements
 
@@ -1144,7 +1144,7 @@ The merged-feedback element contains the entire submission feedback formatted as
 ```
 ##### Explanations
 
-The result element holds the score, as well as the score's validity that a student achieved for a submission or a particular test (or sub-test). The optional element "validity" is used to partially verify the score of a result.
+The result element holds the score and the score's validity that a student achieved for a submission or a particular test (or sub-test). The optional element "validity" is used to partially verify the score of a result.
 
 - <a name="is-internal-error"/> **is-internal-error**
 
