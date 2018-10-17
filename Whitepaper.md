@@ -120,15 +120,15 @@ The attached-txt-file element is used to attach files containing plaintext conte
 
     The encoding of the text file, as an optional attribute.
 
-- **natural-language** 
+- **natural-lang** 
 
-    The natural-language attribute specifies the natural language of the submitting student. Students tend to use all kinds of encodings in their text files. Most of the time, the encoding will be unknown at the time of submission. To address this problem, the natural-language attribute can be used to help the grader detect the encoding of a submitted plaintext file.
+    The natural-lang attribute specifies the natural language of the submitting student. Students tend to use all kinds of encodings in their text files. Most of the time, the encoding will be unknown at the time of submission. To address this problem, the natural-lang attribute can be used to help the grader detect the encoding of a submitted plaintext file.
     
-    It should be said that the natural-language attribute does not necessarily have to be the same as the one provided in the task's [lang](#52-task-attributes) attribute. While the lang attribute indicates the language that the task has been written in, a student might use a different language when writing their text entirely.
+    It should be said that the natural-lang attribute does not necessarily have to be the same as the one provided in the task's [lang](#52-task-attributes) attribute. While the lang attribute indicates the language that the task has been written in, a student might use a different language when writing their text entirely.
     
-    Providing a value for the natural-language attribute could be as simple as retrieving a preconfigured value, like the language the student configured in their user profile of the LMS.
+    Providing a value for the natural-lang attribute could be as simple as retrieving a preconfigured value, like the language the student configured in their user profile of the LMS.
 
-    In case encoding and natural-language should happen to contradict each other, encoding is given precedence.
+    In case encoding and natural-lang should happen to contradict each other, encoding is given precedence.
 
     Its value should be formatted as ISO 639-1 for language codes and ISO 3166-1 alpha-2 for country codes, e. g. "de-DE".
 
@@ -140,7 +140,7 @@ The relative path to the plaintext file within the ZIP archive is specified in t
   <xs:simpleContent>
     <xs:extension base="xs:string">
       <xs:attribute name="encoding" type="xs:string"/>
-      <xs:attribute name="natural-language" type="xs:language"/>
+      <xs:attribute name="natural-lang" type="xs:language"/>
     </xs:extension>
   </xs:simpleContent>
 </xs:complexType>

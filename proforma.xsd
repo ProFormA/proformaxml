@@ -99,7 +99,7 @@
     <xs:simpleContent>
       <xs:extension base="xs:string">
         <xs:attribute name="encoding" type="xs:string"/>
-        <xs:attribute name="natural-language" type="xs:language"/>
+        <xs:attribute name="natural-lang" type="xs:language"/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
