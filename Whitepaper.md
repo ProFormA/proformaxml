@@ -561,9 +561,6 @@ All restriction types have two optional attributes
 
 #### Archive restriction
 
- - <b>unpack-files-from-archive</b> specifies if uploaded archives (zip/jar) should
-   be unpacked automatically. If it is set to *false,* no extraction takes place
-   and the archive is used as it is.
  - the filename of the uploaded archive must match "allowed-archive-filename"
  
 There is a choice for handling the file restrictions.
@@ -578,7 +575,7 @@ The archive may contain many files. The regular expression specifies, which file
 
 ```xml
    <tns:submission-restrictions>
-        <tns:archive-restrictions max-size="[size in bytes]" mime-type-regexp="[mimetype regexp]" unpack-files-from-archive="[true/false]">
+        <tns:archive-restrictions max-size="[size in bytes]" mime-type-regexp="[mimetype regexp]">
         <tns:unpack-files-from-archive-regexp>regular expression</tns:unpack-files-from-archive-regexp>
         </tns:archive-restrictions>
     </tns:submission-restrictions>
@@ -595,7 +592,7 @@ The archive must or may contain files as specified by the following file restric
 
 ```xml
    <tns:submission-restrictions>
-        <tns:archive-restrictions max-size="[size in bytes]" mime-type-regexp="[mimetype regexp]" unpack-files-from-archive="[true/false]">
+        <tns:archive-restrictions max-size="[size in bytes]" mime-type-regexp="[mimetype regexp]">
             <tns:file-restrictions>
                 <tns:required path="[full path to file]" mime-type-regexp="[mimetype regexp]" />
                 <tns:optional path="[full path to file]" mime-type-regexp="[mimetype regexp]"/>
