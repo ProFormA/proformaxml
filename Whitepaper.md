@@ -575,7 +575,7 @@ The archive may contain many files. The regular expression specifies, which file
 
 ```xml
    <tns:submission-restrictions>
-        <tns:archive-restrictions max-size="[size in bytes]" mime-type-regexp="[mimetype regexp]">
+        <tns:archive-restrictions max-size="[size in bytes]" mime-type-regexp="[mimetype regexp]" allowed-archive-filename-regexp="[filename regexp]">
         <tns:unpack-files-from-archive-regexp>regular expression</tns:unpack-files-from-archive-regexp>
         </tns:archive-restrictions>
     </tns:submission-restrictions>
@@ -592,7 +592,7 @@ The archive must or may contain files as specified by the following file restric
 
 ```xml
    <tns:submission-restrictions>
-        <tns:archive-restrictions max-size="[size in bytes]" mime-type-regexp="[mimetype regexp]">
+        <tns:archive-restrictions max-size="[size in bytes]" mime-type-regexp="[mimetype regexp]" allowed-archive-filename-regexp="[filename regexp]">
             <tns:file-restrictions>
                 <tns:required path="[full path to file]" mime-type-regexp="[mimetype regexp]" />
                 <tns:optional path="[full path to file]" mime-type-regexp="[mimetype regexp]"/>
