@@ -99,7 +99,7 @@
     <xs:simpleContent>
       <xs:extension base="xs:string">
         <xs:attribute name="encoding" type="xs:string"/>
-        <xs:attribute name="natural-language" type="xs:string"/>
+        <xs:attribute name="natural-language" type="xs:language"/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
@@ -608,7 +608,7 @@
          (the "namespace" of all instances) by resolving the template's variation
          points to specific instance values (the "name" of the instance). -->
     <xs:attribute name="parent-uuid" type="xs:string" use="optional"/>
-    <xs:attribute name="lang" type="xs:string"/>
+    <xs:attribute name="lang" type="xs:language"/>
   </xs:complexType>
 
   <xs:complexType name="submission-restrictions-type">
@@ -919,7 +919,7 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="lang" type="xs:string"/>
+    <xs:attribute name="lang" type="xs:language"/>
   </xs:complexType>
 
   <xs:simpleType name="feedback-level-type">
@@ -940,7 +940,7 @@
       <xs:element name="files" type="tns:response-files-type"/>
       <xs:element name="response-meta-data" type="tns:response-meta-data-type"/>
     </xs:sequence>
-    <xs:attribute name="lang" type="xs:string"/>
+    <xs:attribute name="lang" type="xs:language"/>
   </xs:complexType>
 
   <xs:complexType name="response-meta-data-type">

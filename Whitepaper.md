@@ -140,7 +140,7 @@ The relative path to the plaintext file within the ZIP archive is specified in t
   <xs:simpleContent>
     <xs:extension base="xs:string">
       <xs:attribute name="encoding" type="xs:string"/>
-      <xs:attribute name="natural-language" type="xs:string"/>
+      <xs:attribute name="natural-language" type="xs:language"/>
     </xs:extension>
   </xs:simpleContent>
 </xs:complexType>
@@ -987,7 +987,7 @@ Using the [user-id](#user-id) element along with the [task uuid](#52-task-attrib
       </xs:restriction>
     </xs:simpleType>
   </xs:attribute>
-  <xs:attribute name="lang" type="xs:string"/>
+  <xs:attribute name="lang" type="xs:language"/>
 </xs:complexType>
 ```
 
@@ -1097,7 +1097,7 @@ The response contains the results of a graded submission.
    <xs:element name="files" type="tns:response-files-type"/>
    <xs:element name="response-meta-data" type="tns:response-meta-data-type"/>
   </xs:sequence>
-  <xs:attribute name="lang" type="xs:string"/>
+  <xs:attribute name="lang" type="xs:language"/>
 </xs:complexType>
 ```
 
