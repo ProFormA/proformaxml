@@ -50,7 +50,7 @@ with a corresponding line in strings.txt. Mixing markup and non-markup is not al
 ```xml
    <title>@@@title3@@@ is not allowed!!</title>
 ```
-This is relevant for any elements with these names: <b>description</b>, <b>comment</b>, <b>title</b>, <b>content</b> and <b>displaytitle</b>. In the case of files, copies in different languages can be supplied. Such files cannot be embedded in the XML, but their
+This is relevant for any elements with these names: <b>description</b>, <b>comment</b>, <b>title</b> and <b>content</b>. In the case of files, copies in different languages can be supplied. Such files cannot be embedded in the XML, but their
 filename is marked up:
 ```xml
    <file id="f1" class="internal" type="file">@@@pathtofile1@@@</file>
@@ -180,7 +180,7 @@ The feedback-level is used for submission and response documents. Usually, feedb
 
 ## 4 Grading Hints
 
-A grading-hints section of a ProFormA task or a ProFormA submission defines, how a grader should calculate a total result from individual test results. Most ProFormA tasks define several tests. Every test is expected to generate a score from the interval [0,1]. The grading-hints element defines groups of tests and groups of groups in a tree like manner. This way the grading-hints element includes the complete hierarchical grading scheme with all tests references, weights, accumulating functions and nullify conditions. Hierarchy nodes and conditions can get a displaytitle and descriptions. All information below the grading-hints element except the root node is optional. 
+A grading-hints section of a ProFormA task or a ProFormA submission defines, how a grader should calculate a total result from individual test results. Most ProFormA tasks define several tests. Every test is expected to generate a score from the interval [0,1]. The grading-hints element defines groups of tests and groups of groups in a tree like manner. This way the grading-hints element includes the complete hierarchical grading scheme with all tests references, weights, accumulating functions and nullify conditions. Hierarchy nodes and conditions can get a title and descriptions. All information below the grading-hints element except the root node is optional.
 
 ###### Code-Beispiel
 ```xml
@@ -209,7 +209,7 @@ The above root and combine elements both are of the following grades-node-type:
 ```xml
 <xs:complexType name="grades-node-type">
   <xs:sequence>
-    <xs:element name="displaytitle" type="xs:string" minOccurs="0"/>
+    <xs:element name="title" type="xs:string" minOccurs="0"/>
     <xs:element name="description" type="tns:description-type" minOccurs="0"/>
     <xs:element name="internal-description" type="tns:description-type" minOccurs="0"/>
     <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -254,17 +254,17 @@ The above combine-ref and test-ref elements both are derived from a common base 
 ```xml
 <tns:grading-hints>
   <tns:root function="sum">
-    <tns:displaytitle>Total</tns:displaytitle>
+    <tns:title>Total</tns:title>
     <tns:combine-ref weight="0.75" ref="basic"/>
     <tns:combine-ref weight="0.25" ref="advanced"/>
   </tns:root>
   <tns:combine id="basic" function="sum">
-    <tns:displaytitle>Basic functionality</tns:displaytitle>
+    <tns:title>Basic functionality</tns:title>
     <tns:test-ref weight="0.3" ref="test1"/>
     <tns:test-ref weight="0.7" ref="test2"/>
   </tns:combine>
   <tns:combine id="advanced" function="min">
-    <tns:displaytitle>Advanced style aspects</tns:displaytitle>
+    <tns:title>Advanced style aspects</tns:title>
     <tns:test-ref ref="test3"/>
     <tns:test-ref ref="test4"/>
   </tns:combine>
@@ -295,7 +295,7 @@ The example demonstrates that test-ref and combine-ref elements define an option
   <xs:complexContent>
     <xs:extension base="tns:grades-base-ref-child-type">
       <xs:sequence>
-        <xs:element name="displaytitle" type="xs:string" minOccurs="0"/>
+        <xs:element name="title" type="xs:string" minOccurs="0"/>
         <xs:element name="description" type="tns:description-type" minOccurs="0"/>
         <xs:element name="internal-description" type="tns:description-type" minOccurs="0"/>
       </xs:sequence>
@@ -311,7 +311,7 @@ A combine-ref element's ``ref`` attribute points to the ``id`` attribute of the 
 
 Both, combine-ref and test-ref elements, specifiy a weight that is multiplied to the sub result value of the pointed-at node when flowing into the accumulator function (sum, min, or max). When calculating the accumulated result for the pointing-from node, the score of the pointed-at node is multiplied by the weight. If no weight is present, the score of the pointed-to node is multiplied by 1.
 
-A special feature for the test-ref element are the displaytitle, description and internal-description elements. These override the title or descriptions of the pointed-at test element.  This can be used especially when pointing to sub test results.
+A special feature for the test-ref element are the title, description and internal-description elements. These override the title or descriptions of the pointed-at test element.  This can be used especially when pointing to sub test results.
    
 A last important element of a child reference (test-ref or combine-ref) are so-called nullify conditions, that are described in the following section.
 
@@ -323,7 +323,7 @@ Sometimes a teacher or a task author wants to nullify scores for advanced style 
 ```xml
 <tns:grading-hints>
   <tns:root function="sum">
-    <tns:displaytitle>Total</tns:displaytitle>
+    <tns:title>Total</tns:title>
     <tns:combine-ref weight="0.75" ref="basic"/>
     <tns:combine-ref weight="0.25" ref="advanced">
       <tns:nullify-condition compare-op="lt">
@@ -333,12 +333,12 @@ Sometimes a teacher or a task author wants to nullify scores for advanced style 
     </tns:combine-ref>
   </tns:root>
   <tns:combine id="basic" function="sum">   <!-- unchanged (as above) -->
-    <tns:displaytitle>Basic functionality</tns:displaytitle>
+    <tns:title>Basic functionality</tns:title>
     <tns:test-ref weight="0.3" ref="test1"/>
     <tns:test-ref weight="0.7" ref="test2"/>
   </tns:combine>
   <tns:combine id="advanced" function="min">    <!-- unchanged (as above) -->
-    <tns:displaytitle>Advanced style aspects</tns:displaytitle>
+    <tns:title>Advanced style aspects</tns:title>
     <tns:test-ref ref="test3"/>
     <tns:test-ref ref="test4"/>
   </tns:combine>
@@ -378,7 +378,7 @@ The nullify-conditions element's base type (grades-nullify-base-type) defines ti
 ```xml
 <xs:complexType name="grades-nullify-base-type">
   <xs:sequence>
-    <xs:element name="displaytitle" type="xs:string" minOccurs="0" />
+    <xs:element name="title" type="xs:string" minOccurs="0" />
     <xs:element name="description" type="tns:description-type" minOccurs="0" />
     <xs:element name="internal-description" type="tns:description-type" minOccurs="0" />
   </xs:sequence>

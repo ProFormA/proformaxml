@@ -169,7 +169,7 @@
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="displaytitle" type="xs:string" minOccurs="0">
+      <xs:element name="title" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation xml:lang="en">A not too long title to be shown above the grading result represented by this
             node.
@@ -303,7 +303,7 @@
     <xs:complexContent>
       <xs:extension base="tns:grades-base-ref-child-type">
         <xs:sequence>
-          <xs:element name="displaytitle" type="xs:string" minOccurs="0">
+          <xs:element name="title" type="xs:string" minOccurs="0">
             <xs:annotation>
               <xs:documentation xml:lang="en">A not too long title to be shown above the pointed-at test's result.
                 Overrides the title of the pointed-at test element. This can be used especially when pointing to sub
@@ -370,7 +370,7 @@
       <xs:documentation xml:lang="en">Specifies an operand of a composite nullify condition.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="displaytitle" type="xs:string" minOccurs="0">
+      <xs:element name="title" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation xml:lang="en">A title to be displayed when explaining a score nullification to students or
             teachers. Front ends might decide to explain nullification conditions in a grading scheme even if for a
