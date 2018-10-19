@@ -796,6 +796,8 @@
   <xs:complexType name="test-type">
     <xs:sequence>
       <xs:element name="title" type="tns:title-type"/>
+      <xs:element name="description" type="tns:description-type" minOccurs="0"/>
+      <xs:element name="internal-description" type="tns:description-type" minOccurs="0"/>
       <xs:element name="test-type" type="tns:test-type-type"/>
       <xs:element name="test-configuration" type="tns:test-configuration-type"/>
     </xs:sequence>
