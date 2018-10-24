@@ -650,24 +650,48 @@ instance/file must have a (task) unique string in its <b>id</b> attribute (in
 order to reference this file within this task) and has to be classified
 using the <b>class</b> attribute with one of the following values:
 
--   <b>template</b>: The file is a template for students to be used as a
+<table>
+   <tr><th>name</th><th>Description</th><th>Visible to students</th><th>Used by LMS</th><th>Used by Grader</th></tr>
+<tr><td><b>template</b></td>
+  <td>Template for students to be used as a
     starting point for their solution. If a textfield is supplied for students to upload
-    their submission, then this textfield should be pre-filled with the template.
-    (Visible to students/irrelevant for grader)
--   <b>instruction</b>: The file contains further instructions for handling
-    the task, e.g. an UML activity diagram. (Visible to students/irrelevant for grader)
--   <b>library</b>: The file is a library to be used by students. (Visible to students/used 
-    by grader for compiling or linking)
--   <b>internal-library</b>: Like library, but not made available to students.
-    (Not visible to students/used by grader for compiling or linking)
--   <b>source-code</b>: Similar to library, but pre-compiled, for example header libraries
-    for C. (Visible to students/used by grader) 
--   <b>inputdata</b>: The file contains data which the algorithm of the
-    students should work with. (Visible to students/used by grader at run-time)
--   <b>internal</b>: This holds files which may be required for processing the 
-    task/tests within the system. Examples are JUnit tests and model solutions. How the
-    file is used by the grader is specified by the test configurations.
-    (Not visible to students/used by grader) 
+    their submission, then this textfield should be pre-filled with the template.</td>
+  <td>Yes</td>
+  <td>Displayed</td><td>No
+</td></tr>
+<tr><td><b>instruction</b></td>
+  <td>Contains further instructions for handling the task, e.g. UML activity diagrams.</td>
+  <td>Yes</td>
+  <td>Download link</td><td>No
+</td></tr>
+<tr><td><b>library</b></td> 
+   <td>Library to be used by students. </td>
+   <td>Yes</td>
+   <td>Download link</td><td>By compiler and as specified by tests</td>
+</td></tr>
+<tr><td> <b>internal-library</b></td>
+   <td>Like library, but not made available to students.</td>
+   <td>No</td>
+   <td>Can be displayed after submission</td>
+   <td>By compiler and as specified by tests</td>
+</td></tr>
+<tr><td><b>source-code</b></td>
+   <td>Similar to library, but pre-compiled, for example header libraries for C. 
+   <td>Yes</td>
+   <td>Download link</td><td>At run-time and as specified by tests</td>
+</td></tr>
+<tr><td><b>inputdata</b></td> 
+   <td>Contains data which the algorithm of the students should work with. </td>
+   <td>Yes</td>
+   <td>Download link</td><td>At run-time and as specified by tests</td>
+</td></tr>
+<tr><td><b>internal</b></td>
+   <td>May be required for processing the task/tests within the system. Examples are 
+    JUnit tests and model solutions.</td>
+    <td>No</td>
+   <td>Can be displayed after submission</td><td>Only as specified by tests</td>
+</td></tr>
+</table>
 
 The information about how a file is used in a test is supplied by the
 test-configuration which uses a file (via its ID). Further details can
