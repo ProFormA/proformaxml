@@ -612,7 +612,7 @@
   </xs:complexType>
 
   <xs:complexType name="submission-restrictions-type">
-    <xs:choice>
+    <xs:choice maxOccurs="unbounded">
       <xs:element name="archive-restriction" type="tns:archive-restr-type"/>
       <xs:element name="file-restriction" type="tns:file-restr-type"/>
       <xs:element name="regexp-restriction" type="tns:file-regexp-restr-type"/>
