@@ -500,6 +500,7 @@ meant to provide an overview and does not represent a minimal document):
 
 ```xml
     <tns:task>
+        <tns:title></tns:title>
         <tns:description></tns:description>
         <tns:proglang version=""></tns:proglang>
         <tns:submission-restrictions />
@@ -545,10 +546,12 @@ entered as a “point” separated list of up to four unsigned integers.
 
 The submission-restrictions element can specify restrictions for the upload of
 (submission) files - by default there are no restrictions. There is a choice
-between three possible restrictions types. 
+between three possible restrictions types.
 - [archive-restriction](#archive-restriction) 
 - [file-restriction](#file-restriction) 
 - [regexp-restriction](#regexp-restriction)
+
+It is also possible to specify multiple submission restriction types to allow for different submission types, such as submitting a single *.java text file or a ZIP archive containing a single *.java file. Restrictions are matched against the submission in the order they are provided in until a match is found. Note that the restrictions are applied in a logical OR operation, not a logical AND operation. If no match is found, the submission must be rejected. Enforcing submission restrictions is up to the LMS, middleware, or grader.
 
 All restriction types have two optional attributes
 
@@ -563,13 +566,13 @@ All restriction types have two optional attributes
 
  - the filename of the uploaded archive must match "allowed-archive-filename"
  
-There is a choice for handling the file restrictions.
+There is a choice for handling file restrictions.
 
 ##### 1. By regexp
 
-The archive may contain many files. The regular expression specifies, which files will be extracted from the archive.
+An archive may contain many files. The regular expression specifies which files to extract from the archive.
 
-- “unpack-files-from-archive-regexp” holds a regular expression that controls which files are automatically extracted. Only matching files (the whole path of the zip-items matches with “/” as path separator) are extracted from the archive (specified regexp language in [regexp-language-restriction] (#regexp-language-specification)).
+- “unpack-files-from-archive-regexp” holds a regular expression that controls which files are automatically extracted. Only matching files (the whole path of the zip-items matches with “/” as a path separator) are extracted from the archive (specified regexp language in [regexp-language-restriction] (#regexp-language-specification)).
 
 ###### Code-Beispiel
 
@@ -605,7 +608,7 @@ The archive must or may contain files as specified by the following file restric
 
 A submission must or may consist of files as specified by the file restrictions. A submission should be rejected, if it does not match the restrictions.
 
-- <b>required</b> the submission must have a file with specified "path" (rooted at the archive root). Otherwise the submission should be rejected.
+- <b>required</b> the submission must have a file with a specified "path" (rooted at the archive root). Otherwise the submission should be rejected.
 - <b>optional</b> the submission may have a file with specified attributes.
 
 ###### Code-Beispiel
@@ -623,7 +626,7 @@ A submission must or may consist of files as specified by the file restrictions.
 
 A submission must consist of one or several files, where all file names must adhere to the regular expression.
 
-- <b>regexp-restriction</b> holds a regular expression of the filenames (only the filename, without path) which the system should accept. Regular expressions can contain less than/greater than signs. CDATA is allowed.
+- <b>regexp-restriction</b> holds a regular expression of the filenames (only the filename, without a path) which the system should accept. Regular expressions can contain less than/greater than signs. CDATA is allowed.
 
 ###### Code-Beispiel
 
@@ -639,16 +642,11 @@ TODO!!!
 
 ### 5.6 The files part
 
-The files element contains 0 or more file elements. A file element is
-used to attach files to a task. Files can be external or embedded into
-the XML file.
+The files element contains 0 or more file elements. A file element is used to attach files to a task. Files can be external or embedded into the XML file.
 
 #### The file element
 
-The file element includes or links a single file to a task. Each
-instance/file must have a (task) unique string in its <b>id</b> attribute (in
-order to reference this file within this task) and has to be classified
-using the <b>class</b> attribute with one of the following values:
+The file element includes or links a single file to a task. Each instance/file must have a (task) unique string in its <b>id</b> attribute (in order to reference this file within this task) and has to be classified using the <b>class</b> attribute with one of the following values:
 
 <table>
    <tr><th>name</th><th>Description</th><th>Visible to students</th><th>Used by LMS</th><th>Used by Grader</th></tr>
@@ -1098,7 +1096,7 @@ The following table illustrates which feedback-levels will be visible as part of
     </tr>
 </table>
 
-While the student-feedback-level and teacher-feedback-level are technically set apart, it is sometimes necessary for the teacher to see both their own and the student feedback, but not the other way around. It is for this very reason that the teacher-feedback-level element may be omitted entirely to avoid any potential feedback redundancies. However, it is important to note that compared to the student feedback, teacher feedback *may* contain more detailed information content. For instance, a teacher feedback might provide more details about the nature of an error than the corresponding student feedback. The actual extent of the information differences is up to the grader.
+While the student-feedback-level and teacher-feedback-level are technically set apart, it is sometimes necessary for the teacher to see both their own and the student feedback, but not the other way around. It is for this very reason that the teacher-feedback-level element may be omitted entirely to avoid any potential feedback redundancies. However, it is worth noting that unlike the student feedback, teacher feedback *may* contain information content that is more detailed. For instance, a teacher feedback might provide more details about the nature of an error than the corresponding student feedback. The actual extent of the information differences is up to the grader.
 
 If neither student-feedback-level nor teacher-feedback-level are specified, no [feedback content](Whitepaper.md#feedback-type-content) will be included in the response document in case of [separate-test-feedback](#separate-test-feedback), and no [merged-feedback](Whitepaper.md#the-merged-feedback-element) in case of [merged-test-feedback](#merged-test-feedback).
 
