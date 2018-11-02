@@ -44,11 +44,11 @@ multiple languages, the <b>lang</b> attribute of the <b>task</b> element contain
 language and translations can be indicated by using markup with <b>@@@</b> and a file <b>strings.txt</b> with translations that is stored in "lang/en/strings.txt", "lang/de/strings.txt", "lang/en_us/strings.txt", etc. ISO 639-1 and 3166-1 ALPHA2 are used for indicating languages and regions.
 For example, multiple languages for a title are indicated by
 ```xml
-   <title>@@@title2@@@</title>
+<title>@@@title2@@@</title>
 ```
 with a corresponding line in strings.txt. Mixing markup and non-markup is not allowed:
 ```xml
-   <title>@@@title3@@@ is not allowed!!</title>
+<title>@@@title3@@@ is not allowed!!</title>
 ```
 This is relevant for any elements with these names: <b>description</b>, <b>comment</b>, <b>title</b> and <b>content</b>. In the case of files, copies in different languages can be supplied. Such files cannot be embedded in the XML, but their
 filename is marked up:
@@ -67,7 +67,9 @@ TODO: strings.txt files:
 
 ### 3.1 Files
 
-All three main parts of the ProFormA format make use of files in various ways. The following file elements present different ways to attach binary and plaintext files to a task, a submission, and a response document.
+All main parts of the ProFormA format make use of files in various ways. The following file elements present different ways to attach binary and plaintext files to a task, a submission, and responses. The term **embedded** indicates that a file is part of the XML document, meaning its file content is embedded in an XML element's text node. The term **attached** indicates that a file is part of (inside) a ZIP archive, along with the XML document.
+
+Files are distinguished by binary ("bin") and plaintext ("txt") content. An advantage of this is that the LMS is able to display or preview text files without the user first having to download and open the file in an external editor.
 
 #### The embedded-bin-file element
 
@@ -101,9 +103,9 @@ The embedded-txt-file element is used to embed a file containing plaintext conte
 
 #### The attached-bin-file element
 
-The attached-bin-file element is used to attach files containing binary content to ZIP archives. This is especially useful when we are dealing with files that we do not want to embed in XML for various reasons (e. g. the files in question are particularly large in size).
+The attached-bin-file element is used to attach files containing binary content to ZIP archives. This is especially useful when we are dealing with files that we do not want to embed in XML for various reasons (e.g. the files in question are particularly large in size).
 
-The relative path to the binary file within the ZIP archive is specified in the element content (i. e. the element's text node).
+The relative path to the binary file within the ZIP archive is specified in the element content (i.e. the element's text node).
 
 ###### Code-Beispiel
 ```xml
@@ -130,9 +132,11 @@ The attached-txt-file element is used to attach files containing plaintext conte
 
     In case encoding and natural-lang should happen to contradict each other, encoding is given precedence.
 
-    Its value should be formatted as ISO 639-1 for language codes and ISO 3166-1 alpha-2 for country codes, e. g. "de-DE".
+    Its value must comply with the ISO 639-1 standard for language codes (e.g. `de`) and ISO 3166-1 alpha-2 for country codes (e.g. `de-CH`).
 
-The relative path to the plaintext file within the ZIP archive is specified in the element content (i. e. the element's text node).
+The relative path to the plaintext file within the ZIP archive is specified in the element content (i.e. the element's text node).
+
+Ideally, we would choose between the embedded-txt-file or the attached-txt-file element to use for a text file submitted by the student. However, since embedded-txt-file requires the file content to be encoded in UTF-8, or another known encoding so that the file can be re-encoded to UTF-8, it is not possible to use embedded-txt-file for files whose encoding is unknown, in which case we *have* to use the attached-txt-file element, without the encoding attribute, and leave the guesswork about the encoding up to the middleware or grader.
 
 ###### Code-Beispiel
 ```xml
@@ -156,15 +160,15 @@ The feedback-level is used for submission and response documents. Usually, feedb
         
 - **info**
 
-    Generally useful information to students and teachers, e. g. a specific test case passed successfully.
+    Generally useful information to students and teachers, e.g. a specific test case passed successfully.
     
 - **warn**
 
-    The feedback contains a warning, e. g. the function being tested took up too much processing time. Or the student used a deprecated class method.
+    The feedback contains a warning, e.g. the function being tested took up too much processing time. Or the student used a deprecated class method.
     
 - **error**
 
-    The feedback contains error information, e. g. the student's source code resulted in a compile-time error that caused the entire test case to fail. This error type should not be confused with the response's [is-internal-error](Whitepaper.md#is-internal-error) flag, which indicates that an error occurred on the part of the grading system.
+    The feedback contains error information, e.g. the student's source code resulted in a compile-time error that caused the entire test case to fail. This error type should not be confused with the response's [is-internal-error](Whitepaper.md#is-internal-error) flag, which indicates that an error occurred on the part of the grading system.
 
 ###### Code-Beispiel
 ```xml
@@ -522,10 +526,11 @@ in Version 3, 4 (see RFC 4122) or 5. There is no need for monitoring the uniquen
 The optional attribute <b>parent-uuid</b> should be used whenever a task is changed. It is
 a pointer to the original task-uuid. This is useful for version trees.
 
-The task itself must have an attribute <b>lang</b> which specifies the natural language
-used. The description, title etc should be written in this language. The content
-of the “lang” attribute must comply with the IETF BCP 47, RFC 4647 and
-ISO 639-1:2002 standards.
+The task itself must have an attribute <b>lang</b> which specifies the
+natural language used. The description, title etc should be written in
+this language. The content of the "lang" attribute must comply with
+the the ISO 639-1 standard for language codes (e.g. `de`) and ISO
+3166-1 alpha-2 for country codes (e.g. `de-CH`).
 
 ### 5.3 The description part
 
@@ -715,7 +720,7 @@ used to refer to a resource that is neither embedded nor directly attached to th
 
 Normally task files should be self-contained, but in rare cases the use of external resources is unavoidable for fulfilling or grading the task.  The external-resource element basically contains a reference to that kind of resources. In its simplest form, the resource is identified by an identifier contained in the <b>reference</b> attribute. More complicated references can be specified in child elements of any namespace.
 
-The idea behind external resources is that sometimes large files needed by a grader, files that change frequently or web services cannot be bundled reasonably with the task itself. In these cases, the task part may reference the external resource by a unique name or any other identifier. Examples are the name or URL of a widely known database dump (e. g. ftp://ftp.fu-berlin.de/pub/misc/movies/database/) or the name and version number of a library (e. g. urn:mvn:groupId=org.mockito:artifactId=mockito-core:packaging=jar:version=1.9.5) or a web service URL. The semantics and the format of references is not defined by this exchange format. It could be a URL, URN or any other identifier. Also the exchange format does not define the distribution mechanism of resources (e. g. push from LMS to grader, active pull by the grader, etc.). Taken to the extreme, an external-resource element may mean, that the administrator has to install some software, service, or data in a grader specific location, before the task can be used to grade submissions. The identifier therefore does not need to be in a machine readable format. Further details about the semantics of the external-resource can be provided in the optional <b>internal-description</b> element. The description may provide instructions in natural language how to install the required resource prior to grading so that the grader can interpret and resolve the reference attribute successfully when grading a submission.
+The idea behind external resources is that sometimes large files needed by a grader, files that change frequently or web services cannot be bundled reasonably with the task itself. In these cases, the task part may reference the external resource by a unique name or any other identifier. Examples are the name or URL of a widely known database dump (e.g. ftp://ftp.fu-berlin.de/pub/misc/movies/database/) or the name and version number of a library (e.g. urn:mvn:groupId=org.mockito:artifactId=mockito-core:packaging=jar:version=1.9.5) or a web service URL. The semantics and the format of references is not defined by this exchange format. It could be a URL, URN or any other identifier. Also the exchange format does not define the distribution mechanism of resources (e.g. push from LMS to grader, active pull by the grader, etc.). Taken to the extreme, an external-resource element may mean, that the administrator has to install some software, service, or data in a grader specific location, before the task can be used to grade submissions. The identifier therefore does not need to be in a machine readable format. Further details about the semantics of the external-resource can be provided in the optional <b>internal-description</b> element. The description may provide instructions in natural language how to install the required resource prior to grading so that the grader can interpret and resolve the reference attribute successfully when grading a submission.
 
 Each external resource element can be identified by its mandatory <b>id</b> attribute and is referenced by the test-configuration (see below in the test section).
 
@@ -1050,7 +1055,7 @@ The result-spec element has the following attributes:
 
     This is the student's preferred natural language that the feedback should be presented in.
     
-    Its value should be formatted as ISO 639-1 for language codes and ISO 3166-1 alpha-2 for country codes, e. g. "de-DE".
+    Its value must comply with the ISO 639-1 standard for language codes (e.g. `de`) and ISO 3166-1 alpha-2 for country codes (e.g. `de-CH`).
 
 #### The student-feedback-level and teacher-feedback-level elements
 
@@ -1171,7 +1176,7 @@ The result element holds the score and the score's validity that a student achie
 
     For instance, if a grading system used a faulty JUnit test to assess the correctness of a student's Java source code, and that test case would always result in a failure regardless of the correctness of the solution (due to the grader not being able to compile the JUnit test, for example), the result would qualify as an internal error. Since the fault was not with the student's solution but with the grading system itself, the submission should be invalidated so the student would not lose their submission attempt, if such restrictions were in place. In order for this to work, the grader would need to return a response document with the **is-internal-error** attribute set to true in a [test-result](#the-test-result-element) and a [feedback](#the-feedback-element) entry detailing the error.
 
-    Errors that are not directly related to a test should be indicated by other means rather than the is-internal-error flag. For example, if a grader received a poorly formatted submission document, it would have no choice but to reject the submission. Instead of using the is-internal-error attribute, it would be more appropriate to use the underlying communication protocol's error handling mechanism, such as using a HTTP status code (e. g. "400 Bad Request") to indicate a client error.
+    Errors that are not directly related to a test should be indicated by other means rather than the is-internal-error flag. For example, if a grader received a poorly formatted submission document, it would have no choice but to reject the submission. Instead of using the is-internal-error attribute, it would be more appropriate to use the underlying communication protocol's error handling mechanism, such as using a HTTP status code (e.g. "400 Bad Request") to indicate a client error.
 
 ### 8.2 The separate-test-feedback element
 
