@@ -604,11 +604,6 @@
       <xs:element name="meta-data" type="tns:task-meta-data-type"/>
     </xs:sequence>
     <xs:attribute name="uuid" type="xs:string" use="required"/>
-    <!-- The task is identified by attribute "uuid", an automatic generated UUID
-         in Version 3, 4, or 5 (see RFC 4122). Name-based UUIDs (version 3 and 5)
-         may especially be useful when deriving an instance from a task template
-         (the "namespace" of all instances) by resolving the template's variation
-         points to specific instance values (the "name" of the instance). -->
     <xs:attribute name="parent-uuid" type="xs:string" use="optional"/>
     <xs:attribute name="lang" type="xs:language"/>
   </xs:complexType>
