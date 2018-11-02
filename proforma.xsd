@@ -582,6 +582,7 @@
 
   <xs:complexType name="task-type">
     <xs:sequence>
+      <xs:element name="title" type="tns:title-type"/>
       <xs:element name="description" type="tns:description-type"/>
       <xs:element name="proglang" type="tns:proglang-type"/>
       <xs:element name="submission-restrictions" type="tns:submission-restrictions-type" minOccurs="0"/>
@@ -700,7 +701,6 @@
 
   <xs:complexType name="task-meta-data-type">
     <xs:sequence>
-      <xs:element name="title" type="tns:title-type"/>
       <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
     </xs:sequence>
   </xs:complexType>
