@@ -584,6 +584,7 @@
     <xs:sequence>
       <xs:element name="title" type="tns:title-type"/>
       <xs:element name="description" type="tns:description-type"/>
+      <xs:element name="internal-description" type="tns:description-type" minOccurs="0"/>
       <xs:element name="proglang" type="tns:proglang-type"/>
       <xs:element name="submission-restrictions" type="tns:submission-restrictions-type" minOccurs="0"/>
       <xs:element name="files" type="tns:task-files-type"/>
