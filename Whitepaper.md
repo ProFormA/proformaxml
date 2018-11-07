@@ -651,7 +651,12 @@ The files element contains 0 or more file elements. A file element is used to at
 
 #### The file element
 
-The file element includes or links a single file to a task. Each instance/file must have a (task) unique string in its <b>id</b> attribute (in order to reference this file within this task) and has to be classified using the <b>class</b> attribute with one of the following values:
+The file element includes or links a single file to a task. Each instance/file must have a (task) unique string in its <b>id</b> attribute (in order to reference this file within this task) and has to be classified using three attributes: <b>used-by-grader</b> determines whether the file must be sent to the grader or not.
+The attribute <b>visible</b> determines whether or not the lms makes the file available to students. Its values <b>yes</b> and <b>no</b> should be clear. The third possible value
+(<b>delayed</b>) can be used for files which may be shown to students after the
+submission or after a certain deadline has passed. 
+The attribute <b>used-by-lms</b> determines how the file is displayed by the lms.
+The following table shows some examples for the use of the three attributes:
 
 <table>
    <tr><th>name</th><th>Description</th><th>Visible to students</th><th>Used by LMS</th><th>Used by Grader</th></tr>
@@ -659,40 +664,40 @@ The file element includes or links a single file to a task. Each instance/file m
   <td>Template for students to be used as a
     starting point for their solution. If a textfield is supplied for students to upload
     their submission, then this textfield should be pre-filled with the template.</td>
-  <td>Yes</td>
-  <td>Displayed</td><td>No
+  <td>yes</td>
+  <td>display</td><td>no
 </td></tr>
 <tr><td><b>instruction</b></td>
-  <td>Contains further instructions for handling the task, e.g. UML activity diagrams.</td>
-  <td>Yes</td>
-  <td>Download link</td><td>No
+  <td>Instructions for handling the task, e.g. UML activity diagrams.</td>
+  <td>yes</td>
+  <td>download</td><td>no
 </td></tr>
 <tr><td><b>library</b></td> 
    <td>Library to be used by students. </td>
-   <td>Yes</td>
-   <td>Download link</td><td>By compiler and as specified by tests</td>
+   <td>yes</td>
+   <td>download</td><td>yes (By compiler and as specified by tests)</td>
 </td></tr>
 <tr><td> <b>internal-library</b></td>
    <td>Like library, but not made available to students.</td>
-   <td>No</td>
-   <td>Can be displayed after submission</td>
-   <td>By compiler and as specified by tests</td>
+   <td>no or delayed</td>
+   <td>download</td>
+   <td>yes (By compiler and as specified by tests)</td>
 </td></tr>
 <tr><td><b>source-code</b></td>
    <td>Similar to library, but pre-compiled, for example header libraries for C. 
-   <td>Yes</td>
-   <td>Download link</td><td>At run-time and as specified by tests</td>
+   <td>yes</td>
+   <td>download</td><td>yes (At run-time and as specified by tests)</td>
 </td></tr>
 <tr><td><b>inputdata</b></td> 
    <td>Contains data which the algorithm of the students should work with. </td>
-   <td>Yes</td>
-   <td>Download link</td><td>At run-time and as specified by tests</td>
+   <td>yes</td>
+   <td>download</td><td>yes (At run-time and as specified by tests)</td>
 </td></tr>
 <tr><td><b>internal</b></td>
    <td>May be required for processing the task/tests within the system. Examples are 
     JUnit tests and model solutions.</td>
-    <td>No</td>
-   <td>Can be displayed after submission</td><td>Only as specified by tests</td>
+    <td>no or delayed</td>
+   <td>display or download</td><td>yes (As specified by tests)</td>
 </td></tr>
 </table>
 
