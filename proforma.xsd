@@ -716,19 +716,31 @@
     </xs:sequence>
     <xs:attribute name="id" type="xs:string" use="required"/>
     <xs:attribute name="mimetype" type="xs:string" use="optional"/>
-    <xs:attribute name="class" use="required">
+    <xs:attribute name="used-by-grader" use="required">
       <xs:simpleType>
         <xs:restriction base="xs:string">
-          <xs:enumeration value="template"/>
-          <xs:enumeration value="library"/>
-          <xs:enumeration value="inputdata"/>
-          <xs:enumeration value="instruction"/>
-          <xs:enumeration value="source-code"/>
-          <xs:enumeration value="internal-library"/>
-          <xs:enumeration value="internal"/>
+          <xs:enumeration value="yes"/>
+          <xs:enumeration value="no"/>
         </xs:restriction>
       </xs:simpleType>
-    </xs:attribute>
+    </xs:attribute>             
+    <xs:attribute name="visible" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="yes"/>
+          <xs:enumeration value="no"/>
+          <xs:enumeration value="delayed"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>          
+    <xs:attribute name="used-by-lms" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="display"/>
+          <xs:enumeration value="dowload"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>  
   </xs:complexType>
 
   <xs:complexType name="task-files-type">
