@@ -643,7 +643,7 @@ A submission must consist of one or several files, where all file names must adh
 
 #### Regexp language specification
 
-TODO!!!
+Es wird die Schnittmenge der von den drei folgenden Bibliotheken unterstützten Dialekte akzeptiert: libpcre 8.42, Java SE 6 (java.util.regex.Pattern), Onigmo 6.9.0 (mit ONIG_SYNTAX_PERL).
 
 ### 5.6 The files part
 
