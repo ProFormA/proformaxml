@@ -675,29 +675,29 @@ The following table shows some examples for the use of the three attributes:
 <tr><td><b>library</b></td> 
    <td>Library to be used by students. </td>
    <td>yes</td>
-   <td>download</td><td>yes (By compiler and as specified by tests)</td>
+   <td>download</td><td>yes (As specified by compiler test)</td>
 </td></tr>
 <tr><td> <b>internal-library</b></td>
    <td>Like library, but not made available to students.</td>
    <td>no or delayed</td>
    <td>download</td>
-   <td>yes (By compiler and as specified by tests)</td>
+   <td>yes (As specified by compiler test)</td>
 </td></tr>
 <tr><td><b>source-code</b></td>
    <td>Similar to library, but pre-compiled, for example header libraries for C. 
    <td>yes</td>
-   <td>download</td><td>yes (At run-time and as specified by tests)</td>
+   <td>download</td><td>yes (As specified by execution test)</td>
 </td></tr>
 <tr><td><b>inputdata</b></td> 
    <td>Contains data which the algorithm of the students should work with. </td>
    <td>yes</td>
-   <td>download</td><td>yes (At run-time and as specified by tests)</td>
+   <td>download</td><td>yes (As specified by execution test)</td>
 </td></tr>
 <tr><td><b>internal</b></td>
    <td>May be required for processing the task/tests within the system. Examples are 
     JUnit tests and model solutions.</td>
     <td>no or delayed</td>
-   <td>display or download</td><td>yes (As specified by tests)</td>
+   <td>download</td><td>yes (As specified by tests)</td>
 </td></tr>
 </table>
 
