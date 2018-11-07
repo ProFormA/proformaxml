@@ -1381,7 +1381,9 @@ The response-meta-data element contains information about the grading system use
 
 ## Appendix A: Subset of HTML
 
-<\!\-\- … \-\-\>, a, b, blockquote, br, p, sup, sub, center, div, dl, dd,
+This appendix is obsolete. All HTML elements and attributes are allowed.
+
+It was: <\!\-\- … \-\-\>, a, b, blockquote, br, p, sup, sub, center, div, dl, dd,
 dt, em, font, h1, h2, h3, h4, h5, h6, hr, img, li, ol, strong, pre,
 span, table, tbody, td, tr, th, tt and ul.
 
