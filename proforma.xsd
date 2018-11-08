@@ -733,7 +733,7 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>          
-    <xs:attribute name="used-by-lms" use="optional">
+    <xs:attribute name="used-by-lms" use="required">
       <xs:simpleType>
         <xs:restriction base="xs:string">
           <xs:enumeration value="display"/>
