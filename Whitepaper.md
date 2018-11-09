@@ -69,7 +69,7 @@ TODO: strings.txt files:
 
 All main parts of the ProFormA format make use of files in various ways. The following file elements present different ways to attach binary and plaintext files to a task, a submission, and responses. The term **embedded** indicates that a file is part of the XML document, meaning its file content is embedded in an XML element's text node. The term **attached** indicates that a file is part of (inside) a ZIP archive, along with the XML document.
 
-Files are distinguished by binary ("bin") and plaintext ("txt") content. An advantage of this is that the LMS is able to display or preview text files, but not binary files, without the user first having to download and open the file in an external editor.
+Files are distinguished by binary ("bin") and plaintext ("txt") content, enabling the LMS to selectively display and preview text files without the user having to download and open them in an external editor to see their content.
 
 #### The embedded-bin-file element
 
