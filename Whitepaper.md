@@ -53,7 +53,7 @@ with a corresponding line in strings.txt. Mixing markup and non-markup is not al
 This is relevant for any elements with these names: <b>description</b>, <b>comment</b>, <b>title</b> and <b>content</b>. In the case of files, copies in different languages can be supplied. Such files cannot be embedded in the XML, but their
 filename is marked up:
 ```xml
-   <file id="f1" class="internal" type="file">@@@pathtofile1@@@</file>
+<attached-bin-file>@@@pathtofile1@@@</urn:attached-bin-file>
 ```
 The submission part does not contain any markup. The attribute <b>lang</b> in the <b>result-spec</b> of the submission part indicates a preferred language for the response.
 
