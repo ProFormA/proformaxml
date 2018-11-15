@@ -1,3 +1,4 @@
+
 # An XML exchange format for (programming) tasks
 THIS DOCUMENT IS CURRENTLY BEING EDITED AND NOT FINISHED
 
@@ -548,6 +549,58 @@ compatibility must be checked externally.)  The “version” must be
 entered as a “point” separated list of up to four unsigned integers.
 
 ### 5.5 The submission-restrictions part
+
+The submission part of this specification defines a submission as a list of submitted files or as a reference to an external submission. The external reference is required resolvable as a list of files - possibly as a single file. So, after all a submission is a set of one or several files.
+
+#### 5.5.1 The grader's requirements
+
+Students might submit their source code as individual files or as a bundle like a zip archive. Graders and frontends might disallow or enforce a specific archive format. The specification of the bundle format (zip or similar) in which files are to be submitted by students, is not the subject of the ProFormA task format because it depends less on the task than on the grader system. If a grader specifies a specific mime type or filename pattern or further requirements about the submission, it is up to the implementers of the frontend system to check or fulfill all restrictions enforced by the connected backend graders. Examples of such implementations are:
+
+- The frontend automatically creates a zip from several individually uploaded files and passes the zip to the backend grader. The zip file gets a specific name pattern.
+- The frontend unpacks an uploaded zip file and automatically creates another archive format (e. g. gz).
+- The frontend unpacks an uploaded tar file and automatically inserts every single file into an online repository (e. g. git). The frontend passes an external reference name "git://domain.org/path" to the grader backend. The grader backend resolves the uri and downloads the individual files.
+- The frontend expects and enforces students to upload a zip file of the name "task07.zip". The frontend talks to the grader via http. It starts the grading process by an html form submission of type multipart/form-data to the grader. One of the form fields (e. g. the field with the standardized name "descriptor") is a file "descriptor.xml" in the ProFormA submission format. Inside descriptor.xml the submission is specified as an external submission with the external reference name "http-field-name:submission-field". The name "submission-field" references a second form field, which includes the file content of "task07.zip". 
+
+As mentioned above, the grader's requirements about the format of the submission is not part of this specification. We usually assume a grader that can process a submission both in the form of a list of individual source code files and in the form of a zip archive containing the source code files.  In future versions of the ProFormA format there might be an additional *grader specification* format that can be used to define requirements of graders to be read and adhered to by frontends.
+
+#### 5.5.2 The task's requirements
+
+For the sake of defining task-specific restrictions on submitted files we concentrate on the content of a submitted zip archive, or - if not archived - on the set of submitted source code files. The submission-restrictions element can specify restrictions for these files. By default there are no restrictions. When specified, the submission-restrictions element defines required and optional files. A valid submission must meet each of the following file-restrictions, i. e. it *must* contain all files specified by *required=true* elements and it *is allowed* to contain files specified by *required=false* elements. Submissions that include even more files than those specified as required or optional are still accepted, but frontends and graders will ignore all these additional files. This allows students to successfully submit zip files accidentally containing  inivisible files like `.DS_Store`. Enforcing submission restrictions is up to the LMS, middleware, or grader.
+
+All file-restrictions are file paths relative to a root directory, e. g. in case of a submitted archive the archive root directory. The submission part of this specification defines four file variants: embedded-bin-file, embedded-txt-file, attached-bin-file, attached-txt-file. All variants include the specification of a filename or a path. That filename or path is referred to in the following specification of file-restrictions.
+
+The file-restrictions can be specified in two ways:
+- literally. The directory separator is /. A leading "/" is allowed. If it is missing, it is silently inserted as the first character.
+- as a regular expression  (specified regexp language in [regexp-language-restriction] (#regexp-language-specification)). Directory separators are matched by the meta character representing any character (the dot).
+
+The submission-restrictions element has one optional attribute:
+
+-  <b>max-size</b> specifies the maximum size of a file in bytes which should be   accepted. If the submission is a bundle like a zip archive, the size of the archive must not exceed the specified maximum size.   If the submission consists of several individual files, the sum of all individual file sizes must not exceed the specified maximum size.   Systems which have a stronger limit of the file size should print a warning to the uploading user. If this attribute is missing, a system default value will be used.
+
+The file-restriction element has an optional boolean <b>required</b> attribute (default is true). The element content specifies the path of the respective file(s). Additionally a file-restriction element can define a <b>pattern-format</b> attribute in order to specify a regular expression in the element content. Currently the only supported pattern-format is "regexp" meaning a regular expression in the language specified in [regexp-language-restriction] (#regexp-language-specification)).
+    
+
+###### Code-Beispiel
+
+```xml
+<tns:submission-restrictions max-size="7000">
+    <tns:file-restriction>org/domain/Main.java</file-restriction>
+    <tns:file-restriction>org/domain/util/Frac.java</file-restriction>
+    <tns:file-restriction required="false" pattern-format="regexp">.+\.java</file-restriction>
+<tns:submission-restrictions>
+```
+
+
+#### Regexp language specification
+
+This format currently supports the intersection of the dialects supported by the following three libraries: libpcre 8.42, Java SE 6 (java.util.regex.Pattern), Onigmo 6.9.0 (with ONIG_SYNTAX_PERL).
+
+
+
+
+
+
+### OUTDATED?: 5.5 The submission-restrictions part
 
 The submission-restrictions element can specify restrictions for the upload of
 (submission) files - by default there are no restrictions. There is a choice
