@@ -733,9 +733,10 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>          
-    <xs:attribute name="used-by-lms" use="required">
+    <xs:attribute name="usage-by-lms" use="optional" default="download">
       <xs:simpleType>
         <xs:restriction base="xs:string">
+          <xs:enumeration value="edit"/>
           <xs:enumeration value="display"/>
           <xs:enumeration value="download"/>
         </xs:restriction>
