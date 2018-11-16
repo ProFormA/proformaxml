@@ -708,8 +708,8 @@ The file element includes or links a single file to a task. Each instance/file m
 The attribute <b>visible</b> determines whether or not the LMS makes the file available to students. Its values <b>yes</b> and <b>no</b> should be clear. The third possible value
 (<b>delayed</b>) can be used for files which may be shown to students after the
 submission or after a certain deadline has passed. 
-The optional attribute <b>usage-by-lms</b> determines how the file is displayed by the LMS. The choices are "download" (a download link is provided), "display" (the file content is displayed - non-editable for students and editable for teachers) or "edit" (the content is displayed in a text area which can be edited and submitted by students). The default value is "download". 
-Teachers should generally be able to see and edit all files.
+The optional attribute <b>usage-by-lms</b> determines how the file is displayed by the LMS. The choices are "download" (a download link is provided), "display" (the file content is displayed) or "edit" (the content is displayed in a text area which can be edited and submitted by students). The default value is "download". 
+Teachers should generally be able to see all files when they are marking a submission. At that stage, they should not be editing files anymore, thus "edit" is only relevant for students.
 The following table shows some examples for the use of the three attributes:
 
 <table>
