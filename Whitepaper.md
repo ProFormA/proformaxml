@@ -705,7 +705,7 @@ The files element contains 0 or more file elements. A file element is used to at
 #### The file element
 
 The file element includes or links a single file to a task. Each instance/file must have a (task) unique string in its <b>id</b> attribute (in order to reference this file within this task) and has to be classified using three attributes: <b>used-by-grader</b> determines whether the file must be sent to the grader or not.
-The attribute <b>visible</b> determines whether or not the lms makes the file available to students. Its values <b>yes</b> and <b>no</b> should be clear. The third possible value
+The attribute <b>visible</b> determines whether or not the LMS makes the file available to students. Its values <b>yes</b> and <b>no</b> should be clear. The third possible value
 (<b>delayed</b>) can be used for files which may be shown to students after the
 submission or after a certain deadline has passed. 
 The optional attribute <b>usage-by-lms</b> determines how the file is displayed by the LMS. The choices are "download" (a download link is provided), "display" (the file content is displayed - non-editable for students and editable for teachers) or "edit" (the content is displayed in a text area which can be edited and submitted by students). The default value is "download". 
@@ -720,6 +720,11 @@ The following table shows some examples for the use of the three attributes:
     their submission, then this textfield should be pre-filled with the template.</td>
   <td>yes</td>
   <td>edit</td><td>no
+</td></tr>
+<tr><td><b>image</b></td>
+  <td>An image file that is displayed after the description.</td>
+  <td>yes</td>
+  <td>display</td><td>no
 </td></tr>
 <tr><td><b>instruction</b></td>
   <td>Instructions for handling the task, e.g. UML activity diagrams.</td>
