@@ -67,7 +67,7 @@ Files are distinguished by binary ("bin") and plaintext ("txt") content, enablin
 
 #### The embedded-bin-file element
 
-The embedded-bin-file element is used to embed a file containing binary content directly into XML. The file content must be encoded to Base64. embedded-bin-file requires a **filename**.
+The embedded-bin-file element is used to embed a file containing binary content directly into XML. The file content must be encoded to Base64. embedded-bin-file requires a **filename**, which may also consist of a relative file path as part of the filename so that a grader or middleware can replicate the directory or package structure the file is located in.
 
 ###### Code-Beispiel
 ```xml
@@ -82,7 +82,7 @@ The embedded-bin-file element is used to embed a file containing binary content 
 
 #### The embedded-txt-file element
 
-The embedded-txt-file element is used to embed a file containing plaintext content directly into XML. The file content must be encoded to UTF-8, which is the same encoding that the XML document is encoded in. embedded-txt-file requires a **filename**.
+The embedded-txt-file element is used to embed a file containing plaintext content directly into XML. The file content must be encoded to UTF-8, which is the same encoding that the XML document is encoded in. embedded-txt-file requires a **filename**, which may also consist of a relative file path as part of the filename so that a grader or middleware can replicate the directory or package structure the file is located in.
 
 ###### Code-Beispiel
 ```xml
