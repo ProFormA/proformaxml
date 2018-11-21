@@ -32,17 +32,17 @@ description, required programming language and suggested tests for
 evaluating the student submitted code so that exercises written for one
 tool can be exported and imported into another tool.
 
-The format contains three main parts: <b>task</b>, <b>submission</b> and <b>response</b> 
-which are each described below. 
+The format contains three main parts: **task**, **submission** and
+**response** which are each described below.
 
 (Because of the length of this whitepaper, it can be helpful to use a userscript that collapses markdown.)
 
 ## 2 Internationalization
 
 If a ProFormA task contains only one natural
-language, this is indicated by using the <b>lang</b> attribute of the <b>task</b> element. In case of
-multiple languages, the <b>lang</b> attribute of the <b>task</b> element contains the main
-language and translations can be indicated by using markup with <b>@@@</b> and a file <b>strings.txt</b> with translations that is stored in "lang/en/strings.txt", "lang/de/strings.txt", "lang/en_us/strings.txt", etc. ISO 639-1 and 3166-1 ALPHA2 are used for indicating languages and regions.
+language, this is indicated by using the **lang** attribute of the **task** element. In case of
+multiple languages, the **lang** attribute of the **task** element contains the main
+language and translations can be indicated by using markup with **@@@** and a file **strings.txt** with translations that is stored in a strings.txt file, e.g.  "lang/en/strings.txt", "lang/de/strings.txt", "lang/en_us/strings.txt", etc. The strings.txt file is structured in the [.properties file format](https://en.wikipedia.org/wiki/.properties) and must be encoded to UTF-8. ISO 639-1 and 3166-1 ALPHA2 are used for indicating languages and regions.
 For example, multiple languages for a title are indicated by
 ```xml
 <title>@@@title2@@@</title>
@@ -51,18 +51,11 @@ with a corresponding line in strings.txt. Mixing markup and non-markup is not al
 ```xml
 <title>@@@title3@@@ is not allowed!!</title>
 ```
-This is relevant for any elements with these names: <b>description</b>, <b>comment</b>, <b>title</b> and <b>content</b>. In the case of files, copies in different languages can be supplied. Such files cannot be embedded in the XML, but their
+This is only relevant for any elements with these names: **description**, **internal-description**, **title** and **content**. It must not be used for attribute values. In the case of files, copies in different languages can be supplied. Such files cannot be embedded in the XML, but their
 filename is marked up:
 ```xml
 <attached-bin-file>@@@pathtofile1@@@</urn:attached-bin-file>
 ```
-The submission part does not contain any markup. The attribute <b>lang</b> in the <b>result-spec</b> of the submission part indicates a preferred language for the response.
-
-TODO: strings.txt files:
-
-- what's in it? key/value pairs separated by equals sign? Spaces around the equals sign are neither part of the key nor the value?
-- What about multiline values?
-- UTF8 encoded?
 
 ## 3 Elements and Types that are used in several parts of the XSD
 
