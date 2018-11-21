@@ -620,14 +620,12 @@
     <xs:choice minOccurs="1" maxOccurs="unbounded">
       <xs:element name="required">
         <xs:complexType>
-          <xs:attributeGroup ref="tns:mimetype-attr-group"/>
           <xs:attributeGroup ref="tns:maxsize-attr-group"/>
           <xs:attribute name="filename" use="required"/>
         </xs:complexType>
       </xs:element>
       <xs:element name="optional">
         <xs:complexType>
-          <xs:attributeGroup ref="tns:mimetype-attr-group"/>
           <xs:attributeGroup ref="tns:maxsize-attr-group"/>
           <xs:attribute name="filename" use="required"/>
         </xs:complexType>
@@ -639,7 +637,6 @@
     <xs:simpleContent>
       <xs:extension base="xs:string">
         <xs:attributeGroup ref="tns:maxsize-attr-group"/>
-        <xs:attributeGroup ref="tns:mimetype-attr-group"/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
@@ -652,13 +649,11 @@
           <xs:choice minOccurs="1" maxOccurs="unbounded">
             <xs:element name="required">
               <xs:complexType>
-                <xs:attributeGroup ref="tns:mimetype-attr-group"/>
                 <xs:attribute name="path" use="required"/>
               </xs:complexType>
             </xs:element>
             <xs:element name="optional">
               <xs:complexType>
-                <xs:attributeGroup ref="tns:mimetype-attr-group"/>
                 <xs:attribute name="path" use="required"/>
               </xs:complexType>
             </xs:element>
@@ -667,14 +662,10 @@
       </xs:element>
     </xs:choice>
     <xs:attributeGroup ref="tns:maxsize-attr-group"/>
-    <xs:attributeGroup ref="tns:mimetype-attr-group"/>
     <xs:attributeGroup ref="tns:archive-attr-group"/>
   </xs:complexType>
   <xs:attributeGroup name="maxsize-attr-group">
     <xs:attribute name="max-size" type="xs:positiveInteger" use="optional"/>
-  </xs:attributeGroup>
-  <xs:attributeGroup name="mimetype-attr-group">
-    <xs:attribute name="mime-type-regexp" type="xs:string" use="optional"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="archive-attr-group">
     <xs:attribute name="allowed-archive-filename-regexp" type="xs:string" use="optional"/>

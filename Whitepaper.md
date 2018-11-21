@@ -547,7 +547,7 @@ The submission part of this specification defines a submission as a list of subm
 
 #### 5.5.1 The grader's requirements
 
-Students might submit their source code as individual files or as a bundle like a zip archive. Graders and frontends might disallow or enforce a specific archive format. The specification of the bundle format (zip or similar) in which files are to be submitted by students, is not the subject of the ProFormA task format because it depends less on the task than on the grader system. If a grader specifies a specific mime type or filename pattern or further requirements about the submission, it is up to the implementers of the frontend system to check or fulfill all restrictions enforced by the connected backend graders. Examples of such implementations are:
+Students might submit their source code as individual files or as a bundle like a zip archive. Graders and frontends might disallow or enforce a specific archive format. The specification of the bundle format (zip or similar) in which files are to be submitted by students, is not the subject of the ProFormA task format because it depends less on the task than on the grader system. If a grader specifies a specific filename pattern or further requirements about the submission, it is up to the implementers of the frontend system to check or fulfill all restrictions enforced by the connected backend graders. Examples of such implementations are:
 
 - The frontend automatically creates a zip from several individually uploaded files and passes the zip to the backend grader. The zip file gets a specific name pattern.
 - The frontend unpacks an uploaded zip file and automatically creates another archive format (e. g. gz).
