@@ -533,38 +533,37 @@ subset of HTML is allowed (see Appendix A).
 
 ### 5.4 The proglang part
 
-The progrlang element contains the programming/modelling/query
+The proglang element contains the programming/modelling/query
 language to which this task applies. A valid list of values is specified
 in Appendix B. The <b>version</b> attribute specifies which version of the
 language was used in the creation of the task. (The task is guaranteed
 to work with that version – any other requirements about version
-compatibility must be checked externally.)  The “version” must be
-entered as a “point” separated list of up to four unsigned integers.
+compatibility must be checked externally.)  The "version" must be
+entered as a "point" separated list of up to four unsigned integers.
 
 ### 5.5 The submission-restrictions part
 
-The submission part of this specification defines a submission as a list of submitted files or as a reference to an external submission. The external reference is required resolvable as a list of files - possibly as a single file. So, after all a submission is a set of one or several files.
+The [submission part](#7-the-submission-part) of this specification defines a submission as a list of submitted files or as a reference to an external submission. The external reference is required resolvable as a list of files - possibly as a single file. So, after all a submission is a set of one or several files.
 
 #### 5.5.1 The grader's requirements
 
-Students might submit their source code as individual files or as a bundle like a zip archive. Graders and frontends might disallow or enforce a specific archive format. The specification of the bundle format (zip or similar) in which files are to be submitted by students, is not the subject of the ProFormA task format because it depends less on the task than on the grader system. If a grader specifies a specific filename pattern or further requirements about the submission, it is up to the implementers of the frontend system to check or fulfill all restrictions enforced by the connected backend graders. Examples of such implementations are:
+Students might submit their source code as individual files or as a bundle like a ZIP archive. Graders and frontends might disallow or enforce a specific archive format. The specification of the bundle format (ZIP or similar) in which files are to be submitted by students, is not the subject of the ProFormA task format because it depends less on the task than on the grader system. If a grader specifies a specific filename pattern or further requirements about the submission, it is up to the implementers of the frontend system to check or fulfill all restrictions enforced by the connected backend graders. Examples of such implementations are:
 
-- Example 1: The frontend automatically creates a zip from several individually uploaded files and passes the zip to the backend grader. The zip file gets a specific name pattern.
-- Example 2: The frontend unpacks an uploaded zip file and automatically creates another archive format (e. g. gz).
-- Example 3: The frontend unpacks an uploaded tar file and automatically inserts every single file into an online repository (e. g. git). The frontend passes an external reference name "git://domain.org/path" to the grader backend. The grader backend resolves the uri and downloads the individual files.
-- Example 4: The frontend expects and enforces students to upload a zip file of the name "task07.zip". The frontend talks to the grader via http. It starts the grading process by an html form submission of type multipart/form-data to the grader. One of the form fields is a file "submission.xml" in the [ProFormA submission format](#7-the-submission-part). The file submission.xml specifies an external submission with the external reference name "http-field-name:submission-field". The name "submission-field" references a second form field, which includes the file content of "task07.zip". 
+- Example 1: The frontend automatically creates a ZIP from several individually uploaded files and passes the ZIP to the backend grader. The ZIP file gets a specific name pattern.
+- Example 2: The frontend unpacks an uploaded ZIP file and automatically creates another archive format (e. g. GZ).
+- Example 3: The frontend unpacks an uploaded TAR file and automatically inserts every single file into an online repository (e. g. git). The frontend passes the external-submission value "git://domain.org/path" to the grader backend. The grader backend resolves the URI and downloads the individual files.
 
-As mentioned above, the grader's requirements about the format of the submission is not part of this specification. We usually assume a grader that can process a submission both in the form of a list of individual source code files and in the form of a zip archive containing the source code files.  In future versions of the ProFormA format there might be an additional *grader specification* format that can be used to define requirements of graders to be read and adhered to by frontends.
+As mentioned above, the grader's requirements about the format of the submission is not part of this specification. We usually assume a grader that can process a submission both in the form of a list of individual source code files and in the form of a ZIP archive containing the source code files.  In future versions of the ProFormA format there might be an additional *grader specification* format that can be used to define requirements of graders to be read and adhered to by frontends.
 
 #### 5.5.2 The task's requirements
 
-For the sake of defining task-specific restrictions on submitted files we concentrate on the content of a submitted zip archive, or - if not archived - on the set of submitted source code files. The submission-restrictions element can specify restrictions for these files. By default there are no restrictions. When specified, the submission-restrictions element defines required and optional files. A valid submission must meet each of the following file-restrictions, i. e. it *must* contain all files specified by *required=true* elements and it *is allowed* to contain files specified by *required=false* elements. Submissions that include even more files than those specified as required or optional are still accepted, but frontends and graders will ignore all these additional files. This allows students to successfully submit zip files accidentally containing  inivisible files like `.DS_Store`. Enforcing submission restrictions is up to the LMS, middleware, or grader.
+For the sake of defining task-specific restrictions on submitted files we concentrate on the content of a submitted ZIP archive, or - if not archived - on the set of submitted source code files. The submission-restrictions element can specify restrictions for these files. By default there are no restrictions. When specified, the submission-restrictions element defines required and optional files. A valid submission must meet each of the following file-restrictions, i. e. it *must* contain all files specified by *required=true* elements and it *is allowed* to contain files specified by *required=false* elements. Submissions that include even more files than those specified as required or optional are still accepted, but frontends and graders will ignore all these additional files. This allows students to successfully submit ZIP files accidentally containing  inivisible files like `.DS_Store`. Enforcing submission restrictions is up to the LMS, middleware, or grader.
 
 All file-restrictions are file paths relative to a root directory. There are three cases to consider: 
 
-- If the [submission files part](#73-the-submission-files-part) contains exactly one embedded or attached archive file (like zip, gz, etc.), then all file-restrictions are interpreted as paths relative to the archive root directory. 
-- If the [submission files part](#73-the-submission-files-part) contains one or more embedded or attached source files (unarchived), then all file-restrictions are interpreted as paths relative to the root directory of all filenames and paths that are specified as part of the embedded or attached files of the submission files part.
-- If the [submission files part](#73-the-submission-files-part) refers to an external submission, then file-restrictions are interpreted as paths relative to a root directory that depends on the specific external source (TODO).
+- If the [submission files part](#74-the-submission-files-part) contains exactly one embedded or attached archive file (like ZIP, GZ, etc.), then all file-restrictions are interpreted as paths relative to the archive root directory. 
+- If the [submission files part](#74-the-submission-files-part) contains one or more embedded or attached source files (unarchived), then all file-restrictions are interpreted as paths relative to the root directory of all filenames and paths that are specified as part of the embedded or attached files of the submission files part.
+- If the [submission files part](#74-the-submission-files-part) refers to an external submission, then file-restrictions are interpreted as paths relative to a root directory that depends on the specific external source (TODO).
 
 The file-restrictions can be specified in two ways:
 
@@ -573,9 +572,9 @@ The file-restrictions can be specified in two ways:
 
 The submission-restrictions element has one optional attribute:
 
--  <b>max-size</b> specifies the maximum size of a file in bytes which should be   accepted. If the submission is a bundle like a zip archive, the size of the archive must not exceed the specified maximum size.   If the submission consists of several individual files, the sum of all individual file sizes must not exceed the specified maximum size.   Systems which have a stronger limit of the file size should print a warning to the uploading user. If this attribute is missing, a system default value will be used.
+-  <b>max-size</b> specifies the maximum size of a file in bytes which should be   accepted. If the submission is a bundle like a ZIP archive, the size of the archive must not exceed the specified maximum size.   If the submission consists of several individual files, the sum of all individual file sizes must not exceed the specified maximum size.   Systems which have a stronger limit of the file size should print a warning to the uploading user. If this attribute is missing, a system default value will be used.
 
-The file-restriction element has an optional boolean <b>required</b> attribute (default is true). The element content specifies the path of the respective file(s). Additionally a file-restriction element optionally can define a <b>pattern-format</b> attribute in order to specify a regular expression in the element content. Currently the only supported pattern-formats are "regexp", meaning a regular expression in the language specified in [regexp-language-restriction](#regexp-language-specification)), and "none", meaning literally specified paths. The default pattern-format is none.
+The file-restriction element has an optional boolean <b>required</b> attribute (default is true). The element content specifies the path of the respective file(s). Additionally a file-restriction element optionally can define a <b>pattern-format</b> attribute in order to specify a regular expression in the element content. Currently the only supported pattern-formats are "posix-ere", meaning a regular expression in the language specified in [regexp-language-restriction](#regexp-language-specification)), and "none", meaning literally specified paths. The default pattern-format is none.
 
 
 ###### Code-Beispiel
@@ -584,7 +583,7 @@ The file-restriction element has an optional boolean <b>required</b> attribute (
 <tns:submission-restrictions max-size="7000">
     <tns:file-restriction>org/domain/Main.java</file-restriction>
     <tns:file-restriction>org/domain/util/Frac.java</file-restriction>
-    <tns:file-restriction required="false" pattern-format="regexp">.+\.java</file-restriction>
+    <tns:file-restriction required="false" pattern-format="posix-ere">^.+\.java$</file-restriction>
 <tns:submission-restrictions>
 ```
 
@@ -798,9 +797,10 @@ other systems.
 
 ## 7 The Submission Part
 
-Students provide submissions to tasks, usually by uploading them to an LMS. A submissions contains all parts necessary to grade a submission for a given task.
+Students provide submissions to tasks, usually by uploading them to an LMS. A student's submission is embraced by a *submission* XML document that contains all parts necessary to grade a student's submission for a given task.
 
-The task that the submission is for is part of the submission. The grading-hints may also be included, which, if specified, override the task's default version of the grading-hints. This is followed by the actual submission files, along with the submission context, such as LMS and submitting student details. At the end is the result specification as requested by the LMS.
+The task that the submission is for is part of the submission XML document. The grading-hints may also be included, which, if specified, override the task's default version of the grading-hints. This is followed by the actual submission files, along with the submission context, such as LMS and submitting student details. At the end is the result specification as requested by the LMS.
+
 
 ###### Code-Beispiel
 
@@ -823,7 +823,23 @@ The task that the submission is for is part of the submission. The grading-hints
 </xs:complexType>
 ```
 
-### 7.1 The task part
+### 7.1 XML and ZIP format
+
+As stated above a submission XML document includes task data and submission data. Both data may comprise files that could be embedded into the submission XML document or that could be attached as part of a submission ZIP file (see also [section Files](#31-files)). 
+
+In case of a ZIP submission the internal structure of the ZIP archive is predefined as follows. In the ZIP root folder there is the submission XML document. All attached files that belong to the actual student's submission must be contained in the folder *submission* inside the submission ZIP archive. All attached files that belong to the task are stored inside a folder *task* inside the submission ZIP archive. In summary, the content of a common submission ZIP archive is structured as follows:
+
+    submission.zip
+	|
+	|-- submission.xml
+	|-- submission
+	|   `-- ... source code files submitted by student and referenced from submission.xml ...
+	`-- task
+	    |-- task.xml
+	    `-- ... some task-specific files referenced from task.xml ...
+
+
+### 7.2 The task part
 
 There are three different ways to include a task into a submission, either as an [XML element](#the-task-element), as an [included-task-file](#the-included-task-file-element), or as an [external-task](#the-external-task-element). Tasks are likely to be cached by grading or middleware systems, which is why each option provides an easily available task-uuid attribute for quick access.
 
@@ -848,7 +864,9 @@ A task may be included as a regular XML element in the submission.
 
 ##### Explanations
 
-Using the included-task-file element, a task may be attached to a submission ZIP archive as an XML using the attached-xml-file element, or a ZIP file using the attached-zip-file element. Alternatively, a task ZIP may be encoded to Base64 and embedded into the submission's XML document. This is useful when submission documents are transferred as bare XML files rather than ZIP files between participating systems.
+Using the included-task-file element, a task may be attached to a submission ZIP archive as an XML file using the attached-xml-file element. Alternatively a task may be attached to a submission ZIP archive as a ZIP file using the attached-zip-file element. In both cases the task XML or ZIP file must be stored in the "/task" folder of the submission ZIP file. The path to the attached XML or ZIP task file is specified relative to the "/task" folder of the submission ZIP archive.
+
+Furthermore, a task ZIP may be encoded to Base64 and embedded into the submission's XML document. This is useful when submission documents are transferred as bare XML files rather than ZIP files between participating systems.
 
 The included-task-file has the following attributes:
 
@@ -860,11 +878,11 @@ The included-task-file has the following attributes:
 
 TODO
 
-### 7.2 The grading-hints part
+### 7.3 The grading-hints part
 
 Teachers may prefer their own (modified) version of the [grading-hints](#4-grading-hints) to the default ones that ship as part of a task. The grading-hints element is an optional part, which, if included, overrides the default grading-hints in the task part of the submission. 
 
-### 7.3 The submission files part
+### 7.4 The submission files part
 
 Students provide solutions to programming tasks by submitting source code files (among other files). There are two ways to submit such files, either by including them into the submission document as [submission-files](#the-submission-file), or by using an already existing [external-submission](#the-external-submission-element) file.
 
@@ -889,7 +907,9 @@ Students provide solutions to programming tasks by submitting source code files 
 ```
 ##### Explanations
 
-The submission-file-type consists of one of the [file types](#31-files) used to attach and embed files to a submission. It has the following attributes.
+The submission-file-type consists of one of the [file types](#31-files) used to attach and embed files to a submission. Paths of attached files are relative to the "/submission" folder inside the submission ZIP archive. 
+
+The submission-file-type has the following attributes.
 
 - **mimetype**
 
@@ -903,11 +923,11 @@ Note that source code (or any kind of text, for that matter) written inside an o
 
 #### The external-submission element
 
-Another way to specify a student submission is to provide a reference to an already existing submission by means of the external-submission element. 
+Another way to specify a student submission is to provide a reference to an already existing submission by means of the external-submission element. The external reference is required resolvable as a list of files - possibly as a single file.
 
 TODO
 
-### 7.4 The LMS part
+### 7.5 The LMS part
 
 ###### Code-Beispiel
 
@@ -948,7 +968,7 @@ If necessary, additional information can be provided in the any namespace elemen
 
 Using the [user-id](#user-id) element along with the [task uuid](#52-task-attributes) attribute, graders are able to put submissions into context, allowing for submission penalties. For example, if the teacher put submission attempt restrictions in place, such as a submission deadline, late submissions might result in a reduction of the total score.
 
-### 7.5 The result-spec part
+### 7.6 The result-spec part
 
 ###### Code-Beispiel
 

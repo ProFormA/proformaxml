@@ -609,67 +609,27 @@
   </xs:complexType>
 
   <xs:complexType name="submission-restrictions-type">
-    <xs:choice maxOccurs="unbounded">
-      <xs:element name="archive-restriction" type="tns:archive-restr-type"/>
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
       <xs:element name="file-restriction" type="tns:file-restr-type"/>
-      <xs:element name="regexp-restriction" type="tns:file-regexp-restr-type"/>
-    </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="max-size" type="xs:positiveInteger" use="optional"/>
   </xs:complexType>
 
   <xs:complexType name="file-restr-type">
-    <xs:choice minOccurs="1" maxOccurs="unbounded">
-      <xs:element name="required">
-        <xs:complexType>
-          <xs:attributeGroup ref="tns:maxsize-attr-group"/>
-          <xs:attribute name="filename" use="required"/>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="optional">
-        <xs:complexType>
-          <xs:attributeGroup ref="tns:maxsize-attr-group"/>
-          <xs:attribute name="filename" use="required"/>
-        </xs:complexType>
-      </xs:element>
-    </xs:choice>
-  </xs:complexType>
-
-  <xs:complexType name="file-regexp-restr-type">
     <xs:simpleContent>
       <xs:extension base="xs:string">
-        <xs:attributeGroup ref="tns:maxsize-attr-group"/>
+        <xs:attribute name="required" type="xs:boolean" use="optional" default="true"/>
+        <xs:attribute name="pattern-format" use="optional" default="none">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="none"/>
+              <xs:enumeration value="posix-ere"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>  
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
-
-  <xs:complexType name="archive-restr-type">
-    <xs:choice>
-      <xs:element name="unpack-files-from-archive-regexp" type="xs:string"/>
-      <xs:element name="file-path-restrictions">
-        <xs:complexType>
-          <xs:choice minOccurs="1" maxOccurs="unbounded">
-            <xs:element name="required">
-              <xs:complexType>
-                <xs:attribute name="path" use="required"/>
-              </xs:complexType>
-            </xs:element>
-            <xs:element name="optional">
-              <xs:complexType>
-                <xs:attribute name="path" use="required"/>
-              </xs:complexType>
-            </xs:element>
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
-    </xs:choice>
-    <xs:attributeGroup ref="tns:maxsize-attr-group"/>
-    <xs:attributeGroup ref="tns:archive-attr-group"/>
-  </xs:complexType>
-  <xs:attributeGroup name="maxsize-attr-group">
-    <xs:attribute name="max-size" type="xs:positiveInteger" use="optional"/>
-  </xs:attributeGroup>
-  <xs:attributeGroup name="archive-attr-group">
-    <xs:attribute name="allowed-archive-filename-regexp" type="xs:string" use="optional"/>
-  </xs:attributeGroup>
 
   <xs:complexType name="model-solutions-type">
     <xs:sequence maxOccurs="unbounded">
