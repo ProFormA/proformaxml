@@ -611,12 +611,12 @@ Teachers should generally be able to see all files when they are marking a submi
 The following table shows some examples for the use of the three attributes:
 
 <table>
-   <tr><th>visible (to students)</th><th>usage-by-lms</th><th>used-by-grader</th><th>file class (in version 1.0.1)</th><th>Description</th></tr>
+   <tr><th>visible (to students)</th><th>usage-by-lms</th><th>used-by-grader</th><th>(file class in version 1.0.1)</th><th>Description</th></tr>
 <tr>
   <td>yes</td>
   <td>edit</td>
   <td>no</td>
-  <td><b>template</b></td>
+  <td>template</td>
   <td>Template for students to be used as a
     starting point for their solution. If a textfield is supplied for students to upload
     their submission, then this textfield should be pre-filled with the template.
@@ -624,44 +624,44 @@ The following table shows some examples for the use of the three attributes:
 <tr>
   <td>yes</td>
   <td>display</td><td>no</td>
-  <td><b>image</b></td>
+  <td>image</td>
   <td>An image file that is displayed after the description.
 </td></tr>
 <tr>
   <td>yes</td>
   <td>download</td><td>no</td>
-  <td><b>instruction</b></td>
+  <td>instruction</td>
   <td>Instructions for handling the task, e.g. UML activity diagrams.
 </td></tr>
 <tr>
    <td>yes</td>
    <td>download</td><td>yes (As specified by compiler test)</td>
-   <td><b>library</b></td> 
+   <td>library</td> 
    <td>Library to be used by students.
 </td></tr>
 <tr>
    <td>no or delayed</td>
    <td>download</td>
    <td>yes (As specified by compiler test)</td>
-   <td> <b>internal-library</b></td>
+   <td>internal-library</td>
    <td>Like library, but not made available to students.
 </td></tr>
 <tr>
    <td>yes</td>
    <td>download</td><td>yes (As specified by execution test)</td>
-    <td><b>source-code</b></td>
+    <td>source-code</td>
    <td>Similar to library, but pre-compiled, for example header libraries for C. 
 </td></tr>
 <tr>
    <td>yes</td>
    <td>download</td><td>yes (As specified by execution test)</td>
-   <td><b>inputdata</b></td> 
+   <td>inputdata</td> 
    <td>Contains data which the algorithm of the students should work with.
 </td></tr>
 <tr>
     <td>no or delayed</td>
    <td>download</td><td>yes (As specified by tests)</td>
-   <td><b>internal</b></td>
+   <td>internal</td>
    <td>May be required for processing the task/tests within the system. Examples are 
     JUnit tests and model solutions.
 </td></tr>
@@ -706,6 +706,7 @@ The model-solution element links one single model-solution to a task. Each
 solution must have a (task) unique string in its <b>id</b> attribute.
 The model-solution must refer to one or more files using the filerefs/fileref tag.
 The optional element <b>description</b> can be used to describe the model solution in detail. Additionally, the optional element <b>internal-description</b> may provide instructions to teachers and tutors on how to manually evaluate a student's solution. Text in description and internal-description may be formatted as HTML if required.
+At the moment there is no attribute which specifies whether a model solution actually achieves full marks. If a model solution does not achieve full marks, this should be explained in the description or internal-description elements.
 
 ### 5.9 The tests part
 
