@@ -69,7 +69,7 @@ Files are distinguished by binary ("bin") and plaintext ("txt") content, enablin
 
 The embedded-bin-file element is used to embed a file containing binary content directly into XML. The file content must be encoded to Base64. embedded-bin-file requires a **filename**, which may also consist of a relative file path as part of the filename so that a grader or middleware can replicate the directory or package structure the file is located in.
 
-###### Code-Beispiel
+###### Code
 ```xml
 <xs:complexType name="embedded-bin-file-type">
   <xs:simpleContent>
@@ -84,7 +84,7 @@ The embedded-bin-file element is used to embed a file containing binary content 
 
 The embedded-txt-file element is used to embed a file containing plaintext content directly into XML. The file content must be encoded to UTF-8, which is the same encoding that the XML document is encoded in. embedded-txt-file requires a **filename**, which may also consist of a relative file path as part of the filename so that a grader or middleware can replicate the directory or package structure the file is located in.
 
-###### Code-Beispiel
+###### Code
 ```xml
 <xs:complexType name="embedded-txt-file-type">
   <xs:simpleContent>
@@ -101,7 +101,7 @@ The attached-bin-file element is used to attach files containing binary content 
 
 The relative path to the binary file within the ZIP archive is specified in the element content (i.e. the element's text node).
 
-###### Code-Beispiel
+###### Code
 ```xml
 <xs:simpleType name="attached-bin-file-type">
   <xs:restriction base="xs:string"/>
@@ -132,7 +132,7 @@ The relative path to the plaintext file within the ZIP archive is specified in t
 
 Ideally, we would choose between the embedded-txt-file or the attached-txt-file element to use for a text file submitted by the student. However, since embedded-txt-file requires the file content to be encoded in UTF-8, or another known encoding so that the file can be re-encoded to UTF-8, it is not possible to use embedded-txt-file for files whose encoding is unknown, in which case we *have* to use the attached-txt-file element, without the encoding attribute, and leave the guesswork about the encoding up to the middleware or grader.
 
-###### Code-Beispiel
+###### Code
 ```xml
 <xs:complexType name="attached-txt-file-type">
   <xs:simpleContent>
@@ -164,7 +164,7 @@ The feedback-level is used for submission and response documents. Usually, feedb
 
     The feedback contains error information, e.g. the student's source code resulted in a compile-time error that caused the entire test case to fail. This error type should not be confused with the response's [is-internal-error](Whitepaper.md#is-internal-error) flag, which indicates that an error occurred on the part of the grading system.
 
-###### Code-Beispiel
+###### Code
 ```xml
 <xs:simpleType name="feedback-level-type">
   <xs:restriction base="xs:string">
@@ -180,7 +180,7 @@ The feedback-level is used for submission and response documents. Usually, feedb
 
 A grading-hints section of a ProFormA task or a ProFormA submission defines, how a grader should calculate a total result from individual test results. Most ProFormA tasks define several tests. Every test is expected to generate a score from the interval [0,1]. The grading-hints element defines groups of tests and groups of groups in a tree like manner. This way the grading-hints element includes the complete hierarchical grading scheme with all tests references, weights, accumulating functions and nullify conditions. Hierarchy nodes and conditions can get a title and descriptions. All information below the grading-hints element except the root node is optional.
 
-###### Code-Beispiel
+###### Code
 ```xml
 <xs:complexType name="grading-hints-type">
   <xs:sequence>
@@ -203,7 +203,7 @@ Grader-specific hints from other XML namespaces can be included with the grading
 
 The above root and combine elements both are of the following grades-node-type:
 
-###### Code-Beispiel
+###### Code
 ```xml
 <xs:complexType name="grades-node-type">
   <xs:sequence>
@@ -248,7 +248,7 @@ A valid grading-hints element requires every combine element to be referenced by
 
 The above combine-ref and test-ref elements both are derived from a common base type, namely grades-base-ref-child-type which is described below. To illustrate these elements, let's think about the following typical example of two combine elements and one root element:
 
-###### Code-Beispiel
+###### Code
 ```xml
 <tns:grading-hints>
   <tns:root function="sum">
@@ -271,7 +271,7 @@ The above combine-ref and test-ref elements both are derived from a common base 
 
 The example demonstrates that test-ref and combine-ref elements define an optional weight and a referenced identifier. Both elements are specified as follows: 
 
-###### Code-Beispiel
+###### Code
 ```xml
 <xs:complexType name="grades-base-ref-child-type">
   <xs:sequence>
@@ -317,7 +317,7 @@ A last important element of a child reference (test-ref or combine-ref) are so-c
 
 Sometimes a teacher or a task author wants to nullify scores for advanced style aspects if the basic functionality aspects do not exceed a certain threshold. This seems reasonable when we take a closer look at static code analysis tools ("style checker") that often count rule violations. In the above example a student can easily achieve high scores in test3 and test4 when submitting a minimal program that has near to zero functionality. For this, the task author includes a nullify condition at the child reference to the advanced child:
 
-###### Code-Beispiel
+###### Code
 ```xml
 <tns:grading-hints>
   <tns:root function="sum">
@@ -372,7 +372,7 @@ A nullify-conditions element is attributed with one of the boolean operators { a
 
 The nullify-conditions element's base type (grades-nullify-base-type) defines titles and descriptions that could be displayed by a grader when explaining a score nullification to students or teachers. 
 
-###### Code-Beispiel
+###### Code
 ```xml
 <xs:complexType name="grades-nullify-base-type">
   <xs:sequence>
@@ -407,7 +407,7 @@ The nullify-conditions element's base type (grades-nullify-base-type) defines ti
 
 A simple comparison condition is represented by the following nullify-condition element.
 
-###### Code-Beispiel
+###### Code
 ```xml
 <xs:complexType name="grades-nullify-condition-type">
   <xs:complexContent>
@@ -494,7 +494,7 @@ task can have many tests.
 The general structure of the task part is given as follows (this is
 meant to provide an overview and does not represent a minimal document):
 
-###### Code-Beispiel
+###### Code
 
 ```xml
     <tns:task>
@@ -577,7 +577,7 @@ The submission-restrictions element has one optional attribute:
 The file-restriction element has an optional boolean <b>required</b> attribute (default is true). The element content specifies the path of the respective file(s). Additionally a file-restriction element optionally can define a <b>pattern-format</b> attribute in order to specify a regular expression in the element content. Currently the only supported pattern-formats are "posix-ere", meaning a regular expression in the language specified in [regexp-language-restriction](#regexp-language-specification)), and "none", meaning literally specified paths. The default pattern-format is none.
 
 
-###### Code-Beispiel
+###### Code
 
 ```xml
 <tns:submission-restrictions max-size="7000">
@@ -723,7 +723,7 @@ test-meta-data element.
 
 The general structure of the test part is given as follows:
 
-###### Code-Beispiel
+###### Code
 
 ```xml
     <tns:tests>
@@ -802,7 +802,7 @@ Students provide submissions to tasks, usually by uploading them to an LMS. A st
 The task that the submission is for is part of the submission XML document. The grading-hints may also be included, which, if specified, override the task's default version of the grading-hints. This is followed by the actual submission files, along with the submission context, such as LMS and submitting student details. At the end is the result specification as requested by the LMS.
 
 
-###### Code-Beispiel
+###### Code
 
 ```xml
 <xs:complexType name="submission-type">
@@ -849,7 +849,7 @@ A task may be included as a regular XML element in the submission.
 
 #### The included-task-file element
 
-###### Code-Beispiel
+###### Code
 
 ```xml
 <xs:complexType name="included-task-file-type">
@@ -888,7 +888,7 @@ Students provide solutions to programming tasks by submitting source code files 
 
 #### The submission-file
 
-###### Code-Beispiel
+###### Code
 
 ```xml
 <xs:complexType name="submission-file-type">
@@ -929,7 +929,7 @@ TODO
 
 ### 7.5 The LMS part
 
-###### Code-Beispiel
+###### Code
 
 ```xml
 <xs:complexType name="lms-type">
@@ -970,7 +970,7 @@ Using the [user-id](#user-id) element along with the [task uuid](#52-task-attrib
 
 ### 7.6 The result-spec part
 
-###### Code-Beispiel
+###### Code
 
 ```xml
 <xs:complexType name="result-spec-type">
@@ -1092,7 +1092,7 @@ If neither student-feedback-level nor teacher-feedback-level are specified, no [
 
 The response contains the results of a graded submission.
 
-###### Code-Beispiel
+###### Code
 
 ```xml
 <xs:complexType name="response-type">
@@ -1112,7 +1112,7 @@ The response contains the results of a graded submission.
 
 The merged-test-feedback element holds two feedback elements that act as a single HTML "blob". This blob can be embedded and displayed accordingly in LMS that are less capable in terms of handling complex feedback structures. Additionally, merged-test-feedback provides a precalculated [overall-result](#the-result-element) element, making the total score of a task easily accessible.
 
-###### Code-Beispiel
+###### Code
 
 ```xml
 <xs:complexType name="merged-test-feedback-type">
@@ -1128,7 +1128,7 @@ The merged-test-feedback element holds two feedback elements that act as a singl
 
 The merged-feedback element contains the entire submission feedback formatted as a single HTML fragment. How the information is structured is up to the grader. For the sake of completeness, the feedback should include the feedback text, score, as well as any files relevant to the tests and sub-tests listed in the [grading-hints](#4-grading-hints) element. Files should be included "in-line" in the HTML using the [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme) or JavaScript.
 
-###### Code-Beispiel
+###### Code
 
 ```xml
 <xs:simpleType name="merged-feedback-type">
@@ -1138,7 +1138,7 @@ The merged-feedback element contains the entire submission feedback formatted as
 
 #### The result element
 
-###### Code-Beispiel
+###### Code
 
 ```xml
   <xs:complexType name="result-type">
@@ -1167,7 +1167,7 @@ The separate-test-feedback element contains the general feedback for the entire 
 
 Calculating a submission's total score based on partial results of separate tests, as well as presenting these results along with the feedback to the student (or teacher) must be handled by the LMS.
 
-###### Code-Beispiel
+###### Code
 
 ```xml
   <xs:complexType name="separate-test-feedback-type">
@@ -1182,7 +1182,7 @@ Calculating a submission's total score based on partial results of separate test
 
 The feedback-list contains zero or more [feedback](#the-feedback-element) elements for both the student and teacher. While a response document structured in the form of [separate-test-feedback](#82-the-separate-test-feedback-element) must contain a [result](#the-result-element) element for each [test-response](#the-test-response-element), the test-responses are not required to have any feedback, depending on the settings used in the result specification (see [student-feedback-level and teacher-feedback-level](Whitepaper.md#the-student-feedback-level-and-teacher-feedback-level-elements)).
 
-###### Code-Beispiel
+###### Code
 
 ```xml
 <xs:complexType name="feedback-list-type">
@@ -1199,7 +1199,7 @@ The feedback-list contains zero or more [feedback](#the-feedback-element) elemen
 
 The feedback element is the immediate feedback for a specific test, a sub-test, or a submission as a whole.
 
-###### Code-Beispiel
+###### Code
 
 ```xml
 <xs:complexType name="feedback-type">
@@ -1264,7 +1264,7 @@ The test-response element represents the result for a single test. It may consis
 
     The id attribute is used to refer to the corresponding test element in the grading-hints.
 
-###### Code-Beispiel
+###### Code
 
 ```xml
 <xs:complexType name="test-response-type">
@@ -1280,7 +1280,7 @@ The test-response element represents the result for a single test. It may consis
 
 The test-result element holds the result and the [feedback](#the-feedback-list-element) for a submission or an individual test.
 
-###### Code-Beispiel
+###### Code
 
 ```xml
 <xs:complexType name="test-result-type">
@@ -1297,7 +1297,7 @@ The subtest-response element consists of a [test-result](#the-test-result-elemen
 
 Using the id attribute, a subtest-response is connected to the corresponding sub-test (and thus, the parent test) that is listed in the grading-hints.
 
-###### Code-Beispiel
+###### Code
 
 ```xml
 <xs:complexType name="subtest-response-type">
@@ -1312,7 +1312,7 @@ Using the id attribute, a subtest-response is connected to the corresponding sub
 
 The response-file-type consists of one of the [file types](#31-files) used to attach and embed files to a response. 
 
-###### Code-Beispiel
+###### Code
 
 ```xml
 <xs:complexType name="response-file-type">
@@ -1351,7 +1351,7 @@ The response-file-type consists of one of the [file types](#31-files) used to at
 
 The response-meta-data element contains information about the grading system used to grade the submission, like the grader's name and version, as well as an any namespace for any additional meta data relevant to the submission response.
 
-###### Code-Beispiel
+###### Code
 
 ```xml
 <xs:complexType name="response-meta-data-type">
