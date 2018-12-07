@@ -611,50 +611,59 @@ Teachers should generally be able to see all files when they are marking a submi
 The following table shows some examples for the use of the three attributes:
 
 <table>
-   <tr><th>name</th><th>Description</th><th>visible (to students)</th><th>usage-by-lms</th><th>used-by-grader</th></tr>
-<tr><td><b>template</b></td>
+   <tr><th>visible (to students)</th><th>usage-by-lms</th><th>used-by-grader</th><th>file class (in version 1.0.1)</th><th>Description</th></tr>
+<tr>
+  <td>yes</td>
+  <td>edit</td>
+  <td>no</td>
+  <td><b>template</b></td>
   <td>Template for students to be used as a
     starting point for their solution. If a textfield is supplied for students to upload
-    their submission, then this textfield should be pre-filled with the template.</td>
-  <td>yes</td>
-  <td>edit</td><td>no
+    their submission, then this textfield should be pre-filled with the template.
 </td></tr>
-<tr><td><b>image</b></td>
-  <td>An image file that is displayed after the description.</td>
+<tr>
   <td>yes</td>
-  <td>display</td><td>no
+  <td>display</td><td>no</td>
+  <td><b>image</b></td>
+  <td>An image file that is displayed after the description.
 </td></tr>
-<tr><td><b>instruction</b></td>
-  <td>Instructions for handling the task, e.g. UML activity diagrams.</td>
+<tr>
   <td>yes</td>
-  <td>download</td><td>no
+  <td>download</td><td>no</td>
+  <td><b>instruction</b></td>
+  <td>Instructions for handling the task, e.g. UML activity diagrams.
 </td></tr>
-<tr><td><b>library</b></td> 
-   <td>Library to be used by students. </td>
+<tr>
    <td>yes</td>
    <td>download</td><td>yes (As specified by compiler test)</td>
+   <td><b>library</b></td> 
+   <td>Library to be used by students.
 </td></tr>
-<tr><td> <b>internal-library</b></td>
-   <td>Like library, but not made available to students.</td>
+<tr>
    <td>no or delayed</td>
    <td>download</td>
    <td>yes (As specified by compiler test)</td>
+   <td> <b>internal-library</b></td>
+   <td>Like library, but not made available to students.
 </td></tr>
-<tr><td><b>source-code</b></td>
+<tr>
+   <td>yes</td>
+   <td>download</td><td>yes (As specified by execution test)</td>
+    <td><b>source-code</b></td>
    <td>Similar to library, but pre-compiled, for example header libraries for C. 
+</td></tr>
+<tr>
    <td>yes</td>
    <td>download</td><td>yes (As specified by execution test)</td>
+   <td><b>inputdata</b></td> 
+   <td>Contains data which the algorithm of the students should work with.
 </td></tr>
-<tr><td><b>inputdata</b></td> 
-   <td>Contains data which the algorithm of the students should work with. </td>
-   <td>yes</td>
-   <td>download</td><td>yes (As specified by execution test)</td>
-</td></tr>
-<tr><td><b>internal</b></td>
-   <td>May be required for processing the task/tests within the system. Examples are 
-    JUnit tests and model solutions.</td>
+<tr>
     <td>no or delayed</td>
    <td>download</td><td>yes (As specified by tests)</td>
+   <td><b>internal</b></td>
+   <td>May be required for processing the task/tests within the system. Examples are 
+    JUnit tests and model solutions.
 </td></tr>
 </table>
 
