@@ -500,6 +500,7 @@ meant to provide an overview and does not represent a minimal document):
     <tns:task>
         <tns:title></tns:title>
         <tns:description></tns:description>
+        <tns:internal-description></tns:internal-description>
         <tns:proglang version=""></tns:proglang>
         <tns:submission-restrictions />
         <tns:files />
@@ -529,6 +530,9 @@ the the ISO 639-1 standard for language codes (e.g. `de`) and ISO
 ### 5.3 The description part
 
 The description element contains the task description as text. A
+subset of HTML is allowed (see Appendix A).
+
+The internal-description element contains text dedicated to teachers only. A 
 subset of HTML is allowed (see Appendix A).
 
 ### 5.4 The proglang part
