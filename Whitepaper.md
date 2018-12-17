@@ -671,20 +671,7 @@ The following table shows some examples for the use of the three attributes:
 </td></tr>
 </table>
 
-The information about how a file is used in a test is supplied by the
-test-configuration which uses a file (via its ID). Further details can
-be provided in the optional <b>internal-description</b> element. The file itself can be
-embedded into the XML (recommended for shorter plain text files) or can
-be included in the ZIP-archive (recommended for binary files). If a file
-is embedded, the <b>type</b> attribute must be set to “embedded” and the text
-content of the element is the file content. The <b>filename</b> attribute can
-be set to define a filename (e.g., for Java classes where the class
-name must be equal to the filename, it can also include a relative
-path). This attribute defines the name the file will have when it is
-executed. If the name is unimportant, a default name can be used. If a
-file is not embedded, the <b>type</b> attribute must be set to “file” and the
-text content of the element contain the filename within the task ZIP
-archive (which can be different from the filename attribute).
+The information about how a file is used in a test is supplied by the test-configuration which uses a file (via its ID). Further details can be provided in the optional <b>internal-description</b> element. The file itself can be embedded into the XML (recommended for shorter plain text files) or can be included in the ZIP-archive (recommended for binary files). See [section <em>Files</em>](#31-files) for details on how to embed or attach a file. The <b>filename</b> attribute of an embedded file can be set to define a filename (e.g., for Java classes where the class name must be equal to the filename, it can also include a relative path). This attribute defines the name the file will have when it is executed. If the name is unimportant, a default name can be used.
 
 ### 5.7 The external-resources part
 
