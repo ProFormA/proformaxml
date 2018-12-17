@@ -883,7 +883,7 @@ The included-task-file has the following attributes:
 
 #### The external-task element
 
-TODO
+An external task must be represented by a single URI, e.g. `https://somerepository.org/sometaskid/task.zip`. The resource referenced by this URI must be a single archive file (e.g. `task.zip`) containing the `task.xml` as well as any other files related to the task. The archive's filename can be chosen freely, it does not matter. The URI may contain any network protocol, provided the middleware/grader and the server hosting the task file are capable of using it. If accessing the task resource requires the middleware to authenticate with the hosting server, the authentication data should be stored with the middleware itself.
 
 ### 7.3 The grading-hints part
 
@@ -930,9 +930,7 @@ Note that source code (or any kind of text, for that matter) written inside an o
 
 #### The external-submission element
 
-Another way to specify a student submission is to provide a reference to an already existing submission by means of the external-submission element. The external reference is required resolvable as a list of files - possibly as a single file.
-
-TODO
+Another way to specify a student submission is to provide a reference to an externally available submission file. The external-submission element works similarly to the [external-task element](#the-external-task-element) in that it must also be represented by a single URI. The only difference is that in addition to a single archive file (e.g. `submission.zip`), the external submission URI may also reference a resolvable list of files, such as a web directory.
 
 ### 7.5 The LMS part
 
