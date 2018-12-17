@@ -619,7 +619,7 @@ The following table shows some examples for the use of the three attributes:
 <tr>
   <td>yes</td>
   <td>edit</td>
-  <td>no</td>
+  <td>false</td>
   <td>template</td>
   <td>Template for students to be used as a
     starting point for their solution. If a textfield is supplied for students to upload
@@ -627,44 +627,50 @@ The following table shows some examples for the use of the three attributes:
 </td></tr>
 <tr>
   <td>yes</td>
-  <td>display</td><td>no</td>
+  <td>display</td>
+  <td>false</td>
   <td>image</td>
   <td>An image file that is displayed after the description.
 </td></tr>
 <tr>
   <td>yes</td>
-  <td>download</td><td>no</td>
+  <td>download</td>
+  <td>false</td>
   <td>instruction</td>
   <td>Instructions for handling the task, e.g. UML activity diagrams.
 </td></tr>
 <tr>
    <td>yes</td>
-   <td>download</td><td>yes (As specified by compiler test)</td>
+   <td>download</td>
+   <td>true (As specified by compiler test)</td>
    <td>library</td> 
    <td>Library to be used by students.
 </td></tr>
 <tr>
    <td>no or delayed</td>
    <td>download</td>
-   <td>yes (As specified by compiler test)</td>
+   <td>true (As specified by compiler test)</td>
    <td>internal-library</td>
    <td>Like library, but not made available to students.
 </td></tr>
 <tr>
    <td>yes</td>
-   <td>download</td><td>yes (As specified by execution test)</td>
-    <td>source-code</td>
+   <td>download</td>
+   <td>true (As specified by execution test)</td>
+   <td>source-code</td>
    <td>Similar to library, but pre-compiled, for example header libraries for C. 
 </td></tr>
 <tr>
    <td>yes</td>
-   <td>download</td><td>yes (As specified by execution test)</td>
+   <td>download</td>
+   <td>true (As specified by execution test)</td>
    <td>inputdata</td> 
    <td>Contains data which the algorithm of the students should work with.
 </td></tr>
 <tr>
-    <td>no or delayed</td>
-   <td>download</td><td>yes (As specified by tests)</td>
+   <td>no or delayed</td>
+   <td>download</td>
+   <td>true (As specified by tests)</td>
    <td>internal</td>
    <td>May be required for processing the task/tests within the system. Examples are 
     JUnit tests and model solutions.
