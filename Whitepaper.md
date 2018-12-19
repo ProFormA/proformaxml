@@ -14,17 +14,17 @@ Based on an earlier version with more contributors:
 https://github.com/ProFormA/taskxml/blob/master/whitepaper.md
 
 ## Table of Contents
-1. [Introduction](#1-introduction)<br>
-2. [Internationalization](#2-internationalization)<br>
-3. [Elements and Types that are used in several parts of the XSD](#3-elements-and-types-that-are-used-in-several-parts-of-the-xsd)<br>
+1 [Introduction](#1-introduction)<br>
+2 [Internationalization](#2-internationalization)<br>
+3 [Elements and Types that are used in several parts of the XSD](#3-elements-and-types-that-are-used-in-several-parts-of-the-xsd)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;3.1 [Files](#31-files)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;3.2 [The feedback-level](#32-the-feedback-level)<br>
-4. [Grading Hints](#4-grading-hints)<br>
+4 [Grading Hints](#4-grading-hints)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;4.1 [The top elements in the grading hints section](#41-the-top-elements-in-the-grading-hints-section)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;4.2 [The elements root and combine](#42-the-elements-root-and-combine)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;4.3 [The elements test-ref and combine-ref](#43-the-elements-test-ref-and-combine-ref)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;4.4 [Nullify conditions](#44-nullify-conditions)<br>
-5. [The Task Part](#5-the-task-part)<br>
+5 [The Task Part](#5-the-task-part)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;5.1 [Overview](#51-overview)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;5.2 [Task attributes](#52-task-attributes)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;5.3 [The description part](#53-the-description-part)<br>
@@ -38,13 +38,13 @@ https://github.com/ProFormA/taskxml/blob/master/whitepaper.md
 &nbsp;&nbsp;&nbsp;&nbsp;5.9 [The tests part](#59-the-tests-part)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;5.10 [The grading-hints element](#510-the-grading-hints-element)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;5.11 [The meta-data element](#511-the-meta-data-element)<br>
-6. [The Test Section of the Task Part](#6-the-test-section-of-the-task-part)<br>
+6 [The Test Section of the Task Part](#6-the-test-section-of-the-task-part)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;6.1 [Overview](#61-overview)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;6.2 [The test element](#62-the-test-element)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;6.3 [The title element](#63-the-title-element)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;6.4 [The test-type element](#64-the-test-type-element)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;6.5 [The test-configuration part](#65-the-test-configuration-part)<br>
-7. [The Submission Part](#7-the-submission-part)<br>
+7 [The Submission Part](#7-the-submission-part)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;7.1 [XML and ZIP format](#71-xml-and-zip-format)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;7.2 [The task part](#72-the-task-part)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7.2.1 [The task element](#721-the-task-element)<br>
@@ -56,7 +56,7 @@ https://github.com/ProFormA/taskxml/blob/master/whitepaper.md
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7.4.2 [The external-submission element](#742-the-external-submission-element)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;7.5 [The LMS part](#75-the-lms-part)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;7.6 [The result-spec part](#76-the-result-spec-part)<br>
-8. [The Response Part](#8-the-response-part)<br>
+8 [The Response Part](#8-the-response-part)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;8.1 [The merged-test-feedback element](#81-the-merged-test-feedback-element)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;8.2 [The separate-test-feedback element](#82-the-separate-test-feedback-element)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;8.3 [The response-file element](#83-the-response-file-element)<br>
@@ -103,7 +103,7 @@ filename is marked up:
 
 ### 3.1 Files
 
-All main parts of the ProFormA format make use of files in various ways. The following file elements present different ways to attach binary and plaintext files to a task, a submission, and responses. The term **embedded** indicates that a file is part of the XML document, meaning its file content is embedded in an XML element's text node. The term **attached** indicates that a file is part of (inside) a ZIP archive, along with the XML document.
+All main parts of the ProFormA format make use of files in various ways. The following file elements present different ways to attach binary and plaintext files to a task, a submission, and a response. The term **embedded** indicates that a file is part of the XML document, meaning its file content is embedded in an XML element's text node. The term **attached** indicates that a file is part of an archive file (e.g. ZIP), along with the XML document.
 
 Files are distinguished by binary ("bin") and plaintext ("txt") content, enabling the LMS to selectively display and preview text files without the user having to download and open them in an external editor to see their content.
 
