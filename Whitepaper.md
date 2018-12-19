@@ -18,7 +18,7 @@ https://github.com/ProFormA/taskxml/blob/master/whitepaper.md
 2. [Internationalization](#2-internationalization)<br>
 3. [Elements and Types that are used in several parts of the XSD](#3-elements-and-types-that-are-used-in-several-parts-of-the-xsd)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;3.1 [Files](#31-files)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;3.2 [The feedback-level](#31-the-feedback-level)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;3.2 [The feedback-level](#32-the-feedback-level)<br>
 4. [Grading Hints](#4-grading-hints)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;4.1 [The top elements in the grading hints section](#41-the-top-elements-in-the-grading-hints-section)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;4.2 [The elements root and combine](#42-the-elements-root-and-combine)<br>
@@ -61,9 +61,9 @@ https://github.com/ProFormA/taskxml/blob/master/whitepaper.md
 &nbsp;&nbsp;&nbsp;&nbsp;8.2 [The separate-test-feedback element](#82-the-separate-test-feedback-element)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;8.3 [The response-file element](#83-the-response-file-element)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;8.4 [The response-meta-data element](#84-the-response-meta-data-element)<br>
-[Appendix A: Subset of HTML](#appendix-a--subset-of-html)<br>
-[Appendix B: List of programming languages](#appendix-b--list-of-programming-languages)<br>
-[Appendix C: List of test types](#appendix-c--list-of-test-types)
+[Appendix A: Subset of HTML](#appendix-a-subset-of-html)<br>
+[Appendix B: List of programming languages](#appendix-b-list-of-programming-languages)<br>
+[Appendix C: List of test types](#appendix-c-list-of-test-types)
 
 ## 1 Introduction
 
