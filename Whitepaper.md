@@ -749,13 +749,13 @@ The general structure of the test part is given as follows:
         </tns:test>
     </tns:tests>
 ```
-### 6.1 The test element
+### 6.2 The test element
 
 The test element has a required attribute <b>id</b> and an optional attribute
 <b>validity</b>. The optional attribute “validity” is used by some systems
 (such as Vips) for tests which only partially verify the solution code.
 
-### 6.2 The title element
+### 6.3 The title element
 
 The title element is used to provide a short and clear name for the test
 that can be displayed to students as part of their results. It should be
@@ -763,12 +763,12 @@ noted that the title does not have a language attribute because it is
 assumed that the title is written in the same natural language as
 specified for the task itself.
 
-### 6.3 The test-type element
+### 6.4 The test-type element
 
 Examples of values are: java-syntax, unittest. A list of allowed
 entries is specified in Appendix C.
 
-### 6.4 The test-configuration part
+### 6.5 The test-configuration part
 
 The test-configuration contains all parameters which are needed for
 configuring this specific test. Each test can
