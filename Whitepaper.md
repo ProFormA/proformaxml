@@ -17,11 +17,53 @@ https://github.com/ProFormA/taskxml/blob/master/whitepaper.md
 1. [Introduction](#1-introduction)
 2. [Internationalization](#2-internationalization)
 3. [Elements and Types that are used in several parts of the XSD](#3-elements-and-types-that-are-used-in-several-parts-of-the-xsd)
+    3.1 [Files](#31-files)
+    3.2 [The feedback-level](#31-the-feedback-level)
 4. [Grading Hints](#4-grading-hints)
+    4.1 [The top elements in the grading hints section](#41-the-top-elements-in-the-grading-hints-section)
+    4.2 [The elements root and combine](#42-the-elements-root-and-combine)
+    4.3 [The elements test-ref and combine-ref](#43-the-elements-test-ref-and-combine-ref)
+    4.4 [Nullify conditions](#44-nullify-conditions)
 5. [The Task Part](#5-the-task-part)
+    5.1 [Overview](#51-overview)
+    5.2 [Task attributes](#52-task-attributes)
+    5.3 [The description part](#53-the-description-part)
+    5.4 [The proglang part](#54-the-proglang-part)
+    5.5 [The submission-restrictions part](#55-the-submission-restrictions-part)
+        5.5.1 [The grader's requirements](#551-the-grader-s-requirements)
+        5.5.2 [The task's requirements](#552-the-task-s-requirements)
+    5.6 [The files part](#56-the-files-part)
+    5.7 [The external-resources part](#57-the-external-resources-part)
+    5.8 [The model-solutions part](#58-the-model-solutions-part)
+    5.9 [The tests part](#59-the-tests-part)
+    5.10 [The grading-hints element](#510-the-grading-hints-element)
+    5.11 [The meta-data element](#511-the-meta-data-element)
 6. [The Test Section of the Task Part](#6-the-test-section-of-the-task-part)
+    6.1 [Overview](#61-overview)
+    6.2 [The test element](#62-the-test-element)
+    6.3 [The title element](#63-the-title-element)
+    6.4 [The test-type element](#64-the-test-type-element)
+    6.5 [The test-configuration part](#65-the-test-configuration-part)
 7. [The Submission Part](#7-the-submission-part)
+    7.1 [XML and ZIP format](#71-xml-and-zip-format)
+    7.2 [The task part](#72-the-task-part)
+        7.2.1 [The task element](#721-the-task-element)
+        7.2.2 [The included-task-file element](#722-the-included-task-file-element)
+        7.2.3 [The external-task element](#723-the-external-task-element)
+    7.3 [The grading-hints part](#73-the-grading-hints-part)
+    7.4 [The submission files part](#74-the-submission-files-part)
+        7.4.1 [The submission-file](#741-the-submission-file)
+        7.4.2 [The external-submission element](#742-the-external-submission-element)
+    7.5 [The LMS part](#75-the-lms-part)
+    7.6 [The result-spec part](#76-the-result-spec-part)
 8. [The Response Part](#8-the-response-part)
+    8.1 [The merged-test-feedback element](#81-the-merged-test-feedback-element)
+    8.2 [The separate-test-feedback element](#82-the-separate-test-feedback-element)
+    8.3 [The response-file element](#83-the-response-file-element)
+    8.4 [The response-meta-data element](#84-the-response-meta-data-element)
+[Appendix A: Subset of HTML](#appendix-a--subset-of-html)
+[Appendix B: List of programming languages](#appendix-b--list-of-programming-languages)
+[Appendix C: List of test types](#appendix-c--list-of-test-types)
 
 ## 1 Introduction
 
@@ -547,7 +589,7 @@ entered as a "point" separated list of up to four unsigned integers.
 
 ### 5.5 The submission-restrictions part
 
-The [submission part](#7-the-submission-part) of this specification defines a submission as a list of submitted files or as a reference to an external submission. The external reference is required resolvable as a list of files - possibly as a single file. So, after all a submission is a set of one or several files.
+The [submission part](#7-the-submission-part) of this specification defines a submission as a list of submitted files or as a reference to an external submission. The external reference is required to be resolvable as a list of files - possibly as a single file. So, after all a submission is a set of one or several files.
 
 #### 5.5.1 The grader's requirements
 
@@ -850,11 +892,11 @@ In case of a ZIP submission the internal structure of the ZIP archive is predefi
 
 There are three different ways to include a task into a submission, either as an [XML element](#the-task-element), as an [included-task-file](#the-included-task-file-element), or as an [external-task](#the-external-task-element). Tasks are likely to be cached by grading or middleware systems, which is why each option provides an easily available task-uuid attribute for quick access.
 
-#### The task element
+#### 7.2.1 The task element
 
 A task may be included as a regular XML element in the submission.
 
-#### The included-task-file element
+#### 7.2.2 The included-task-file element
 
 ###### Code
 
@@ -871,7 +913,7 @@ A task may be included as a regular XML element in the submission.
 
 ##### Explanations
 
-Using the included-task-file element, a task may be attached to a submission ZIP archive as an XML file using the attached-xml-file element. Alternatively a task may be attached to a submission ZIP archive as a ZIP file using the attached-zip-file element. In both cases the task XML or ZIP file must be stored in the "/task" folder of the submission ZIP file. The path to the attached XML or ZIP task file is specified relative to the "/task" folder of the submission ZIP archive.
+Using the included-task-file element, a task may be attached to a submission ZIP archive as an XML file using the attached-xml-file element. Alternatively, a task may be attached to a submission ZIP archive as a ZIP file using the attached-zip-file element. In both cases the task XML or ZIP file must be stored in the "/task" folder of the submission ZIP file. The path to the attached XML or ZIP task file is specified relative to the "/task" folder of the submission ZIP archive.
 
 Furthermore, a task ZIP may be encoded to Base64 and embedded into the submission's XML document. This is useful when submission documents are transferred as bare XML files rather than ZIP files between participating systems.
 
@@ -881,7 +923,7 @@ The included-task-file has the following attributes:
 
     The uuid of the task. Tasks are likely to be cached, so the uuid serves as a convenience attribute to avoid repeated unpacking of (large) archive files.
 
-#### The external-task element
+#### 7.2.3 The external-task element
 
 An external task must be represented by a single URI, e.g. `https://somerepository.org/sometaskid/task.zip`. The resource referenced by this URI must be a single archive file (e.g. `task.zip`) containing the `task.xml` as well as any other files related to the task. The archive's filename can be chosen freely, it does not matter. The URI may contain any network protocol, provided the middleware/grader and the server hosting the task file are capable of using it. If accessing the task resource requires the middleware to authenticate with the hosting server, the authentication data should be stored with the middleware itself.
 
@@ -893,7 +935,7 @@ Teachers may prefer their own (modified) version of the [grading-hints](#4-gradi
 
 Students provide solutions to programming tasks by submitting source code files (among other files). There are two ways to submit such files, either by including them into the submission document as [submission-files](#the-submission-file), or by using an already existing [external-submission](#the-external-submission-element) file.
 
-#### The submission-file
+#### 7.4.1 The submission-file
 
 ###### Code
 
@@ -928,7 +970,7 @@ The submission-file-type has the following attributes.
 
 Note that source code (or any kind of text, for that matter) written inside an online text editor of an LMS can also be represented by a submission-file, specifically the embedded-txt-file and attached-txt-file elements.
 
-#### The external-submission element
+#### 7.4.2 The external-submission element
 
 Another way to specify a student submission is to provide a reference to an externally available submission file. The external-submission element works similarly to the [external-task element](#the-external-task-element) in that it must also be represented by a single URI. The only difference is that in addition to a single archive file (e.g. `submission.zip`), the external submission URI may also reference a resolvable list of files, such as a web directory.
 
