@@ -16,7 +16,7 @@ https://github.com/ProFormA/taskxml/blob/master/whitepaper.md
 ## Table of Contents
 1. [Introduction](#1-introduction)<br>
 2. [Internationalization](#2-internationalization)<br>
-3. [Elements and types that are used in several parts of the XSD](#3-elements-and-types-that-are-used-in-several-parts-of-the-xsd)<br>
+3. [Elements and Types that are used in several parts of the XSD](#3-elements-and-types-that-are-used-in-several-parts-of-the-xsd)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;3.1 [Files](#31-files)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;3.2 [The feedback-level](#31-the-feedback-level)<br>
 4. [Grading Hints](#4-grading-hints)<br>
@@ -99,7 +99,7 @@ filename is marked up:
 <attached-bin-file>@@@pathtofile1@@@</urn:attached-bin-file>
 ```
 
-## 3 Elements and types that are used in several parts of the XSD
+## 3 Elements and Types that are used in several parts of the XSD
 
 ### 3.1 Files
 
