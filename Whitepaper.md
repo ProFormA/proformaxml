@@ -30,8 +30,8 @@ https://github.com/ProFormA/taskxml/blob/master/whitepaper.md
 &nbsp;&nbsp;&nbsp;&nbsp;5.3 [The description part](#53-the-description-part)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;5.4 [The proglang part](#54-the-proglang-part)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;5.5 [The submission-restrictions part](#55-the-submission-restrictions-part)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.5.1 [The grader's requirements](#551-the-grader-s-requirements)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.5.2 [The task's requirements](#552-the-task-s-requirements)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.5.1 [The grader's requirements](#551-the-graders-requirements)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.5.2 [The task's requirements](#552-the-tasks-requirements)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;5.6 [The files part](#56-the-files-part)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;5.7 [The external-resources part](#57-the-external-resources-part)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;5.8 [The model-solutions part](#58-the-model-solutions-part)<br>
