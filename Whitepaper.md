@@ -754,7 +754,7 @@ task. More specific information about the test XML is provided in the
 
 ### 5.10 The grading-hints element
 
-The [grading-hints](#4-grading-hints) element specifies, how a grader should calculate a total result from individual test results. Most ProFormA tasks define several tests. Every test is expected to generate a score from the interval [0,1]. The grading-hints element defines groups of tests and groups of groups in a tree like manner. The grading-hints element is specified as part of a task which can be overriden by a grading-hints element specified in a submission.
+The [grading-hints](#4-grading-hints) element specifies how a grader should calculate a total result from individual test results. Most ProFormA tasks define several tests. Every test is expected to generate a score from the interval [0,1]. The grading-hints element defines groups of tests and groups of groups in a tree like manner. The grading-hints element is specified as part of a task which can be overriden by a grading-hints element specified in a submission.
 
 ### 5.11 The meta-data element
 
@@ -889,7 +889,7 @@ In case of a ZIP submission the internal structure of the ZIP archive is predefi
 
 ### 7.2 The task part
 
-There are three different ways to include a task into a submission, either as an [XML element](#the-task-element), as an [included-task-file](#the-included-task-file-element), or as an [external-task](#the-external-task-element). Tasks are likely to be cached by grading or middleware systems, which is why each option provides an easily available task-uuid attribute for quick access.
+There are three different ways to include a task into a submission, either as an [XML element](#721-the-task-element), as an [included-task-file](#722-the-included-task-file-element), or as an [external-task](#723-the-external-task-element). Tasks are likely to be cached by grading or middleware systems, which is why each option provides an easily available task-uuid attribute for quick access.
 
 #### 7.2.1 The task element
 
@@ -924,7 +924,19 @@ The included-task-file has the following attributes:
 
 #### 7.2.3 The external-task element
 
-An external task must be represented by a single URI, e.g. `https://somerepository.org/sometaskid/task.zip`. The resource referenced by this URI must be a single archive file (e.g. `task.zip`) containing the `task.xml` as well as any other files related to the task. The archive's filename can be chosen freely, it does not matter. The URI may contain any network protocol, provided the middleware/grader and the server hosting the task file are capable of using it. If accessing the task resource requires the middleware to authenticate with the hosting server, the authentication data should be stored with the middleware itself.
+###### Code
+
+```xml
+<xs:complexType name="external-task-type">
+  <xs:simpleContent>
+    <xs:extension base="xs:string">
+      <xs:attribute name="uuid" type="xs:string" use="optional"/>
+    </xs:extension>
+  </xs:simpleContent>
+</xs:complexType>
+```
+
+An external task must be represented by a single URI, e.g. `https://somerepository.org/sometaskid/task.zip`. The resource referenced by this URI must be a single archive file (e.g. `task.zip`) containing the `task.xml` as well as any other files related to the task. The archive's filename can be chosen freely, since it does not matter. The URI may contain any network protocol, provided the middleware/grader and the server hosting the task file are capable of using it. If accessing the task resource requires the middleware to authenticate with the hosting server, the authentication data should be stored with the middleware itself. A middleware may use the optional **uuid** attribute to check if the task is stored in a local cache before accessing it via the repository URI.
 
 ### 7.3 The grading-hints part
 
@@ -932,7 +944,7 @@ Teachers may prefer their own (modified) version of the [grading-hints](#4-gradi
 
 ### 7.4 The submission files part
 
-Students provide solutions to programming tasks by submitting source code files (among other files). There are two ways to submit such files, either by including them into the submission document as [submission-files](#the-submission-file), or by using an already existing [external-submission](#the-external-submission-element) file.
+Students provide solutions to programming tasks by submitting source code files (among other files). There are two ways to submit such files, either by including them into the submission document as [submission-files](#741-the-submission-file), or by using an already existing [external-submission](#742-the-external-submission-element) file.
 
 #### 7.4.1 The submission-file
 
@@ -971,7 +983,7 @@ Note that source code (or any kind of text, for that matter) written inside an o
 
 #### 7.4.2 The external-submission element
 
-Another way to specify a student submission is to provide a reference to an externally available submission file. The external-submission element works similarly to the [external-task element](#the-external-task-element) in that it must also be represented by a single URI. The only difference is that in addition to a single archive file (e.g. `submission.zip`), the external submission URI may also reference a resolvable list of files, such as a web directory.
+Another way to specify a student submission is to provide a reference to an externally available submission file. The external-submission element works similarly to the [external-task element](#723-the-external-task-element) in that it must also be represented by a single URI. The only difference is that in addition to a single archive file (e.g. `submission.zip`), the external submission URI may also reference a resolvable list of files, such as a web directory.
 
 ### 7.5 The LMS part
 
