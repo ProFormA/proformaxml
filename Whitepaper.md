@@ -612,8 +612,8 @@ All file-restrictions are file paths relative to a root directory. There are thr
 
 The file-restrictions can be specified in two ways:
 
-- literally. The directory separator is /. A leading "/" is allowed. If it is missing, it is silently inserted as the first character.
-- as a regular expression  (specified regexp language in [regexp-language-restriction](#regexp-language-specification)). Directory separators are matched by the meta character representing any character (the dot).
+- literally. The directory separator is "/". A leading "/" is allowed. If it is missing, it is silently inserted as the first character.
+- as a regular expression  (specified regexp language in [regexp-language-restriction](#regexp-language-specification)). Directory separators are matched by the meta character representing any character (the dot). The regular expression should use "/" for literally matching the directory separator. A LMS, middleware, or grader is expected to query matches of full relative paths of submitted files. The LMS, middleware, or grader is expected to query such paths with a leading "/" character.
 
 The submission-restrictions element has one optional attribute:
 
