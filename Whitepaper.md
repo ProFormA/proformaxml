@@ -83,7 +83,7 @@ The format contains three main parts: **task**, **submission** and
 If a ProFormA task contains only one natural
 language, this is indicated by using the **lang** attribute of the **task** element. In case of
 multiple languages, the **lang** attribute of the **task** element contains the main
-language and translations can be indicated by using markup with **@@@** and a file **strings.txt** with translations that is stored in a strings.txt file, e.g.  "lang/en/strings.txt", "lang/de/strings.txt", "lang/en_us/strings.txt", etc. The strings.txt file is structured in the [.properties file format](https://en.wikipedia.org/wiki/.properties) and must be encoded to UTF-8. ISO 639-1 and 3166-1 ALPHA2 are used for indicating languages and regions.
+language and translations can be indicated by using markup with **@@@** and a file **strings.txt** with translations that is stored in a strings.txt file, e.g.  "lang/en/strings.txt", "lang/de/strings.txt", "lang/en_us/strings.txt", etc. The strings.txt file is structured in the [.properties file format](https://en.wikipedia.org/wiki/.properties) and must be encoded to UTF-8. ISO 639-1 and 3166-1 ALPHA2 are used for indicating languages and regions. The region code is optional.
 For example, multiple languages for a title are indicated by
 ```xml
 <title>@@@title2@@@</title>
@@ -167,7 +167,7 @@ The attached-txt-file element is used to attach files containing plaintext conte
 
     In case encoding and natural-lang should happen to contradict each other, encoding is given precedence.
 
-    Its value must comply with the ISO 639-1 standard for language codes (e.g. `de`) and ISO 3166-1 alpha-2 for country codes (e.g. `de-CH`).
+    Its value must comply with the ISO 639-1 standard for language codes (e.g. `de`) and ISO 3166-1 alpha-2 for country codes (e.g. `de-CH`). The country code is optional (e. g. `de`).
 
 The relative path to the plaintext file within the ZIP archive is specified in the element content (i.e. the element's text node).
 
@@ -565,8 +565,8 @@ a pointer to the original task-uuid. This is useful for version trees.
 The task itself must have an attribute <b>lang</b> which specifies the
 natural language used. The description, title etc should be written in
 this language. The content of the "lang" attribute must comply with
-the the ISO 639-1 standard for language codes (e.g. `de`) and ISO
-3166-1 alpha-2 for country codes (e.g. `de-CH`).
+the ISO 639-1 standard for language codes (e.g. `de`) and ISO
+3166-1 alpha-2 for country codes (e.g. `de-CH`).  The country code is optional (e. g. `de`).
 
 ### 5.3 The description part
 
@@ -620,6 +620,8 @@ The submission-restrictions element has one optional attribute:
 -  <b>max-size</b> specifies the maximum size of a file in bytes which should be   accepted. If the submission is a bundle like a ZIP archive, the size of the archive must not exceed the specified maximum size.   If the submission consists of several individual files, the sum of all individual file sizes must not exceed the specified maximum size.   Systems which have a stronger limit of the file size should print a warning to the uploading user. If this attribute is missing, a system default value will be used.
 
 The file-restriction element has an optional boolean <b>required</b> attribute (default is true). The element content specifies the path of the respective file(s). Additionally a file-restriction element optionally can define a <b>pattern-format</b> attribute in order to specify a regular expression in the element content. Currently the only supported pattern-formats are "posix-ere", meaning a regular expression in the language specified in [regexp-language-restriction](#regexp-language-specification)), and "none", meaning literally specified paths. The default pattern-format is none.
+
+The submission-restrictions do not allow for specifying file exclusions. The regular expression dialect POSIX ERE could be used for that but it is not really good in specifying exclusions. Currently file-exclusions are to be specified as part of a test-type-specific [test-configuration](#65-the-test-configuration-part).
 
 
 ###### Code
@@ -730,6 +732,8 @@ used to refer to a resource that is neither embedded nor directly attached to th
 Normally task files should be self-contained, but in rare cases the use of external resources is unavoidable for fulfilling or grading the task.  The external-resource element basically contains a reference to that kind of resources. In its simplest form, the resource is identified by an identifier contained in the <b>reference</b> attribute. More complicated references can be specified in child elements of any namespace.
 
 The idea behind external resources is that sometimes large files needed by a grader, files that change frequently or web services cannot be bundled reasonably with the task itself. In these cases, the task part may reference the external resource by a unique name or any other identifier. Examples are the name or URL of a widely known database dump (e.g. ftp://ftp.fu-berlin.de/pub/misc/movies/database/) or the name and version number of a library (e.g. urn:mvn:groupId=org.mockito:artifactId=mockito-core:packaging=jar:version=1.9.5) or a web service URL. The semantics and the format of references is not defined by this exchange format. It could be a URL, URN or any other identifier. Also the exchange format does not define the distribution mechanism of resources (e.g. push from LMS to grader, active pull by the grader, etc.). Taken to the extreme, an external-resource element may mean, that the administrator has to install some software, service, or data in a grader specific location, before the task can be used to grade submissions. The identifier therefore does not need to be in a machine readable format. Further details about the semantics of the external-resource can be provided in the optional <b>internal-description</b> element. The description may provide instructions in natural language how to install the required resource prior to grading so that the grader can interpret and resolve the reference attribute successfully when grading a submission.
+
+Unlike files, external resources currently do not specify the attributes <b>used-by-grader</b>, <b>visible</b>, and <b>usage-by-lms</b>. An external resource is expected to be used like a file with the attribute values <b>used-by-grader=true</b>, <b>visible=no</b>, and <b>usage-by-lms=download</b>. If in rare cases an external resource should be visible to students, the tasks's description element could be used to include an HTML-formatted link to that resource.
 
 Each external resource element can be identified by its mandatory <b>id</b> attribute and is referenced by the test-configuration (see below in the test section).
 
@@ -1096,7 +1100,7 @@ The result-spec element has the following attributes:
 
     This is the student's preferred natural language that the feedback should be presented in.
     
-    Its value must comply with the ISO 639-1 standard for language codes (e.g. `de`) and ISO 3166-1 alpha-2 for country codes (e.g. `de-CH`).
+    Its value must comply with the ISO 639-1 standard for language codes (e.g. `de`) and ISO 3166-1 alpha-2 for country codes (e.g. `de-CH`). The country code is optional (e. g. `de`).
 
 #### The student-feedback-level and teacher-feedback-level elements
 
