@@ -155,7 +155,7 @@ The attached-txt-file element is used to attach files containing plaintext conte
 
 - **encoding**
 
-    The encoding of the text file, as an optional attribute.
+    The encoding of the text file, as an optional attribute. If the encoding is unknown, it should be left unspecified. In case of student's submission files, an unspecified encoding means that figuring out the text encoding is left up to the middleware or grader.
 
 - **natural-lang** 
 
