@@ -155,7 +155,7 @@ The attached-txt-file element is used to attach files containing plaintext conte
 
 - **encoding**
 
-    The encoding of the text file, as an optional attribute. If the encoding is unknown, it should be left unspecified. In case of student's submission files, an unspecified encoding means that figuring out the text encoding is left up to the middleware or grader.
+    The encoding of the text file, as an optional attribute. If the encoding is unknown, it should be left unspecified. In case of text files submitted by a student, an unspecified encoding means that figuring out the text encoding is left up to the middleware or grader.
 
 - **natural-lang** 
 
@@ -924,7 +924,7 @@ The included-task-file has the following attributes:
 
 - **uuid**
 
-    The uuid of the task. Tasks are likely to be cached, so the uuid serves as a convenience attribute to avoid repeated unpacking of (large) archive files.
+    The uuid of the task. Tasks are likely to be cached, so the uuid serves as a convenience attribute to avoid repeated unpacking of (large) archive files to retrieve the task uuid.
 
 #### 7.2.3 The external-task element
 
@@ -1221,7 +1221,7 @@ The result element holds the score and the score's validity that a student achie
 
     For instance, if a grading system used a faulty JUnit test to assess the correctness of a student's Java source code, and that test case would always result in a failure regardless of the correctness of the solution (due to the grader not being able to compile the JUnit test, for example), the result would qualify as an internal error. Since the fault was not with the student's solution but with the grading system itself, the submission should be invalidated so the student would not lose their submission attempt, if such restrictions were in place. In order for this to work, the grader would need to return a response document with the **is-internal-error** attribute set to true in a [test-result](#the-test-result-element) and a [feedback](#the-feedback-element) entry detailing the error.
 
-    Errors that are not directly related to a test should be indicated by other means rather than the is-internal-error flag. For example, if a grader received a poorly formatted submission document, it would have no choice but to reject the submission. Instead of using the is-internal-error attribute, it would be more appropriate to use the underlying communication protocol's error handling mechanism, such as using a HTTP status code (e.g. "400 Bad Request") to indicate a client error.
+    Errors that are not directly related to a test should be indicated by other means than the is-internal-error flag. For example, if a grader received a poorly formatted submission document, it would have no choice but to reject the submission. Instead of using the is-internal-error attribute, it would be more appropriate to use the underlying communication protocol's error handling mechanism, such as using a HTTP status code (e.g. "400 Bad Request") to indicate a client error.
 
 ### 8.2 The separate-test-feedback element
 
@@ -1242,7 +1242,7 @@ Calculating a submission's total score based on partial results of separate test
 
 #### The feedback-list element
 
-The feedback-list contains zero or more [feedback](#the-feedback-element) elements for both the student and teacher. While a response document structured in the form of [separate-test-feedback](#82-the-separate-test-feedback-element) must contain a [result](#the-result-element) element for each [test-response](#the-test-response-element), the test-responses are not required to have any feedback, depending on the settings used in the result specification (see [student-feedback-level and teacher-feedback-level](Whitepaper.md#the-student-feedback-level-and-teacher-feedback-level-elements)).
+The feedback-list contains zero or more [feedback](#the-feedback-element) elements for both student and teacher. While a response document structured in [separate-test-feedback](#82-the-separate-test-feedback-element) must contain a [result](#the-result-element) element for each [test-response](#the-test-response-element), the test-responses are not required to have any feedback at all, depending on the settings used in the the result specification (see [student-feedback-level and teacher-feedback-level](Whitepaper.md#the-student-feedback-level-and-teacher-feedback-level-elements)).
 
 ###### Code
 
