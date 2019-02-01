@@ -838,6 +838,10 @@ The externalresourceref element links a single external-resource to a test based
 external-resource that has to be defined in external-resources part of the task. The ID has to be entered as
 the refid attribute. Since a test may contain resources that are used for different purposes, any specific (including grader-specific) role that an external-resource might assume during the grading process must be specified in the any namespace of the externalresourceref element.
 
+#### The timeout element
+
+The timeout element specifies the CPU time limit (in seconds) for a particular test.
+
 #### The test-meta-data element
 
 The test-meta-data element holds a namespace for test-specific meta-data
