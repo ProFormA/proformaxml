@@ -816,7 +816,7 @@ entries is specified in Appendix C.
 ### 6.5 The test-configuration part
 
 The test-configuration contains all parameters which are needed for
-configuring this specific test. Each test can
+configuring a specific test. Each test can
 also have elements of its own namespace for test-type specific
 configuration options.
 
@@ -826,9 +826,7 @@ Several filerefs can be specified via fileref elements.
 
 #### The fileref element
 
-The fileref element links a single file to a test based on the ID of the
-file which has to be defined in task/files. The ID has to be entered as
-the refid attribute.
+The fileref element links a single file to a test based on the ID of the file that has to be defined in the files part of the task. The file ID has to be entered as the refid attribute. Since a test may contain files that are used for different purposes, any specific (including grader-specific) role that a file might assume during the grading process must be specified in the any namespace of the fileref element.
 
 #### The externalresourcerefs part
 
@@ -837,8 +835,8 @@ Several externalresourcerefs can be specified via externalresourceref elements.
 #### The externalresourceref element
 
 The externalresourceref element links a single external-resource to a test based on the ID of the
-external-resource which has to be defined in task/external-resources. The ID has to be entered as
-the refid attribute.
+external-resource that has to be defined in external-resources part of the task. The ID has to be entered as
+the refid attribute. Since a test may contain resources that are used for different purposes, any specific (including grader-specific) role that an external-resource might assume during the grading process must be specified in the any namespace of the externalresourceref element.
 
 #### The test-meta-data element
 
