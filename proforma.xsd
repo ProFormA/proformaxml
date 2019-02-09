@@ -658,7 +658,13 @@
   <xs:complexType name="proglang-type">
     <xs:simpleContent>
       <xs:extension base="xs:string">
-        <xs:attribute name="version" type="xs:string" use="required"/>
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            A list of existing programming languages is
+            available in the white paper appendix.
+          </xs:documentation>
+       </xs:annotation>
+       <xs:attribute name="version" type="xs:string" use="required"/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
@@ -725,12 +731,10 @@
   <xs:simpleType name="test-type-type">
     <xs:restriction base="xs:string">
       <xs:annotation>
-         <xs:documentation xml:lang="en">
-             For common test types one of the following strings should be used:
-             "java-compilation", "java-checkstyle", "java-code-coverage-emma", "java-findbugs",
-             "java-pmd", "unittest", "dejagnu", "setlx", "regexptest". For some of these
-             an xsd is provided by the format.
-         </xs:documentation>
+        <xs:documentation xml:lang="en">
+          A list of existing test types and recommendations for future ones is
+          available in the white paper appendix.
+        </xs:documentation>
       </xs:annotation>
     </xs:restriction>
   </xs:simpleType>
