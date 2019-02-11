@@ -935,6 +935,20 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:complexType name="overall-result-type">
+    <xs:sequence>
+      <xs:element name="score" type="tns:overall-score-type"/>
+      <xs:element name="validity" minOccurs="0" type="tns:validity-type"/>
+    </xs:sequence>
+    <xs:attribute name="is-internal-error" type="xs:boolean" default="false"/>
+  </xs:complexType>
+
+  <xs:simpleType name="overall-score-type">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="validity-type">
     <xs:restriction base="xs:decimal">
       <xs:minInclusive value="0.0"/>
@@ -948,7 +962,7 @@
 
   <xs:complexType name="merged-test-feedback-type">
     <xs:sequence>
-      <xs:element name="overall-result" type="tns:result-type"/>
+      <xs:element name="overall-result" type="tns:overall-result-type"/>
       <xs:element name="student-feedback" type="tns:merged-feedback-type" minOccurs="0"/>
       <xs:element name="teacher-feedback" type="tns:merged-feedback-type" minOccurs="0"/>
     </xs:sequence>

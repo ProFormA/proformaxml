@@ -1180,14 +1180,14 @@ The response contains the results of a graded submission.
 
 ### 8.1 The merged-test-feedback element
 
-The merged-test-feedback element holds two feedback elements that act as a single HTML "blob". This blob can be embedded and displayed accordingly in LMS that are less capable in terms of handling complex feedback structures. Additionally, merged-test-feedback provides a precalculated [overall-result](#the-result-element) element, making the total score of a task easily accessible.
+The merged-test-feedback element holds two feedback elements that act as a single HTML "blob". This blob can be embedded and displayed accordingly in LMS that are less capable in terms of handling complex feedback structures. Additionally, merged-test-feedback provides a precalculated **overall-result** element, making the total score of a task easily accessible.
 
 ###### Code
 
 ```xml
 <xs:complexType name="merged-test-feedback-type">
   <xs:sequence>
-    <xs:element name="overall-result" type="tns:result-type"/>
+    <xs:element name="overall-result" type="tns:overall-result-type"/>
     <xs:element name="student-feedback" type="tns:merged-feedback-type" minOccurs="0"/>
     <xs:element name="teacher-feedback" type="tns:merged-feedback-type" minOccurs="0"/>
   </xs:sequence>
