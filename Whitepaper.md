@@ -948,7 +948,7 @@ The included-task-file has the following attributes:
 </xs:complexType>
 ```
 
-An external task must be represented by a single URI, e.g. `https://somerepository.org/sometaskid/task.zip`. The resource referenced by this URI must be a single archive file (e.g. `task.zip`) containing the `task.xml` as well as any other files related to the task. The archive's filename can be chosen freely, since it does not matter. The URI may contain any network protocol, provided the middleware/grader and the server hosting the task file are capable of using it. If accessing the task resource requires the middleware to authenticate with the hosting server, the authentication data should be stored with the middleware itself. A middleware may use the optional **uuid** attribute to check if the task is stored in a local cache before accessing it via the repository URI.
+An external task element can be represented by a single URI, e.g. `https://somerepository.org/sometaskid/task.zip`. The resource referenced by this URI must be a single archive file (e.g. `task.zip`) containing the `task.xml` as well as any other files related to the task. The archive's filename can be chosen freely, it does not matter. The URI may also use any other network protocol if the middleware and server hosting the task resource are capable of supporting it. If accessing the task resource requires the middleware to authenticate with the hosting server, the authentication data can be stored with the middleware. A middleware may use the optional **uuid** attribute to check if the task is stored in a local cache before accessing it via the repository URI.
 
 ### 7.3 The grading-hints part
 
