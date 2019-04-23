@@ -2,10 +2,13 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="urn:proforma:tests:java-checkstyle:v1.1" targetNamespace="urn:proforma:tests:java-checkstyle:v1.1" elementFormDefault="qualified" attributeFormDefault="unqualified">
     <xs:element name="java-checkstyle">
         <xs:complexType>
-            <xs:sequence>
-                <xs:element name="max-checkstyle-warnings" type="xs:string"/>
+            <xs:sequence >
+                <xs:element name="max-checkstyle-warnings" type="xs:positiveInteger" minOccurs="0"/>
+                <xs:element name="excludePackage" type="xs:string" minOccurs="0"/>
+                <xs:element name="excludeType" type="xs:string" minOccurs="0"/>
             </xs:sequence>
             <xs:attribute name="version" type="xs:string" use="required"/>
         </xs:complexType>
     </xs:element>
 </xs:schema>
+
