@@ -2,13 +2,28 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="urn:proforma:tests:java-checkstyle:v1.1" targetNamespace="urn:proforma:tests:java-checkstyle:v1.1" elementFormDefault="qualified" attributeFormDefault="unqualified">
     <xs:element name="java-checkstyle">
         <xs:complexType>
-            <xs:sequence >
-                <xs:element name="max-checkstyle-warnings" type="xs:positiveInteger" minOccurs="0"/>
-                <xs:element name="excludePackage" type="xs:string" minOccurs="0"/>
-                <xs:element name="excludeType" type="xs:string" minOccurs="0"/>
+            <xs:sequence>
+                <xs:element name="max-checkstyle-warnings" type="xs:positiveInteger" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="en">If there a more than the maximum number of warnings, then the test fails.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="includePackage" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="en">Any rule violations in packages not listed here will be ignored.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="excludeType" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="en">Any rule violations found in java types (classes, interfaces, enums, etc.) listed here will be ignored.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:sequence>
-            <xs:attribute name="version" type="xs:string" use="required"/>
+            <xs:attribute name="version" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">Checkstyle version number</xs:documentation>
+                </xs:annotation>
+			</xs:attribute>
         </xs:complexType>
     </xs:element>
 </xs:schema>
-
