@@ -885,7 +885,7 @@ The task that the submission is for is part of the submission XML document. The 
 
 ### 7.1 XML and ZIP format
 
-As stated above a submission XML document includes task data and submission data. Both data may comprise files that could be embedded into the submission XML document or that could be attached as part of a submission ZIP file (see also [section Files](#31-files)). 
+As stated above, a submission XML document includes task data and submission data. Both data may comprise files that could be embedded into the submission XML document or that could be attached as part of a submission ZIP file (see also [section Files](#31-files)).
 
 In case of a ZIP submission the internal structure of the ZIP archive is predefined as follows. In the ZIP root folder there is the submission XML document. All attached files that belong to the actual student's submission must be contained in the folder *submission* inside the submission ZIP archive. All attached files that belong to the task are stored inside a folder *task* inside the submission ZIP archive. In summary, the content of a common submission ZIP archive is structured as follows:
 
@@ -1108,7 +1108,7 @@ The result-spec element has the following attributes:
 
     This is the student's preferred natural language that the feedback should be presented in.
     
-    Its value must comply with the ISO 639-1 standard for language codes (e.g. `de`) and ISO 3166-1 alpha-2 for country codes (e.g. `de-CH`). The country code is optional (e. g. `de`).
+    Its value must comply with the ISO 639-1 standard for language codes (e.g. `de`) and ISO 3166-1 alpha-2 for country codes (e.g. `de-CH`). The country code (`-CH`) is optional.
 
 #### The student-feedback-level and teacher-feedback-level elements
 
@@ -1227,7 +1227,7 @@ The result element holds the score and the score's validity that a student achie
 
     is-internal-error should be used to indicate an error that is not attributed to a student submission.
 
-    For instance, if a grading system used a faulty JUnit test to assess the correctness of a student's Java source code, and that test case would always result in a failure regardless of the correctness of the solution (due to the grader not being able to compile the JUnit test, for example), the result would qualify as an internal error. Since the fault was not with the student's solution but with the grading system itself, the submission should be invalidated so the student would not lose their submission attempt, if such restrictions were in place. In order for this to work, the grader would need to return a response document with the **is-internal-error** attribute set to true in a [test-result](#the-test-result-element) and a [feedback](#the-feedback-element) entry detailing the error.
+    For instance, if a grading system used a faulty JUnit test test to assess the correctness of a student's Java source code, and that test case would always result in a failure regardless of the correctness of the solution (due to the grader not being able to compile the JUnit test, for example), the result would qualify as an internal error. Since the fault was not with the student's solution but with the grading system itself, the submission should be invalidated so the student would not lose their submission attempt, if such restrictions were in place. In order for this to work, the grader would need to return a response document with the **is-internal-error** attribute set to true in a [test-result](#the-test-result-element) element and a [feedback](#the-feedback-element) element entry detailing the error.
 
     Errors that are not directly related to a test should be indicated by other means than the is-internal-error flag. For example, if a grader received a poorly formatted submission document, it would have no choice but to reject the submission. Instead of using the is-internal-error attribute, it would be more appropriate to use the underlying communication protocol's error handling mechanism, such as using a HTTP status code (e.g. "400 Bad Request") to indicate a client error.
 
@@ -1328,7 +1328,7 @@ The feedback element is the immediate feedback for a specific test, a sub-test, 
 
 #### The test-response element
 
-The test-response element represents the result for a single test. It may consist of a single [test-result](#the-test-result-element) element or a list of [subtest-responses](#the-subtest-response-element). Which one to choose depends on the situation. For instance, if a test is partitioned into multiple sub-tests in the grading-hints, it would make sense for the test-response to contain a list of subtest-responses, each one referring to the corresponding sub-test in the grading-hints. It would also allow for a finer breakdown of the test score and feedback. However, if the entire test case were to fail, it would probably not make a lot of sense to have all subtest-responses contain the same error message. Using a single test-result would be more appropriate in this case, as the error message would appear in the LMS only once.
+The test-response element represents the result for a single test. It may consist of a single [test-result](#the-test-result-element) element or a list of [subtest-responses](#the-subtest-response-element). Which one to choose depends on the situation. For instance, if a test is partitioned into multiple sub-tests in the grading-hints, it would make sense for the test-response to contain a list of subtest-responses, each one referring to the corresponding sub-test in the grading-hints. It would also allow for a finer breakdown of the test score and feedback for each test and its sub-tests. If a test case were to fail for reasons unrelated to its sub-tests, the error should be detailed in a single test-response, regardless of how the test is partitioned in the grading-hints.
 
 - **id**
 
