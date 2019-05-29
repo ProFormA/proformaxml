@@ -1,5 +1,5 @@
 
-# An XML exchange format for (programming) tasks
+# An XML exchange format for (programming) tasks - ProFormA-XML format
 
 **Version 2.0**
 
@@ -81,9 +81,13 @@ The format contains three main parts: **task**, **submission** and
 ## 2 Internationalization
 
 If a ProFormA task contains only one natural
-language, this is indicated by using the **lang** attribute of the **task** element. In case of
+language, this is indicated by using the **lang** attribute of the **task** element. 
+The description, title etc should be written in this language. In case of
 multiple languages, the **lang** attribute of the **task** element contains the main
-language and translations can be indicated by using markup with **@@@** and a file **strings.txt** with translations that is stored in a strings.txt file, e.g.  "lang/en/strings.txt", "lang/de/strings.txt", "lang/en_us/strings.txt", etc. The strings.txt file is structured in the [.properties file format](https://en.wikipedia.org/wiki/.properties) and must be encoded to UTF-8. ISO 639-1 and 3166-1 ALPHA2 are used for indicating languages and regions. The region code is optional.
+language and translations can be indicated by using markup with **@@@** and a file with translations that is stored as **strings.txt**, e.g.  "lang/en/strings.txt", "lang/de/strings.txt", "lang/en_us/strings.txt", etc. The strings.txt file is structured in the [.properties file format](https://en.wikipedia.org/wiki/.properties) and must be encoded in UTF-8. 
+The content of the "lang" attribute must comply with
+the ISO 639-1 standard for language codes (e.g. `de`) and ISO
+3166-1 alpha-2 for country codes (e.g. `de-CH`).  The country code is optional (e. g. `de`).
 For example, multiple languages for a title are indicated by
 ```xml
 <title>@@@title2@@@</title>
@@ -93,7 +97,7 @@ with a corresponding line in strings.txt. Mixing markup and non-markup is not al
 <title>@@@title3@@@ is not allowed!!</title>
 ```
 This is only relevant for any elements with these names: **description**, **internal-description**, **title** and **content**. It must not be used for attribute values. In the case of files, copies in different languages can be supplied. Such files cannot be embedded in the XML, but their
-filename is marked up:
+filenames are marked up:
 ```xml
 <attached-bin-file>@@@pathtofile1@@@</urn:attached-bin-file>
 ```
@@ -102,13 +106,13 @@ filename is marked up:
 
 ### 3.1 Files
 
-All main parts of the ProFormA format make use of files in various ways. The following file elements present different ways to attach binary and plaintext files to a task, a submission, and a response. The term **embedded** indicates that a file is part of the XML document, meaning its file content is embedded in an XML element's text node. The term **attached** indicates that a file is part of an archive file (e.g. ZIP), along with the XML document.
+All main parts of the ProFormA-XML format make use of files in various ways. The following file elements present different ways to attach binary and plaintext files to a task, a submission, and a response. The term **embedded** indicates that a file is part of the XML document, meaning its file content is embedded in an XML element's text node. The term **attached** indicates that a file is part of an archive file (e.g. ZIP), along with the XML document.
 
 Files are distinguished by binary ("bin") and plaintext ("txt") content, enabling the LMS to selectively display and preview text files without the user having to download and open them in an external editor to see their content.
 
 #### The embedded-bin-file element
 
-The embedded-bin-file element is used to embed a file containing binary content directly into XML. The file content must be encoded to Base64. embedded-bin-file requires a **filename**, which may also consist of a relative file path as part of the filename so that a grader or middleware can replicate the directory or package structure the file is located in.
+The embedded-bin-file element is used to embed a file containing binary content directly into the XML. The file content must be encoded in Base64. embedded-bin-file requires a **filename**, which may also consist of a relative file path as part of the filename so that a grader or middleware can replicate the directory or package structure the file is located in.
 
 ###### Code
 ```xml
@@ -123,7 +127,7 @@ The embedded-bin-file element is used to embed a file containing binary content 
 
 #### The embedded-txt-file element
 
-The embedded-txt-file element is used to embed a file containing plaintext content directly into XML. The file content must be encoded to UTF-8, which is the same encoding that the XML document is encoded in. embedded-txt-file requires a **filename**, which may also consist of a relative file path as part of the filename so that a grader or middleware can replicate the directory or package structure the file is located in.
+The embedded-txt-file element is used to embed a file containing plaintext content directly into the XML. The file content must be encoded in UTF-8, which is the same encoding that the XML document is encoded in. embedded-txt-file requires a **filename**, which may also consist of a relative file path as part of the filename so that a grader or middleware can replicate the directory or package structure the file is located in.
 
 ###### Code
 ```xml
@@ -138,7 +142,7 @@ The embedded-txt-file element is used to embed a file containing plaintext conte
 
 #### The attached-bin-file element
 
-The attached-bin-file element is used to attach files containing binary content to ZIP archives. This is especially useful when we are dealing with files that we do not want to embed in XML for various reasons (e.g. the files in question are particularly large in size).
+The attached-bin-file element is used to attach files containing binary content to ZIP archives. This is especially useful when dealing with files that we do not want to embed in XML for various reasons (e.g. the files in question are particularly large in size).
 
 The relative path to the binary file within the ZIP archive is specified in the element content (i.e. the element's text node).
 
@@ -155,23 +159,23 @@ The attached-txt-file element is used to attach files containing plaintext conte
 
 - **encoding**
 
-    The encoding of the text file, as an optional attribute. If the encoding is unknown, it should be left unspecified. In case of text files submitted by a student, an unspecified encoding means that figuring out the text encoding is left up to the middleware or grader.
+    The encoding of the text file, as an optional attribute. If the encoding is unknown, it should be left unspecified. In case of text files submitted by a student, an unspecified encoding means that figuring out the text encoding is left to the middleware or grader.
 
 - **natural-lang** 
 
-    The natural-lang attribute specifies the natural language of the submitting student. Students tend to use all kinds of encodings in their text files. Most of the time, the encoding will be unknown at the time of submission. To address this problem, the natural-lang attribute can be used to help the grader detect the encoding of a submitted plaintext file.
+    The natural-lang attribute specifies the natural language of the files submitted by a student. Students tend to use all kinds of encodings in their text files. Most of the time, the encoding will be unknown at the time of submission. To address this problem, the natural-lang attribute can be used to help the grader detect the encoding of a submitted plaintext file.
     
-    It should be said that the natural-lang attribute does not necessarily have to be the same as the one provided in the task's [lang](#52-task-attributes) attribute. While the lang attribute indicates the language that the task has been written in, a student might use a different language when writing their text entirely.
+    Its value must comply with the ISO 639-1 standard for language codes (e.g. `de`) and ISO 3166-1 alpha-2 for country codes (e.g. `de-CH`). The country code is optional (e. g. `de`).
     
-    Providing a value for the natural-lang attribute could be as simple as retrieving a preconfigured value, like the language the student configured in their user profile of the LMS.
+    It should be said that the natural-lang attribute does not necessarily have to be the same as the one provided in the task's [lang](#52-task-attributes) attribute. While the lang attribute indicates the language that the task has been written in, a student might use an entirely different language when writing their text.
+    
+    Providing a value for the natural-lang attribute could be as simple as retrieving a preconfigured value, such as the language the student configured in their user profile of the LMS.
 
     In case encoding and natural-lang should happen to contradict each other, encoding is given precedence.
 
-    Its value must comply with the ISO 639-1 standard for language codes (e.g. `de`) and ISO 3166-1 alpha-2 for country codes (e.g. `de-CH`). The country code is optional (e. g. `de`).
-
 The relative path to the plaintext file within the ZIP archive is specified in the element content (i.e. the element's text node).
 
-Ideally, we would choose between the embedded-txt-file or the attached-txt-file element to use for a text file submitted by the student. However, since embedded-txt-file requires the file content to be encoded in UTF-8, or another known encoding so that the file can be re-encoded to UTF-8, it is not possible to use embedded-txt-file for files whose encoding is unknown, in which case we *have* to use the attached-txt-file element, without the encoding attribute, and leave the guesswork about the encoding up to the middleware or grader.
+Ideally, one would choose either the embedded-txt-file or the attached-txt-file element to be used for the text file submitted by the student. However, since embedded-txt-file requires the file content to be encoded in UTF-8, or another known encoding so that the file can be re-encoded in UTF-8, it is not possible to use embedded-txt-file for files whose encoding is unknown, in which case one *has* to use the attached-txt-file element, without the encoding attribute, and leave the guesswork about the encoding up to the middleware or grader.
 
 ###### Code
 ```xml
@@ -187,7 +191,7 @@ Ideally, we would choose between the embedded-txt-file or the attached-txt-file 
 
 ### 3.2 The feedback-level
 
-The feedback-level is used for submission and response documents. Usually, feedback can be grouped into different types of information.
+The feedback-level is used within the submission and response parts of the ProFormA-XML format. Usually, feedback can be grouped into different types of information.
 
 - **debug**
 
@@ -195,7 +199,7 @@ The feedback-level is used for submission and response documents. Usually, feedb
         
 - **info**
 
-    Generally useful information to students and teachers, e.g. a specific test case passed successfully.
+    The feedback contains generally useful information for students and teachers, e.g. a specific test case passed successfully.
     
 - **warn**
 
@@ -203,7 +207,7 @@ The feedback-level is used for submission and response documents. Usually, feedb
     
 - **error**
 
-    The feedback contains error information, e.g. the student's source code resulted in a compile-time error that caused the entire test case to fail. This error type should not be confused with the response's [is-internal-error](Whitepaper.md#is-internal-error) flag, which indicates that an error occurred on the part of the grading system.
+    The feedback contains information about an error, e.g. the student's source code resulted in a compile-time error that caused the entire test case to fail. This error type should not be confused with the response's [is-internal-error](Whitepaper.md#is-internal-error) flag, which indicates that an error occurred on the part of the grading system.
 
 ###### Code
 ```xml
@@ -219,7 +223,7 @@ The feedback-level is used for submission and response documents. Usually, feedb
 
 ## 4 Grading Hints
 
-A grading-hints section of a ProFormA task or a ProFormA submission defines, how a grader should calculate a total result from individual test results. Most ProFormA tasks define several tests. Every test is expected to generate a score from the interval [0,1]. The grading-hints element defines groups of tests and groups of groups in a tree like manner. This way the grading-hints element includes the complete hierarchical grading scheme with all tests references, weights, accumulating functions and nullify conditions. Hierarchy nodes and conditions can get a title and descriptions. All information below the grading-hints element except the root node is optional.
+A grading-hints section of a ProFormA task or a ProFormA submission defines how a grader should calculate a total result from individual test results. Most ProFormA tasks define several tests. Every test is expected to generate a score within the interval [0,1]. The grading-hints element defines groups of tests and groups of groups in a tree like manner. This way the grading-hints element includes the complete hierarchical grading scheme with all tests' references, weights, accumulating functions and nullify conditions. Hierarchy nodes and conditions can get a title and descriptions. All information below the grading-hints element except the root node is optional.
 
 ###### Code
 ```xml
@@ -529,8 +533,7 @@ A grading-hints element is valid only, if there are no cyclic dependencies in nu
 
 The task part consists of two parts: The first section shows
 the description/specification of a task, including supporting files; and
-the second section demonstrates a specification of tests which are to be
-included in the specification of a task under the \<tests\> tag. Each
+the second section contains a specification of tests (belonging to the task) under the \<tests\> tag. Each
 task can have many tests.
 
 ### 5.1 Overview
@@ -566,10 +569,7 @@ The optional attribute <b>parent-uuid</b> should be used whenever a task is chan
 a pointer to the original task-uuid. This is useful for version trees.
 
 The task itself must have an attribute <b>lang</b> which specifies the
-natural language used. The description, title etc should be written in
-this language. The content of the "lang" attribute must comply with
-the ISO 639-1 standard for language codes (e.g. `de`) and ISO
-3166-1 alpha-2 for country codes (e.g. `de-CH`).  The country code is optional (e. g. `de`).
+natural language used. See Section 2. Internalization above.
 
 ### 5.3 The description part
 
