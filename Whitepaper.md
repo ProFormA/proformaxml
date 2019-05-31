@@ -171,8 +171,6 @@ The attached-txt-file element is used to attach files containing plaintext conte
     
     Providing a value for the natural-lang attribute could be as simple as retrieving a preconfigured value, such as the language the student configured in their user profile of the LMS.
 
-    In case encoding and natural-lang should happen to contradict each other, encoding is given precedence.
-
 The relative path to the plaintext file within the ZIP archive is specified in the element content (i.e. the element's text node).
 
 Ideally, one would choose either the embedded-txt-file or the attached-txt-file element to be used for the text file submitted by the student. However, since embedded-txt-file requires the file content to be encoded in UTF-8, or another known encoding so that the file can be re-encoded in UTF-8, it is not possible to use embedded-txt-file for files whose encoding is unknown, in which case one *has* to use the attached-txt-file element, without the encoding attribute, and leave the guesswork about the encoding up to the middleware or grader.
