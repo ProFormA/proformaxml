@@ -566,16 +566,16 @@ in Version 3, 4 (see RFC 4122) or 5. There is no need for monitoring the uniquen
 The optional attribute <b>parent-uuid</b> should be used whenever a task is changed. It is
 a pointer to the original task-uuid. This is useful for version trees.
 
-The task itself must have an attribute <b>lang</b> which specifies the
+The optional attribute <b>lang</b> specifies the
 natural language used. See Section 2. Internalization above.
 
 ### 5.3 The description part
 
-The description element contains the task description as text. A
-subset of HTML is allowed (see Appendix A).
+The description element contains the task description as text. Any
+HTML elements are allowed but should be included in the XML as CDATA.
 
-The internal-description element contains text dedicated to teachers only. A 
-subset of HTML is allowed (see Appendix A).
+The internal-description element contains text dedicated to teachers only. Any
+HTML elements are allowed but should be included in the XML as CDATA.
 
 ### 5.4 The proglang part
 
@@ -589,9 +589,10 @@ entered as a "point" separated list of up to four unsigned integers.
 
 ### 5.5 The submission-restrictions part
 
-The [submission part](#7-the-submission-part) of this specification defines a submission as a list of submitted files or as a reference to an external submission. The external reference is required to be resolvable as a list of files - possibly as a single file. So, after all a submission is a set of one or several files.
+The [submission part](#7-the-submission-part) of this specification defines a submission as a list of submitted files or as a reference to an external submission. The external reference is required to be resolvable as a list of files - possibly as a single file. So, after all a submission is a set of one or several files. 
+Restrictions on the kinds of files that students can submit are placed here.
 
-#### 5.5.1 The grader's requirements
+#### 5.5.1 The grader's requirements (not specified by this format!)
 
 Students might submit their source code as individual files or as a bundle like a ZIP archive. Graders and frontends might disallow or enforce a specific archive format. The specification of the bundle format (ZIP or similar) in which files are to be submitted by students, is not the subject of the ProFormA task format because it depends less on the task than on the grader system. If a grader specifies a specific filename pattern or further requirements about the submission, it is up to the implementers of the frontend system to check or fulfill all restrictions enforced by the connected backend graders. Examples of such implementations are:
 
@@ -603,24 +604,30 @@ As mentioned above, the grader's requirements about the format of the submission
 
 #### 5.5.2 The task's requirements
 
-For the sake of defining task-specific restrictions on submitted files we concentrate on the content of a submitted ZIP archive, or - if not archived - on the set of submitted source code files. The submission-restrictions element can specify restrictions for these files. By default there are no restrictions. When specified, the submission-restrictions element defines required and optional files. A valid submission must meet each of the following file-restrictions, i. e. it *must* contain all files specified by *required=true* elements and it *is allowed* to contain files specified by *required=false* elements. Submissions that include even more files than those specified as required or optional are still accepted, but frontends and graders will ignore all these additional files. This allows students to successfully submit ZIP files accidentally containing  inivisible files like `.DS_Store`. Enforcing submission restrictions is up to the LMS, middleware, or grader. A submission not containing all required files may be rejected by the front-end LMS and may not even be graded partially.
-
-All file-restrictions are file paths relative to a root directory. There are three cases to consider: 
-
-- If the [submission files part](#74-the-submission-files-part) contains exactly one embedded or attached archive file (like ZIP, GZ, etc.), then all file-restrictions are interpreted as paths relative to the archive root directory. 
-- If the [submission files part](#74-the-submission-files-part) contains one or more embedded or attached source files (unarchived), then all file-restrictions are interpreted as paths relative to the root directory of all filenames and paths that are specified as part of the embedded or attached files of the submission files part.
-- If the [submission files part](#74-the-submission-files-part) refers to an external submission, then file-restrictions are interpreted as paths relative to a root directory that depends on the specific external source.
-
-The file-restrictions can be specified in two ways:
-
-- literally. The directory separator is "/". A leading "/" is allowed. If it is missing, it is silently inserted as the first character.
-- as a regular expression  (specified regexp language in [regexp-language-restriction](#regexp-language-specification)). Directory separators are matched by the meta character representing any character (the dot). The regular expression should use "/" for literally matching the directory separator. A LMS, middleware, or grader is expected to query matches of full relative paths of submitted files. The LMS, middleware, or grader is expected to query such paths with a leading "/" character.
+For the sake of defining task-specific restrictions on submitted files, the 
+submission-restrictions element can specify restrictions for the content of a submitted ZIP archive, or - if not archived - the set of submitted source code files. By default there are no restrictions. 
 
 The submission-restrictions element has one optional attribute:
 
 -  <b>max-size</b> specifies the maximum size of a file in bytes which should be   accepted. If the submission is a bundle like a ZIP archive, the size of the archive must not exceed the specified maximum size.   If the submission consists of several individual files, the sum of all individual file sizes must not exceed the specified maximum size.   Systems which have a stronger limit of the file size should print a warning to the uploading user. If this attribute is missing, a system default value will be used.
 
-The file-restriction element has an optional boolean <b>required</b> attribute (default is true). The element content specifies the path of the respective file(s). Additionally a file-restriction element optionally can define a <b>pattern-format</b> attribute in order to specify a regular expression in the element content. Currently the only supported pattern-formats are "posix-ere", meaning a regular expression in the language specified in [regexp-language-restriction](#regexp-language-specification)), and "none", meaning literally specified paths. The default pattern-format is none.
+When specified, the submission-restrictions element defines required and optional files using an optional boolean <b>required</b> attribute (default is true).
+A valid submission must meet each of the following file-restrictions: it *must* contain all files specified by *required=true* elements and it *is allowed* to contain files specified by *required=false* elements. Submissions that include even more files than those specified as required or optional are still accepted, but frontends and graders will ignore all these additional files. This allows students to successfully submit ZIP files accidentally containing  inivisible files like `.DS_Store`. Enforcing submission restrictions is up to the LMS, middleware, or grader. A submission not containing all required files may be rejected by the front-end LMS and may not even be partially graded.
+
+All file-restrictions are file paths relative to a root directory. There are three cases to consider (depending on what is submitted in the [submission files element](#74-the-submission-files-part)): 
+
+- If exactly one embedded or attached archive file (like ZIP, GZ, etc.) is submitted by the student, then all file-restrictions are interpreted as paths relative to the archive root directory. 
+- If one or more embedded or attached source files (i.e. unarchived files) are submitted, then all file-restrictions are interpreted as paths relative to the root directory of all filenames and paths that are provided by the submission-files-file elements.
+- If an external submission is used (because, for example, students submit their code via GitHub or SVN), then file-restrictions are interpreted as paths relative to a root directory that depends on the specific external source.
+
+The file-restrictions can be specified in two ways:
+
+- literally. The directory separator is "/". A leading "/" is allowed. If it is missing, it is silently inserted as the first character.
+- as a regular expression.  Directory separators are matched by the meta character representing any character (the dot). The regular expression should use "/" for literally matching the directory separator. A LMS, middleware, or grader is expected to query matches of full relative paths of submitted files. The LMS, middleware, or grader is expected to query such paths with a leading "/" character.
+
+Which of the two ways is chosen is indicated by the 
+<b>pattern-format</b> attribute with the values "none" for literal text and 
+"posix-ere" for a regular expression in the language specified in [regexp-language-restriction](#regexp-language-specification)). The default pattern-format is "none".
 
 The submission-restrictions do not allow for specifying file exclusions. The regular expression dialect POSIX ERE could be used for that but it is not really good in specifying exclusions. Currently file-exclusions are to be specified as part of a test-type-specific [test-configuration](#65-the-test-configuration-part).
 
@@ -1448,6 +1455,8 @@ layouts.
 -   java
 -   SQL
 -   prolog
+-   python
+-   setlX
 
 The identifiers for novel programming languages should be aligned to the existing identifiers.
 
