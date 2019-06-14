@@ -17,6 +17,10 @@ https://github.com/ProFormA/taskxml/blob/master/whitepaper.md
 2 [Internationalization](#2-internationalization)<br>
 3 [Elements and Types that are used in several parts of the XSD](#3-elements-and-types-that-are-used-in-several-parts-of-the-xsd)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;3.1 [Files](#31-files)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.1.1 [The embedded-bin-file element](#311-the-embedded-bin-file-element)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.1.2 [The embedded-txt-file element](#312-the-embedded-txt-file-element)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.1.3 [The attached-bin-file element](#313-the-attached-bin-file-element)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.1.4 [The attached-txt-file element](#314-the-attached-txt-file-element)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;3.2 [The feedback-level](#32-the-feedback-level)<br>
 4 [Grading Hints](#4-grading-hints)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;4.1 [The top elements in the grading hints section](#41-the-top-elements-in-the-grading-hints-section)<br>
@@ -110,7 +114,7 @@ All main parts of the ProFormA-XML format make use of files in various ways. The
 
 Files are distinguished by binary ("bin") and plaintext ("txt") content, enabling the LMS to selectively display and preview text files without the user having to download and open them in an external editor to see their content.
 
-#### The embedded-bin-file element
+#### 3.1.1 The embedded-bin-file element
 
 The embedded-bin-file element is used to embed a file containing binary content directly into the XML. The file content must be encoded in Base64. embedded-bin-file requires a **filename**, which may also consist of a relative file path as part of the filename so that a grader or middleware can replicate the directory or package structure the file is located in.
 
@@ -125,7 +129,7 @@ The embedded-bin-file element is used to embed a file containing binary content 
 </xs:complexType>
 ```
 
-#### The embedded-txt-file element
+#### 3.1.2 The embedded-txt-file element
 
 The embedded-txt-file element is used to embed a file containing plaintext content directly into the XML. The file content must be encoded in UTF-8, which is the same encoding that the XML document is encoded in. embedded-txt-file requires a **filename**, which may also consist of a relative file path as part of the filename so that a grader or middleware can replicate the directory or package structure the file is located in.
 
@@ -140,7 +144,7 @@ The embedded-txt-file element is used to embed a file containing plaintext conte
 </xs:complexType>
 ```
 
-#### The attached-bin-file element
+#### 3.1.3 The attached-bin-file element
 
 The attached-bin-file element is used to attach files containing binary content to ZIP archives. This is especially useful when dealing with files that we do not want to embed in XML for various reasons (e.g. the files in question are particularly large in size).
 
@@ -153,7 +157,7 @@ The relative path to the binary file within the ZIP archive is specified in the 
 </xs:simpleType>
 ```
 
-#### The attached-txt-file element
+#### 3.1.4 The attached-txt-file element
 
 The attached-txt-file element is used to attach files containing plaintext content to ZIP archives. It comes with a few optional attributes that are particularly useful when dealing with plaintext.
 
