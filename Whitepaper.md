@@ -91,7 +91,7 @@ multiple languages, the **lang** attribute of the **task** element contains the 
 language and translations can be indicated by using markup with **@@@** and a file with translations that is stored as **strings.txt**, e.g.  "lang/en/strings.txt", "lang/de/strings.txt", "lang/en_us/strings.txt", etc. The strings.txt file is structured in the [.properties file format](https://en.wikipedia.org/wiki/.properties) and must be encoded in UTF-8. 
 The content of the "lang" attribute must comply with
 the ISO 639-1 standard for language codes (e.g. `de`) and ISO
-3166-1 alpha-2 for country codes (e.g. `de-CH`).  The country code is optional (e. g. `de`).
+3166-1 alpha-2 for country codes (e.g. `de-CH`). The country code (e.g. `-CH`) is optional.
 For example, multiple languages for a title are indicated by
 ```xml
 <title>@@@title2@@@</title>
@@ -169,7 +169,7 @@ The attached-txt-file element is used to attach files containing plaintext conte
 
     The natural-lang attribute specifies the natural language of the files submitted by a student. Students tend to use all kinds of encodings in their text files. Most of the time, the encoding will be unknown at the time of submission. To address this problem, the natural-lang attribute can be used to help the grader detect the encoding of a submitted plaintext file.
     
-    Its value must comply with the ISO 639-1 standard for language codes (e.g. `de`) and ISO 3166-1 alpha-2 for country codes (e.g. `de-CH`). The country code is optional (e. g. `de`).
+    Its value must comply with the ISO 639-1 standard for language codes (e.g. `de`) and ISO 3166-1 alpha-2 for country codes (e.g. `de-CH`). The country code (e.g. `-CH`) is optional.
     
     It should be said that the natural-lang attribute does not necessarily have to be the same as the one provided in the task's [lang](#52-task-attributes) attribute. While the lang attribute indicates the language that the task has been written in, a student might use an entirely different language when writing their text.
     
@@ -601,8 +601,8 @@ Restrictions on the kinds of files that students can submit are placed here.
 Students might submit their source code as individual files or as a bundle like a ZIP archive. Graders and frontends might disallow or enforce a specific archive format. The specification of the bundle format (ZIP or similar) in which files are to be submitted by students, is not the subject of the ProFormA task format because it depends less on the task than on the grader system. If a grader specifies a specific filename pattern or further requirements about the submission, it is up to the implementers of the frontend system to check or fulfill all restrictions enforced by the connected backend graders. Examples of such implementations are:
 
 - Example 1: The frontend automatically creates a ZIP from several individually uploaded files and passes the ZIP to the backend grader. The ZIP file gets a specific name pattern.
-- Example 2: The frontend unpacks an uploaded ZIP file and automatically creates another archive format (e. g. GZ).
-- Example 3: The frontend unpacks an uploaded TAR file and automatically inserts every single file into an online repository (e. g. git). The frontend passes the external-submission value "git://domain.org/path" to the grader backend. The grader backend resolves the URI and downloads the individual files.
+- Example 2: The frontend unpacks an uploaded ZIP file and automatically creates another archive format (e.g. GZ).
+- Example 3: The frontend unpacks an uploaded TAR file and automatically inserts every single file into an online repository (e.g. git). The frontend passes the external-submission value "git://domain.org/path" to the grader backend. The grader backend resolves the URI and downloads the individual files.
 
 As mentioned above, the grader's requirements about the format of the submission is not part of this specification. We usually assume a grader that can process a submission both in the form of a list of individual source code files and in the form of a ZIP archive containing the source code files.  In future versions of the ProFormA format there might be an additional *grader specification* format that can be used to define requirements of graders to be read and adhered to by frontends.
 
@@ -1117,7 +1117,7 @@ The result-spec element has the following attributes:
 
     This is the student's preferred natural language that the feedback should be presented in.
     
-    Its value must comply with the ISO 639-1 standard for language codes (e.g. `de`) and ISO 3166-1 alpha-2 for country codes (e.g. `de-CH`). The country code (`-CH`) is optional.
+    Its value must comply with the ISO 639-1 standard for language codes (e.g. `de`) and ISO 3166-1 alpha-2 for country codes (e.g. `de-CH`). The country code (e.g. `-CH`) is optional.
 
 #### The student-feedback-level and teacher-feedback-level elements
 
