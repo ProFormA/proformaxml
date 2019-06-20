@@ -131,7 +131,7 @@ The embedded-bin-file element is used to embed a file containing binary content 
 
 #### 3.1.2 The embedded-txt-file element
 
-The embedded-txt-file element is used to embed a file containing plaintext content directly into the XML. The file content must be encoded in UTF-8, which is the same encoding that the XML document is encoded in. embedded-txt-file requires a **filename**, which may also consist of a relative file path as part of the filename so that a grader or middleware can replicate the directory or package structure the file is located in.
+The embedded-txt-file element is used to embed a file containing plaintext content directly into the XML. The file content must be encoded in UTF-8, which is the same encoding that the XML document is (and must be) encoded in. embedded-txt-file requires a **filename**, which may also consist of a relative file path as part of the filename so that a grader or middleware can replicate the directory or package structure the file is located in.
 
 ###### Code
 ```xml
@@ -164,12 +164,14 @@ The attached-txt-file element is used to attach files containing plaintext conte
 - **encoding**
 
     The encoding of the text file, as an optional attribute. If the encoding is unknown, it should be left unspecified. In case of text files submitted by a student, an unspecified encoding means that figuring out the text encoding is left to the middleware or grader.
+    
+    The value of the encoding attribute must be a valid character encoding name, and it must be the preferred name for that encoding as specified by the [IANA Standard for character sets](https://www.iana.org/assignments/character-sets/character-sets.xhtml). 
 
 - **natural-lang** 
 
     The natural-lang attribute specifies the natural language of the files submitted by a student. Students tend to use all kinds of encodings in their text files. Most of the time, the encoding will be unknown at the time of submission. To address this problem, the natural-lang attribute can be used to help the grader detect the encoding of a submitted plaintext file.
     
-    Its value must comply with the ISO 639-1 standard for language codes (e.g. `de`) and ISO 3166-1 alpha-2 for country codes (e.g. `de-CH`). The country code (e.g. `-CH`) is optional.
+    The value of the natural-lang attribute must comply with the ISO 639-1 standard for language codes (e.g. `de`) and ISO 3166-1 alpha-2 for country codes (e.g. `de-CH`). The country code (e.g. `-CH`) is optional.
     
     It should be said that the natural-lang attribute does not necessarily have to be the same as the one provided in the task's [lang](#52-task-attributes) attribute. While the lang attribute indicates the language that the task has been written in, a student might use an entirely different language when writing their text.
     
