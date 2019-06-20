@@ -538,6 +538,8 @@ the description/specification of a task, including supporting files; and
 the second section contains a specification of tests (belonging to the task) under the \<tests\> tag. Each
 task can have many tests.
 
+**The task XML document must be encoded in UTF-8.**
+
 ### 5.1 Overview
 
 The general structure of the task part is given as follows (this is
@@ -870,6 +872,7 @@ Students provide submissions to tasks, usually by uploading them to an LMS. A st
 
 The task that the submission is for is part of the submission XML document. The grading-hints may also be included, which, if specified, override the task's default version of the grading-hints. This is followed by the actual submission files, along with the submission context, such as LMS and submitting student details. At the end is the result specification as requested by the LMS.
 
+**The submission XML document must be encoded in UTF-8.**
 
 ###### Code
 
@@ -1170,6 +1173,8 @@ If neither student-feedback-level nor teacher-feedback-level are specified, no [
 ## 8 The Response Part
 
 The response contains the results of a graded submission.
+
+**The response XML document must be encoded in UTF-8.**
 
 ###### Code
 
