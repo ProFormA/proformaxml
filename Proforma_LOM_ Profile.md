@@ -4,7 +4,6 @@
     	<th>Beschreibung (im ProFormA Kontext)</th>
     	<th>Nutzung</th>
 	</tr>
-    
 	<tr style="font-size: 17px; font-weight: bold">
         <td>General</td>
 		<td>Allgemeine Angaben</td>
@@ -50,7 +49,6 @@
 		<td>Inwieweit lässt sich das Learning Object in weitere kleinere Learning Objects aufteilen?</td>
 		<td>n/a</td>
 	</tr>
-	
 	<tr style="font-size: 17px; font-weight: bold">
         <td>Life Cycle</td>
 		<td>Lebenszyklus (Änderungen, aktueller Status)</td>
@@ -86,7 +84,6 @@
 		<td>Zeitstempel der Contribution</td>
 		<td>mandatory</td>
 	</tr>
-	
 	<tr style="font-size: 17px; font-weight: bold">
         <td>Technical</td>
 		<td>Technische Aspekte</td>
@@ -127,7 +124,6 @@
 		<td>Dauer für das Abspielen des Learning Objects (z. B. für Videos)</td>
 		<td>n/a</td>
 	</tr>
-	
 	<tr style="font-size: 17px; font-weight: bold">
         <td>Rights</td>
 		<td>Rechtemanagement</td>
@@ -148,7 +144,6 @@
 		<td>Beschreibung Restriktionen/Angaben zum Copyright</td>
 		<td>mandatory (wenn coyrightAndOtherRestrictions = yes)</td>
 	</tr>
-
 	<tr style="font-size: 17px; font-weight: bold">
         <td>Relation</td>
 		<td>Beziehung zu anderen Learning Objects</td>
@@ -174,7 +169,6 @@
 		<td>Art der Beziehung zwischen den Learning Objects</td>
 		<td>mandatory</td>
 	</tr>
-	
 	<tr style="font-size: 17px; font-weight: bold">
         <td>Annotation</td>
 		<td>Feedback zur Aufgabe</td>
@@ -195,7 +189,6 @@
 		<td>Feedback zur Aufgabe</td>
 		<td>mandatory</td>
 	</tr>
-
 	<tr style="font-size: 17px; font-weight: bold">
         <td>Classification</td>
 		<td>Aufgabe Klassifizieren</td>
@@ -221,7 +214,6 @@
 		<td></td>
 		<td>n/a</td>
 	</tr>
-
 	<tr style="font-size: 17px; font-weight: bold">
         <td>Educational</td>
 		<td>Lehrbezogene Angaben</td>
