@@ -107,7 +107,7 @@
 		<td><sub><b>version</b></sub></td>
 		<td><sub>Versionnumber of the task</sub></td>
 		<td></td>
-		<td></td>
+		<td>0 iff parent-uuid is empty?</td>
 		<td><sub>mandatory</sub></td>
 		<td><sub>optional</sub></td>
 	</tr>
