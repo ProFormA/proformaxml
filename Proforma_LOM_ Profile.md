@@ -66,7 +66,7 @@
 		<td><sub>2 Letter Code from ISO-639-1 (3 Letter Code from ISO 639-2 only if there isn’t a 2 letter code available) + ISO Country code [ISO3166] when necessary, separated by a dash</sub></td>
 		<td><sub>CharacterString</sub></td>
 		<td><sub>"de", "de-CH"</sub></td>		
-		<td><sub>mandatory</sub></td>
+		<td><sub>recommended</sub></td>
 		<td><sub>mandatory</sub></td>
 	</tr>
 	<tr>
@@ -81,8 +81,8 @@
 	</tr>
 	<tr>
 		<td><sub><b>keywords</b></sub></td>
-		<td><sub>Keywords describing the topic of the task (for search)</sub></td>
-		<td></td>
+		<td><sub>Keywords describing the topic of the task (for search), should contain at least programming language and programming language version</sub></td>
+		<td><sub><b>keyword programming language:</b> task element proglang<br><br><b>keyword programming language version:</b> task element proglang attribute version</sub></td>
 		<td></td>
 		<td><sub>LangString</sub></td>
 		<td></td>
@@ -96,7 +96,7 @@
 		<td><sub>"atomic" (task.xml only), "collection" (task.xml in zip file)</sub></td>
 		<td><sub>VocabularyTerm (LOMv1.0)</sub></td>
 		<td></td>
-		<td><sub>optional</sub></td>
+		<td><sub>mandatory? (Value automatisch vom System festlegen lassen)</sub></td>
 		<td><sub>optional</sub></td>
 	</tr>
 	<tr>
@@ -106,7 +106,7 @@
 		<td></td>
 		<td><sub>LangString</sub></td>
 		<td><sub>"2019", "Niedersachsen"</sub></td>
-		<td><sub>n/a</sub></td>
+		<td><sub>optional</sub></td>
 		<td><sub>optional</sub></td>
 	</tr>
 	<tr>
@@ -116,7 +116,7 @@
 		<td><sub>"1" (the smallest level of aggregation, e.g., raw media data or fragments), "2" (: a collection of level 1 learning objects, e.g., a lesson), "3" (a collection of level 2 learning objects, e.g., a course), "4" (the largest level of granularity, e.g., a set of courses that lead to a certificate)</sub></td>
 		<td><sub>VocabularyTerm (enumerated) (LOMv1.0)</sub></td>
 		<td></td>
-		<td><sub>n/a</sub></td>
+		<td><sub>n/a oder optional?</sub></td>
 		<td><sub>optional</sub></td>
 	</tr>
 	<tr>
@@ -146,7 +146,7 @@
 		<td><sub>"draft", "final", "revised", "unavailable"</sub></td>
 		<td><sub>VocabularyTerm (LOMv1.0)</sub></td>
 		<td></td>
-		<td><sub>mandatory</sub></td>
+		<td><sub>optional</sub></td>
 		<td><sub>optional</sub></td>
 	</tr>
 	<tr>
@@ -156,7 +156,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
-		<td><sub>recommended</sub></td>
+		<td><sub>recommended oder mandatory?</sub></td>
 		<td><sub>recommended</sub></td>
 	</tr>
 	<tr>
@@ -316,12 +316,12 @@
 	</tr>
 	<tr>
 		<td><sub><b>requirement</b></sub></td>
-		<td><sub>Technical requirements in order to use the task (i.e. technical requirements for the automatic grading process)</sub></td>
+		<td><sub>Technical requirements in order to use the task (only operating system and browser)</sub></td>
 		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
-		<td><sub>mandatory</sub></td>
+		<td><sub>optional</sub></td>
 		<td><sub>optional</sub></td>
 	</tr>
 	<tr>
@@ -331,7 +331,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
-		<td><sub></sub></td>
+		<td><sub>optional</sub></td>
 		<td><sub></sub></td>
 	</tr>
     <tr>
@@ -341,7 +341,7 @@
 		<td><sub>"operating system", "browser"</sub></td>
 		<td><sub>VocabularyTerm (LOMv1.0)</sub></td>
 		<td></td>
-		<td><sub></sub></td>
+		<td><sub>mandatory</sub></td>
 		<td><sub></sub></td>
 	</tr>
     <tr>
@@ -351,7 +351,7 @@
 		<td><sub><b>operating system:</b> "pc-dos", "ms-windows", "macos", "unix", "multi-os", "none"; <b>browser:</b> "any", "netscape communicator", "ms-internet explorer", "opera", "amaya"</sub></td>
 		<td><sub>VocabularyTerm (LOMv1.0)</sub></td>
 		<td></td>
-		<td><sub></sub></td>
+		<td><sub>mandatory</sub></td>
 		<td><sub></sub></td>
 	</tr>
 	<tr>
@@ -361,7 +361,7 @@
 		<td></td>
 		<td><sub>CharacterString</sub></td>
 		<td></td>
-		<td><sub></sub></td>
+		<td><sub>optional</sub></td>
 		<td><sub></sub></td>
 	</tr>
     <tr>
@@ -371,7 +371,7 @@
 		<td></td>
 		<td><sub>CharacterString</sub></td>
 		<td></td>
-		<td><sub></sub></td>
+		<td><sub>optional</sub></td>
 		<td><sub></sub></td>
 	</tr>
 	<tr>
@@ -391,7 +391,7 @@
 		<td></td>
 		<td><sub>CharacterString</sub></td>
 		<td></td>
-		<td><sub>n/a</sub></td>
+		<td><sub>optional</sub></td>
 		<td><sub>mandatory</sub></td>
 	</tr>
 	<tr>
@@ -401,17 +401,17 @@
 		<td><sub>MIME types based on IANA registration (see RFC2048:1996)</sub></td>
 		<td><sub>CharacterString</sub></td>
 		<td><sub>"text/xml"</sub></td>
-		<td><sub>n/a</sub></td>
+		<td><sub>optional</sub></td>
 		<td><sub>recommended</sub></td>
 	</tr>
 	<tr>
 		<td><sub><b>otherPlattformRequirements</b></sub></td>
-		<td><sub>Additional technical plattform requirements</sub></td>
+		<td><sub>Additional technical plattform requirements (i.e. technical requirements for the automatic grading process)</sub></td>
 		<td></td>
 		<td></td>
 		<td><sub>LangString</sub></td>
-		<td><sub>see Educational -> typicalLearningTime</sub></td>
-		<td><sub>n/a</sub></td>
+		<td></td>
+		<td><sub>optional</sub></td>
 		<td><sub>optional</sub></td>
 	</tr>
 	<tr>
@@ -420,8 +420,8 @@
 		<td></td>
 		<td></td>
 		<td><sub>Duration</sub></td>
-		<td></td>
-		<td><sub>n/a</sub></td>
+		<td><sub>see Educational -> typicalLearningTime</sub></td>
+		<td><sub>optional</sub></td>
 		<td><sub>optional</sub></td>
 	</tr>
 	<tr>
@@ -431,17 +431,17 @@
 		<td></td>
 		<td></td>
 		<td></td>
-		<td><b>mandatory</b></td>
+		<td><b>recommended</b></td>
 		<td><b>mandatory</b></td>
     </tr>
 	<tr>
 		<td><sub><b>learningResource</b></sub></td>
 		<td><sub>Type of the learning object/task</sub></td>
 		<td></td>
-		<td><sub>"self assessment", "formative assessment", "summative assessment", "exercise", "exam"</sub></td>
-		<td><sub>Vocabulary Term (ProformA MD 1.0)</sub></td>
+		<td><sub></sub></td>
+		<td><sub></sub></td>
 		<td></td>
-		<td><sub>mandatory</sub></td>
+		<td><sub>recommended</sub></td>
 		<td><sub>mandatory</sub></td>
 	</tr>
 	<tr>
@@ -451,7 +451,7 @@
 		<td><sub>"teacher", "author", "learner", "manager"</sub></td>
 		<td><sub>VocabularyTerm (LOMv1.0)</sub></td>
 		<td></td>
-		<td><sub>mandatory</sub></td>
+		<td><sub>optional?</sub></td>
 		<td><sub>recommended</sub></td>
 	</tr>
 	<tr>
@@ -461,7 +461,7 @@
 		<td><sub>"school", "higher education", "training", "other"</sub></td>
 		<td><sub>VocabularyTerm (LOMv1.0)</sub></td>
 		<td></td>
-		<td><sub>optional<sub></td>
+		<td><sub>recommended<sub></td>
 		<td><sub>recommended</sub></td>
 	</tr>
 	<tr>
@@ -476,11 +476,11 @@
 	</tr>
 	<tr>
 		<td><sub><b>typicalLearningTime</b></sub></td>
-		<td><sub>Average time needed to solve the task</sub></td>
+		<td><sub>period of time in which the task has to be solved</sub></td>
 		<td></td>
 		<td><sub>Value in ISO 8601:2000 standard</sub></td>
 		<td><sub>Duration</sub></td>
-		<td><sub>PT5H20M25S (five hours, twenty minutes, twenty-five seconds)</sub></td>
+		<td><sub>PT1W (1 Week)</sub></td>
 		<td><sub>optional<sub></td>
 		<td><sub>optional</sub></td>
 	</tr>
@@ -501,7 +501,7 @@
 		<td><sub>"active" (Assessment, Drill and practice), "expositive" (Guide, Glossary, Information resource), "mixed" (LO with active and expositive components)</sub></td>
 		<td><sub>VocabularyTerm (LOMv1.0)</sub></td>
 		<td></td>
-		<td><sub>n/a</sub></td>
+		<td><sub>optional</sub></td>
 		<td><sub>optional</sub></td>
 	</tr>
 	<tr>
@@ -511,7 +511,7 @@
 		<td><sub>"very low", "low", "medium", "high", "very high"</sub></td>
 		<td><sub>VocabularyTerm (LOMv1.0)</sub></td>
 		<td></td>
-		<td><sub>n/a</sub></td>
+		<td><sub>optional</sub></td>
 		<td><sub>optional</sub></td>
 	</tr>
 	<tr>
@@ -521,7 +521,7 @@
 		<td><sub>"very low", "low", "medium", "high", "very high"</sub></td>
 		<td><sub>VocabularyTerm (LOMv1.0)</sub></td>
 		<td></td>
-		<td><sub>n/a</sub></td>
+		<td><sub>optional</sub></td>
 		<td><sub>optional</sub></td>
 	</tr>
 	<tr>
@@ -531,7 +531,7 @@
 		<td></td>
 		<td><sub>LangString</sub></td>
 		<td></td>
-		<td><sub>n/a</sub></td>
+		<td><sub>optional</sub></td>
 		<td><sub>recommended</sub></td>
 	</tr>
 	<tr>
@@ -541,7 +541,7 @@
 		<td><sub>see general -> language</sub></td>
 		<td><sub>CharacterString</sub></td>
 		<td></td>
-		<td><sub>n/a</sub></td>
+		<td><sub>optional</sub></td>
 		<td></td>
 	</tr>
 	<tr>
@@ -578,10 +578,10 @@
 		<td><sub><b>cost</b></sub></td>
 		<td><sub>Payment required in order to be allowed to use the learning object?</sub></td>
 		<td></td>
-		<td><sub>"yes", "no"</sub></td>
+		<td><sub>"no"</sub></td>
 		<td><sub>VocabularyTerm (LOMv1.0)</sub></td>
 		<td></td>
-		<td><sub>n/a</sub></td>
+		<td><sub>mandatory (set to "no" automatically)</sub></td>
 		<td><sub>recommended</sub></td>
 	</tr>
 	<tr>
@@ -701,7 +701,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
-		<td><b>mandatory (programming language, version)<br><br>optional (other classification purposes)</b></td>
+		<td><b>optional</b></td>
 		<td><b>mandatory</b></td>
     </tr>
 	<tr>
@@ -731,7 +731,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
-		<td><sub>n/a</sub></td>
+		<td><sub>optional</sub></td>
 		<td><sub>recommended</sub></td>
 	</tr>
 	<tr>
