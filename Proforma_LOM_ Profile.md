@@ -708,7 +708,7 @@
 		<td><sub><b>purpose</b></sub></td>
 		<td><sub>Kind of classification</sub></td>
 		<td></td>
-		<td><sub>"educational objective", "programming language", "programming language version", "covered programming principles/concepts"</sub></td>
+		<td><sub>"educational objective", "programming language", "programming language version", "covered programming principles/concepts", "statistics.average_working_time", "statistics.users", "statistics.full_score_users", "statistics.normalized_average_score"</sub></td>
 		<td><sub>VocabularyTerm (ProformA MD 1.0)</sub></td>
 		<td></td>
 		<td><sub>mandatory</sub></td>
@@ -717,7 +717,7 @@
 	<tr>
 		<td><sub><b>description</b></sub></td>
 		<td><sub>Specification/description of the classification</sub></td>
-		<td><sub>if purpose = programming language: task element <b>proglang</b><br><br> if purpose = programming language version: task element proglang attribute <b>version</b><sub></td>
+		<td><sub>if purpose = programming language: task element <b>proglang</b><br><br> if purpose = programming language version: task element proglang attribute <b>version</b><br><br> if purpose = "statistics.*" = statistical information formatted as Integer (<b>"statistics.users"</b> and <b>"statistics.full_score_users"</b>), Float (<b>"statistics.normalized_average_score"</b>) or Duration (<b>"statistics.average_working_time"</b>)<sub></td>
 		<td></td>
 		<td><sub>LangString</sub></td>
 		<td></td>
