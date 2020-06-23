@@ -200,14 +200,14 @@
         <xs:element name="combine-ref" type="tns:grades-combine-ref-child-type"/>
       </xs:choice>
     </xs:sequence>
-    <xs:attribute name="id" type="xs:string" use="optional">
+    <xs:attribute name="id" type="xs:string">
       <xs:annotation>
         <xs:documentation xml:lang="en">Node identifier. It is optional for the "root" node and required for "combine"
           nodes.
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="function" use="optional" default="min">
+    <xs:attribute name="function" default="min">
       <xs:annotation>
         <xs:documentation xml:lang="en">Accumulator function that is used to condense several sub results to a single
           result.
@@ -286,7 +286,7 @@
         </xs:element>
       </xs:choice>
     </xs:sequence>
-    <xs:attribute name="weight" type="xs:double" use="optional">
+    <xs:attribute name="weight" type="xs:double">
       <xs:annotation>
         <xs:documentation xml:lang="en">Specifies a weight that is multiplied to the sub result of the pointed-at node
           when flowing into the accumulator function. The pointed-at node is a test or a combine node. When calculating
@@ -337,7 +337,7 @@
             <xs:documentation xml:lang="en">The id of the pointed-at test.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="sub-ref" type="xs:string" use="optional">
+        <xs:attribute name="sub-ref" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">If the pointed at test exhibits sub test results, this points to one of the
               sub results. Examples are individual test cases in a unit test specification, individual violation rules
@@ -554,7 +554,7 @@
             <xs:documentation xml:lang="en">The id of the pointed-at test.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="sub-ref" type="xs:string" use="optional">
+        <xs:attribute name="sub-ref" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">If the pointed at test exhibits sub test results, this points to one of the
               sub results. Examples are individual test cases in a unit test specification, individual violation rules
@@ -607,7 +607,7 @@
       <xs:element name="meta-data" type="tns:task-meta-data-type"/>
     </xs:sequence>
     <xs:attribute name="uuid" type="xs:string" use="required"/>
-    <xs:attribute name="parent-uuid" type="xs:string" use="optional"/>
+    <xs:attribute name="parent-uuid" type="xs:string"/>
     <xs:attribute name="lang" type="xs:language"/>
   </xs:complexType>
 
@@ -615,14 +615,14 @@
     <xs:sequence minOccurs="0" maxOccurs="unbounded">
       <xs:element name="file-restriction" type="tns:file-restr-type"/>
     </xs:sequence>
-    <xs:attribute name="max-size" type="xs:positiveInteger" use="optional"/>
+    <xs:attribute name="max-size" type="xs:positiveInteger"/>
   </xs:complexType>
 
   <xs:complexType name="file-restr-type">
     <xs:simpleContent>
       <xs:extension base="xs:string">
-        <xs:attribute name="required" type="xs:boolean" use="optional" default="true"/>
-        <xs:attribute name="pattern-format" use="optional" default="none">
+        <xs:attribute name="required" type="xs:boolean" default="true"/>
+        <xs:attribute name="pattern-format" default="none">
           <xs:simpleType>
             <xs:restriction base="xs:string">
               <xs:enumeration value="none"/>
@@ -675,7 +675,7 @@
       <xs:element name="internal-description" type="tns:description-type" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:string" use="required"/>
-    <xs:attribute name="mimetype" type="xs:string" use="optional"/>
+    <xs:attribute name="mimetype" type="xs:string"/>
     <xs:attribute name="used-by-grader" type="xs:boolean" use="required"/>
     <xs:attribute name="visible" use="required">
       <xs:simpleType>
@@ -686,7 +686,7 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>          
-    <xs:attribute name="usage-by-lms" use="optional" default="download">
+    <xs:attribute name="usage-by-lms" default="download">
       <xs:simpleType>
         <xs:restriction base="xs:string">
           <xs:enumeration value="edit"/>
@@ -715,7 +715,7 @@
       <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:string" use="required"/>
-    <xs:attribute name="reference" type="xs:string" use="optional"/>
+    <xs:attribute name="reference" type="xs:string"/>
   </xs:complexType>
 
   <xs:simpleType name="title-type">
@@ -762,7 +762,7 @@
       <xs:element name="test-configuration" type="tns:test-configuration-type"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:string" use="required"/>
-    <xs:attribute name="validity" use="optional" default="1.00">
+    <xs:attribute name="validity" default="1.00">
       <xs:simpleType>
         <xs:restriction base="xs:decimal">
           <xs:totalDigits value="3"/>
@@ -821,8 +821,8 @@
 
   <xs:complexType name="submission-file-type">
     <xs:group ref="tns:file-choice-group"/>
-    <xs:attribute name="id" type="xs:string" use="optional"/>
-    <xs:attribute name="mimetype" type="xs:string" use="optional"/>
+    <xs:attribute name="id" type="xs:string"/>
+    <xs:attribute name="mimetype" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="submission-files-type">
@@ -834,7 +834,7 @@
   <xs:complexType name="external-task-type">
     <xs:simpleContent>
       <xs:extension base="xs:string">
-        <xs:attribute name="uuid" type="xs:string" use="optional"/>
+        <xs:attribute name="uuid" type="xs:string"/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
@@ -849,7 +849,7 @@
       <xs:element name="attached-zip-file" type="tns:attached-bin-file-type"/>
       <xs:element name="attached-xml-file" type="tns:attached-txt-file-type"/>
     </xs:choice>
-    <xs:attribute name="uuid" type="xs:string" use="optional"/>
+    <xs:attribute name="uuid" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="lms-type">
@@ -860,7 +860,7 @@
       <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded"
               processContents="lax"/>
     </xs:sequence>
-    <xs:attribute name="url" type="xs:string" use="optional"/>
+    <xs:attribute name="url" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="result-spec-type">
@@ -1050,7 +1050,7 @@
   <xs:complexType name="response-file-type">
     <xs:group ref="tns:file-choice-group"/>
     <xs:attribute name="id" type="xs:string" use="required"/>
-    <xs:attribute name="mimetype" type="xs:string" use="optional"/>
+    <xs:attribute name="mimetype" type="xs:string"/>
     <xs:attribute name="title" type="xs:string" use="required"/>
   </xs:complexType>
 
