@@ -487,7 +487,7 @@
 	<tr>
 		<td><sub><b>description</b></sub></td>
 		<td><sub>Internal description i.e. with hints for manual grading or instructions how to use the task for teaching purposes</sub></td>
-		<td><sub>task element <b>internal-description</sub></b></td>
+		<td><sub>task element <b>internal-description</b></sub></td>
 		<td></td>
 		<td><sub>LangString</sub></td>
 		<td></td>
