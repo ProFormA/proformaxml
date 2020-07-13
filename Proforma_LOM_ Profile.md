@@ -1,16 +1,16 @@
 <table>
 	<tr>
 		<th>Element</th>
-    	<th>Content (in context ProFormA)</th>
+		<th>Content (in context ProFormA)</th>
 		<th>Referenced Element/Attribute in Task XML</th>
 		<th>Value space</th>
 		<th>Data type</th>
 		<th>Example</th>
-    	<th>Usage</th>
+		<th>Usage</th>
 		<th>Usage (LOM-DE)</th>
 	</tr>
 	<tr>
-        <td><b>General</b></td>
+		<td><b>General</b></td>
 		<td><b>General information about the task</b></td>
 		<td></td>
 		<td></td>
@@ -18,7 +18,7 @@
 		<td></td>
 		<td><b>mandatory</b></td>
 		<td><b>mandatory</b></td>
-    </tr>
+	</tr>
 	<tr>
 		<td><sub><b>identifier</b></sub></td>
 		<td><sub>globaly unique identifier for the task</sub></td>
@@ -120,7 +120,7 @@
 		<td><sub>optional</sub></td>
 	</tr>
 	<tr>
-        <td><b>Life Cycle</b></td>
+		<td><b>Life Cycle</b></td>
 		<td><b>Information about tasks release state, version and change history</td>
 		<td></td>
 		<td></td>
@@ -128,7 +128,7 @@
 		<td></td>
 		<td><b>mandatory</b></td>
 		<td><b>recommended</b></td>
-    </tr>
+	</tr>
 	<tr>
 		<td><sub><b>version</b></sub></td>
 		<td><sub>Versionnumber of the task</sub></td>
@@ -162,7 +162,7 @@
 	<tr>
 		<td><sub>role</sub></td>
 		<td><sub>Role of contributor</sub></td>
-	    <td></td>
+		<td></td>
 		<td><sub>"author", "publisher", "unknown", "initiator", "terminator", "validator", "editor", "graphical designer", "technical implementer", "content provider", "technical validator", "educational validator", "script writer", "instructional designer", "subject matter expert"</td>
 		<td><sub>VocabularyTerm (LOMv1.0)</sub></td>
 		<td></td>
@@ -172,7 +172,7 @@
 	<tr>
 		<td><sub>entity</sub></td>
 		<td><sub>Name of contributor (person/organisation)</sub></td>
-	    <td></td>
+		<td></td>
 		<td><sub>vCard, as defined by IMC vCard 3.0 (RFC 2425, RFC 2426)</sub></td>
 		<td><sub>CharacterString</sub></td>
 		<td><sub>BEGIN:VCARD
@@ -187,7 +187,7 @@
 	<tr>
 		<td><sub>date</sub></td>
 		<td><sub>Timestamp/date of contribution</sub></td>
-	    <td></td>
+		<td></td>
 		<td></td>
 		<td><sub>DateTime</sub></td>
 		<td></td>
@@ -195,7 +195,7 @@
 		<td><sub>recommended</sub></td>
 	</tr>
 	<tr>
-	    <td><b>Meta-Metadata</b></td>
+		<td><b>Meta-Metadata</b></td>
 		<td><b>Metadata to describe the task specific Metadata record</b></td>
 		<td></td>
 		<td></td>
@@ -247,7 +247,7 @@
 	<tr>
 		<td><sub>role</sub></td>
 		<td><sub>Role of contributor (i.e. creator)</sub></td>
-	    <td></td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -257,7 +257,7 @@
 	<tr>
 		<td><sub>entity</sub></td>
 		<td><sub>Name of contributor</sub></td>
-	    <td></td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -267,7 +267,7 @@
 	<tr>
 		<td><sub>date</sub></td>
 		<td><sub>Timestamp/date of contribution</sub></td>
-	    <td></td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -295,7 +295,7 @@
 		<td><sub>recommended</sub></td>
 	</tr>
 	<tr>
-        <td><b>Technical</b></td>
+		<td><b>Technical</b></td>
 		<td><b>Technical requirements and other technical aspects regarding the task</b></td>
 		<td></td>
 		<td></td>
@@ -303,7 +303,7 @@
 		<td></td>
 		<td><b>optional</b></td>
 		<td><b>mandatory</b></td>
-    </tr>
+	</tr>
 	<tr>
 		<td><sub><b>size</b></sub></td>
 		<td><sub>Filesize of learning object in bytes</sub></td>
@@ -334,7 +334,7 @@
 		<td><sub>optional</sub></td>
 		<td><sub></sub></td>
 	</tr>
-    <tr>
+	<tr>
 		<td><sub><sub>type</sub></sub></td>
 		<td><sub></sub></td>
 		<td></td>
@@ -344,7 +344,7 @@
 		<td><sub>mandatory</sub></td>
 		<td><sub></sub></td>
 	</tr>
-    <tr>
+	<tr>
 		<td><sub><sub>name</sub></sub></td>
 		<td><sub></sub></td>
 		<td></td>
@@ -364,7 +364,7 @@
 		<td><sub>optional</sub></td>
 		<td><sub></sub></td>
 	</tr>
-    <tr>
+	<tr>
 		<td><sub><sub>maximumVersion</sub></sub></td>
 		<td><sub></sub></td>
 		<td></td>
@@ -425,7 +425,7 @@
 		<td><sub>optional</sub></td>
 	</tr>
 	<tr>
-        <td><b>Educational</b></td>
+		<td><b>Educational</b></td>
 		<td><b>Educational/Teaching related aspects of the tasks</b></td>
 		<td></td>
 		<td></td>
@@ -433,7 +433,7 @@
 		<td></td>
 		<td><b>recommended</b></td>
 		<td><b>mandatory</b></td>
-    </tr>
+	</tr>
 	<tr>
 		<td><sub><b>learningResource</b></sub></td>
 		<td><sub>Type of the learning object/task</sub></td>
@@ -545,7 +545,7 @@
 		<td></td>
 	</tr>
 	<tr>
-        <td><b>Rights</b></td>
+		<td><b>Rights</b></td>
 		<td><b>Rightsmanagement for the task (intellectual propertiy rights, conditions of use)</b></td>
 		<td></td>
 		<td></td>
@@ -553,7 +553,7 @@
 		<td></td>
 		<td><b>mandatory</b></td>
 		<td><b>recommended</b></td>
-    </tr>
+	</tr>
 	<tr>
 		<td><sub><b>copyrightAndOtherRestrictions</b></sub></td>
 		<td><sub>Copyright information available?</sub></td>
@@ -585,7 +585,7 @@
 		<td><sub>recommended</sub></td>
 	</tr>
 	<tr>
-        <td><b>Relation</b></td>
+		<td><b>Relation</b></td>
 		<td><b>Relation of the task to other ones</b></td>
 		<td></td>
 		<td></td>
@@ -593,7 +593,7 @@
 		<td></td>
 		<td><b>optional</b></td>
 		<td><b>optional</b></td>
-    </tr>
+	</tr>
 	<tr>
 		<td><sub><b>kind</b></sub></td>
 		<td><sub>Kind of relation between the tasks</sub></td>
@@ -655,7 +655,7 @@
 		<td></td>
 	</tr>
 	<tr>
-        <td><b>Annotation</b></td>
+		<td><b>Annotation</b></td>
 		<td><b>Feedback for the task/task rating</b></td>
 		<td></td>
 		<td></td>
@@ -663,7 +663,7 @@
 		<td></td>
 		<td><b>optional</b></td>
 		<td><b>optional</b></td>
-    </tr>
+	</tr>
 	<tr>
 		<td><sub><b>entity</b></sub></td>
 		<td><sub>Creator of task feedback/rating </sub></td>
@@ -695,7 +695,7 @@
 		<td></td>
 	</tr>
 	<tr>
-        <td><b>Classification</b></td>
+		<td><b>Classification</b></td>
 		<td><b>Information to classify the task</b></td>
 		<td></td>
 		<td></td>
@@ -703,7 +703,7 @@
 		<td></td>
 		<td><b>optional</b></td>
 		<td><b>mandatory</b></td>
-    </tr>
+	</tr>
 	<tr>
 		<td><sub><b>purpose</b></sub></td>
 		<td><sub>Kind of classification</sub></td>
