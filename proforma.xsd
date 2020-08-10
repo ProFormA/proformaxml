@@ -1015,7 +1015,7 @@
   </xs:complexType>
 
   <xs:complexType name="feedback-list-type">
-    <xs:sequence>
+    <xs:sequence maxOccurs="unbounded">
       <xs:element name="student-feedback" minOccurs="0" maxOccurs="unbounded"
                   type="tns:feedback-type"/>
       <xs:element name="teacher-feedback" minOccurs="0" maxOccurs="unbounded"
