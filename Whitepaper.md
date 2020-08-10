@@ -1268,11 +1268,13 @@ Calculating a submission's total score based on partial results of separate test
 
 The feedback-list contains zero or more [feedback](#the-feedback-element) elements for both student and teacher. While a response document structured in [separate-test-feedback](#82-the-separate-test-feedback-element) must contain a [result](#the-result-element) element for each [test-response](#the-test-response-element), the test-responses are not required to have any feedback at all, depending on the settings used in the the result specification (see [student-feedback-level and teacher-feedback-level](Whitepaper.md#the-student-feedback-level-and-teacher-feedback-level-elements)).
 
+Most likely a teacher will see all the feedback that is also provided to a student. Therefore feedback for a teacher tends to be a union of feedback for students with additional information. Instead of copying the text provided to a student into the text for the teacher, it can be beneficial to produce a continuous text for the student and add the feedback for the teacher inbetween.
+
 ###### Code
 
 ```xml
 <xs:complexType name="feedback-list-type">
-  <xs:sequence>
+  <xs:sequence maxOccurs="unbounded">
     <xs:element name="student-feedback" minOccurs="0" maxOccurs="unbounded"
                 type="tns:feedback-type"/>
     <xs:element name="teacher-feedback" minOccurs="0" maxOccurs="unbounded"
