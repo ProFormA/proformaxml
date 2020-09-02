@@ -916,6 +916,7 @@
 
   <xs:complexType name="response-meta-data-type">
     <xs:sequence>
+      <xs:element name="response-datetime" minOccurs="0" type="xs:dateTime"/>
       <xs:element name="grader-engine" type="tns:grader-engine-type"/>
       <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
     </xs:sequence>
