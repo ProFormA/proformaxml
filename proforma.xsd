@@ -113,6 +113,28 @@
     </xs:choice>
   </xs:group>
 
+  <xs:attributeGroup name="resource-properties">
+    <xs:attribute name="used-by-grader" type="xs:boolean" use="required"/>
+    <xs:attribute name="visible" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="yes"/>
+          <xs:enumeration value="no"/>
+          <xs:enumeration value="delayed"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="usage-by-lms" default="download">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="edit"/>
+          <xs:enumeration value="display"/>
+          <xs:enumeration value="download"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+
   <xs:complexType name="filerefs-type">
     <xs:sequence maxOccurs="unbounded">
       <xs:element name="fileref" type="tns:fileref-type"/>
@@ -676,25 +698,7 @@
     </xs:sequence>
     <xs:attribute name="id" type="xs:string" use="required"/>
     <xs:attribute name="mimetype" type="xs:string"/>
-    <xs:attribute name="used-by-grader" type="xs:boolean" use="required"/>
-    <xs:attribute name="visible" use="required">
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="yes"/>
-          <xs:enumeration value="no"/>
-          <xs:enumeration value="delayed"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>          
-    <xs:attribute name="usage-by-lms" default="download">
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="edit"/>
-          <xs:enumeration value="display"/>
-          <xs:enumeration value="download"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>  
+    <xs:attributeGroup ref="resource-properties"/>
   </xs:complexType>
 
   <xs:complexType name="task-files-type">
@@ -716,6 +720,7 @@
     </xs:sequence>
     <xs:attribute name="id" type="xs:string" use="required"/>
     <xs:attribute name="reference" type="xs:string"/>
+    <xs:attributeGroup ref="resource-properties"/>
   </xs:complexType>
 
   <xs:simpleType name="title-type">
