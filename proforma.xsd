@@ -851,6 +851,7 @@
   <xs:complexType name="included-task-file-type">
     <xs:choice>
       <xs:element name="embedded-zip-file" type="tns:embedded-bin-file-type"/>
+      <xs:element name="embedded-xml-file" type="tns:embedded-bin-file-type"/>
       <xs:element name="attached-zip-file" type="tns:attached-bin-file-type"/>
       <xs:element name="attached-xml-file" type="tns:attached-txt-file-type"/>
     </xs:choice>
