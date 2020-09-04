@@ -822,6 +822,7 @@
       <xs:element name="lms" type="tns:lms-type" minOccurs="0"/>
       <xs:element name="result-spec" type="tns:result-spec-type"/>
     </xs:sequence>
+    <xs:attribute name="id" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="submission-file-type">
@@ -912,6 +913,7 @@
       <xs:element name="response-meta-data" type="tns:response-meta-data-type"/>
     </xs:sequence>
     <xs:attribute name="lang" type="xs:language"/>
+    <xs:attribute name="submission-id" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="response-meta-data-type">
