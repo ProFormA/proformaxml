@@ -613,7 +613,7 @@
       <xs:element name="submission-restrictions" type="tns:submission-restrictions-type" minOccurs="0"/>
       <xs:element name="files" type="tns:task-files-type"/>
       <xs:element name="external-resources" type="tns:external-resources-type" minOccurs="0"/>
-      <xs:element name="model-solutions" type="tns:model-solutions-type"/>
+      <xs:element name="model-solutions" type="tns:model-solutions-type" minOccurs="0"/>
       <xs:element name="tests" type="tns:tests-type"/>
       <xs:element name="grading-hints" type="tns:grading-hints-type" minOccurs="0">
         <xs:key name="task-gh-combineids">
@@ -666,7 +666,7 @@
   </xs:complexType>
 
   <xs:complexType name="model-solutions-type">
-    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+    <xs:sequence maxOccurs="unbounded">
       <xs:element name="model-solution" type="tns:model-solution-type"/>
     </xs:sequence>
   </xs:complexType>
