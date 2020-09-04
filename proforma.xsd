@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:proforma:v2.0.1" xmlns:tns="urn:proforma:v2.0.1"
-           elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:proforma:v2.0.1" xmlns:tns="urn:proforma:v2.0.1" elementFormDefault="qualified">
 
   <xs:element name="task" type="tns:task-type">
     <xs:key name="task-fileids">
@@ -698,7 +697,7 @@
     </xs:sequence>
     <xs:attribute name="id" type="xs:string" use="required"/>
     <xs:attribute name="mimetype" type="xs:string"/>
-    <xs:attributeGroup ref="resource-properties"/>
+    <xs:attributeGroup ref="tns:resource-properties"/>
   </xs:complexType>
 
   <xs:complexType name="task-files-type">
@@ -720,7 +719,7 @@
     </xs:sequence>
     <xs:attribute name="id" type="xs:string" use="required"/>
     <xs:attribute name="reference" type="xs:string"/>
-    <xs:attributeGroup ref="resource-properties"/>
+    <xs:attributeGroup ref="tns:resource-properties"/>
   </xs:complexType>
 
   <xs:simpleType name="title-type">
