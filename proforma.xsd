@@ -644,7 +644,15 @@
   <xs:complexType name="file-restr-type">
     <xs:simpleContent>
       <xs:extension base="xs:string">
-        <xs:attribute name="required" type="xs:boolean" default="true"/>
+        <xs:attribute name="use" default="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="required"/>
+              <xs:enumeration value="optional"/>
+              <xs:enumeration value="prohibited"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="pattern-format" default="none">
           <xs:simpleType>
             <xs:restriction base="xs:string">
