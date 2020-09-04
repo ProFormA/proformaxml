@@ -633,8 +633,10 @@
   </xs:complexType>
 
   <xs:complexType name="submission-restrictions-type">
-    <xs:sequence minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="file-restriction" type="tns:file-restr-type"/>
+    <xs:sequence>
+      <xs:element name="file-restriction" type="tns:file-restr-type" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="description" type="tns:description-type" minOccurs="0"/>
+      <xs:element name="internal-description" type="tns:description-type" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="max-size" type="xs:positiveInteger"/>
   </xs:complexType>
