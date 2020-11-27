@@ -59,6 +59,7 @@ https://github.com/ProFormA/taskxml/blob/master/whitepaper.md
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7.4.2 [The external-submission element](#742-the-external-submission-element)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;7.5 [The LMS part](#75-the-lms-part)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;7.6 [The result-spec part](#76-the-result-spec-part)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;7.6 [The ID attribute](#77-the-id-attribute)<br>
 8 [The Response Part](#8-the-response-part)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;8.1 [The merged-test-feedback element](#81-the-merged-test-feedback-element)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;8.2 [The separate-test-feedback element](#82-the-separate-test-feedback-element)<br>
@@ -619,8 +620,9 @@ The submission-restrictions element has one optional attribute:
 
 -  <b>max-size</b> specifies the maximum size of a file in bytes which should be   accepted. If the submission is a bundle like a ZIP archive, the size of the archive must not exceed the specified maximum size.   If the submission consists of several individual files, the sum of all individual file sizes must not exceed the specified maximum size.   Systems which have a stronger limit of the file size should print a warning to the uploading user. If this attribute is missing, a system default value will be used.
 
-The <b>file-restriction</b> element defines required and optional files using an optional boolean <b>required</b> attribute (default is true).
-A valid submission must meet each of the following file-restrictions: it *must* contain all files specified by *required=true* elements and it *is allowed* to contain files specified by *required=false* elements. Submissions that include even more files than those specified as required or optional are still accepted, but frontends and graders will ignore all these additional files. This allows students to successfully submit ZIP files accidentally containing  inivisible files like `.DS_Store`. Enforcing submission restrictions is up to the LMS, middleware, or grader. A submission not containing all required files may be rejected by the front-end LMS and may not even be partially graded.
+The <b>file-restriction</b> element defines required, optional, and prohibited file paths in a submission. A file restriction may use the POSIX Extended Regular Expressions format (*posix-ere*), or an unspecified one (*none*) if a custom format is intended to be used.
+
+A valid submission must meet each of the following file-restrictions: it *must* contain all files specified by *use=required* elements and it *is allowed* to contain files specified by *use=optional* elements. Submissions that include even more files than those specified as required or optional are still accepted, but frontends and graders will ignore all these additional files. This allows students to successfully submit ZIP files accidentally containing  invisible files such as  `.DS_Store`. Submissions containing files that are explicitly specified by *use=prohibited* elements may be rejected entirely. Enforcing these restrictions is up to the LMS, middleware, or grader. A submission not containing all required files may be rejected by the front-end LMS and may not even be partially graded.
 
 All file-restrictions are file paths relative to a root directory. There are three cases to consider (depending on what is submitted in the [submission files element](#74-the-submission-files-part)): 
 
@@ -674,7 +676,7 @@ Teachers should generally be able to see all files when they are marking a submi
 The following table shows some examples for the use of the three attributes:
 
 <table>
-   <tr><th>visible (to students)</th><th>usage-by-lms</th><th>used-by-grader</th><th>(file class in version 1.0.1)</th><th>Description</th></tr>
+   <tr><th>visible (to students)</th><th>usage-by-lms</th><th>used-by-grader</th><th>(file class in version 1.0.1 (deprecated))</th><th>Description</th></tr>
 <tr>
   <td>yes</td>
   <td>edit</td>
@@ -749,14 +751,13 @@ Normally task files should be self-contained, but in rare cases the use of exter
 
 The idea behind external resources is that sometimes large files needed by a grader, files that change frequently or web services cannot be bundled reasonably with the task itself. In these cases, the task part may reference the external resource by a unique name or any other identifier. Examples are the name or URL of a widely known database dump (e.g. ftp://ftp.fu-berlin.de/pub/misc/movies/database/) or the name and version number of a library (e.g. urn:mvn:groupId=org.mockito:artifactId=mockito-core:packaging=jar:version=1.9.5) or a web service URL. The semantics and the format of references is not defined by this exchange format. It could be a URL, URN or any other identifier. Also the exchange format does not define the distribution mechanism of resources (e.g. push from LMS to grader, active pull by the grader, etc.). Taken to the extreme, an external-resource element may mean, that the administrator has to install some software, service, or data in a grader specific location, before the task can be used to grade submissions. The identifier therefore does not need to be in a machine readable format. Further details about the semantics of the external-resource can be provided in the optional <b>internal-description</b> element. The description may provide instructions in natural language how to install the required resource prior to grading so that the grader can interpret and resolve the reference attribute successfully when grading a submission.
 
-Unlike files, external resources currently do not specify the attributes <b>used-by-grader</b>, <b>visible</b>, and <b>usage-by-lms</b>. An external resource is expected to be used like a file with the attribute values <b>used-by-grader=true</b>, <b>visible=no</b>, and <b>usage-by-lms=download</b>. If in rare cases an external resource should be visible to students, the tasks's description element could be used to include an HTML-formatted link to that resource.
+Like files, external resources make use of the <b>used-by-grader</b>, <b>visible</b>, and <b>usage-by-lms</b> attributes. Refer to the [file element](https://github.com/ProFormA/proformaxml/blob/master/Whitepaper.md#the-file-element) for a detailed description on how to use these attributes.
 
 Each external resource element can be identified by its mandatory <b>id</b> attribute and is referenced by the test-configuration (see below in the test section).
 
 ### 5.8 The model-solutions part
 
-The model solutions element is used to provide one or more solutions of
-the task. For each model-solution a new <b>model-solution</b> element is added.
+The model solutions element is used to optionally provide one or more solutions for the task. For each model-solution a new <b>model-solution</b> element is added.
 
 #### The model-solution element
 
@@ -894,6 +895,7 @@ The task that the submission is for is part of the submission XML document. The 
     <xs:element name="lms" type="tns:lms-type" minOccurs="0"/>
     <xs:element name="result-spec" type="tns:result-spec-type"/>
   </xs:sequence>
+  <xs:attribute name="id" type="xs:string"/>
 </xs:complexType>
 ```
 
@@ -929,6 +931,7 @@ A task may be included as a regular XML element in the submission.
 <xs:complexType name="included-task-file-type">
   <xs:choice>
     <xs:element name="embedded-zip-file" type="tns:embedded-bin-file-type"/>
+    <xs:element name="embedded-xml-file" type="tns:embedded-bin-file-type"/>
     <xs:element name="attached-zip-file" type="tns:attached-bin-file-type"/>
     <xs:element name="attached-xml-file" type="tns:attached-txt-file-type"/>
   </xs:choice>
@@ -938,9 +941,11 @@ A task may be included as a regular XML element in the submission.
 
 ##### Explanations
 
-Using the included-task-file element, a task may be attached to a submission ZIP archive as an XML file using the attached-xml-file element. Alternatively, a task may be attached to a submission ZIP archive as a ZIP file using the attached-zip-file element. In both cases the task XML or ZIP file must be stored in the "/task" folder of the submission ZIP file. The path to the attached XML or ZIP task file is specified relative to the "/task" folder of the submission ZIP archive.
+Using the included-task-file element, a task may be attached to a submission ZIP archive as an XML file using the attached-xml-file element. If required, a bare XML task document may be embedded into the submission XML document as Base64 content using the embedded-xml-file element, which does not require stripping the task's XML document off its leading XML declaration (as opposed to adding the task as a regular [XML element](#721-the-task-element)). 
 
-Furthermore, a task ZIP may be encoded to Base64 and embedded into the submission's XML document. This is useful when submission documents are transferred as bare XML files rather than ZIP files between participating systems.
+Alternatively, a task may be attached to a submission ZIP archive as a ZIP file using the attached-zip-file element. In both cases the task XML or ZIP file must be stored in the "/task" folder of the submission ZIP file. The path to the attached XML or ZIP task file is specified relative to the "/task" folder of the submission ZIP archive.
+
+Furthermore, a task ZIP may be encoded to Base64 and embedded into the submission XML document. This is useful when submission documents are transferred as bare XML files rather than ZIP files between participating systems.
 
 The included-task-file has the following attributes:
 
@@ -954,15 +959,19 @@ The included-task-file has the following attributes:
 
 ```xml
 <xs:complexType name="external-task-type">
-  <xs:simpleContent>
-    <xs:extension base="xs:string">
-      <xs:attribute name="uuid" type="xs:string" use="optional"/>
-    </xs:extension>
-  </xs:simpleContent>
+  <xs:sequence>
+    <xs:element name="uri" type="xs:string" minOccurs="0"/>
+    <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+  </xs:sequence>
+  <xs:attribute name="uuid" type="xs:string"/>
 </xs:complexType>
 ```
 
-An external task element can be represented by a single URI, e.g. `https://somerepository.org/sometaskid/task.zip`. The resource referenced by this URI must be a single archive file (e.g. `task.zip`) containing the `task.xml` as well as any other files related to the task. The archive's filename can be chosen freely, it does not matter. The URI may also use any other network protocol if the middleware and server hosting the task resource are capable of supporting it. If accessing the task resource requires the middleware to authenticate with the hosting server, the authentication data can be stored with the middleware. A middleware may use the optional **uuid** attribute to check if the task is stored in a local cache before accessing it via the repository URI.
+An external task element can be represented by a URI, e.g. `https://somerepository.org/sometaskid/task.zip`. The resource referenced by this URI can be a single archive file (e.g. `task.zip`) containing the `task.xml` as well as any other files related to the task. If accessing the external task resource requires the client to authenticate with a server hosting the task resource, the authentication data may be stored with the client. 
+
+The optional **uuid** attribute refers to the task UUID. If set, it allows for the client to retrieve an already existing task resource from cache in order to avoid repeated access to, and download from a network location.
+
+If a single URI is not sufficient, it may be supplemented with, or replaced by information in the any namespace.
 
 ### 7.3 The grading-hints part
 
@@ -1009,7 +1018,7 @@ Note that source code (or any kind of text, for that matter) written inside an o
 
 #### 7.4.2 The external-submission element
 
-Another way to specify a student submission is to provide a reference to an externally available submission file. The external-submission element works similarly to the [external-task element](#723-the-external-task-element) in that it must also be represented by a single URI. The only difference is that in addition to a single archive file (e.g. `submission.zip`), the external submission URI may also reference a resolvable list of files, such as a web directory.
+Another way to specify a student submission is to provide a reference to an externally available submission file. The external-submission element works similarly to the [external-task element](#723-the-external-task-element) in that it may also be represented by a URI. The only difference is that in addition to a single archive file (e.g. `submission.zip`), the external submission URI may also reference a resolvable list of files, such as a web directory.
 
 ### 7.5 The LMS part
 
@@ -1172,6 +1181,10 @@ While the student-feedback-level and teacher-feedback-level are technically set 
 
 If neither student-feedback-level nor teacher-feedback-level are specified, no [feedback content](Whitepaper.md#feedback-type-content) will be included in the response document in case of [separate-test-feedback](#separate-test-feedback), and no [merged-feedback](Whitepaper.md#the-merged-feedback-element) in case of [merged-test-feedback](#merged-test-feedback).
 
+### 7.7 The ID attribute
+
+The submission's optional **id** attribute is used to connect a resulting response file to a submission using the response's **submission-id** attribute. This is useful in case submission and response files are stored in external repositories for later retrieval and need to be linked to each other. The type of identifier is up to the implementing system.
+
 ## 8 The Response Part
 
 The response contains the results of a graded submission.
@@ -1191,6 +1204,7 @@ The response contains the results of a graded submission.
    <xs:element name="response-meta-data" type="tns:response-meta-data-type"/>
   </xs:sequence>
   <xs:attribute name="lang" type="xs:language"/>
+  <xs:attribute name="submission-id" type="xs:string"/>
 </xs:complexType>
 ```
 
@@ -1437,13 +1451,14 @@ The response-file-type consists of one of the [file types](#31-files) used to at
 
 ### 8.4 The response-meta-data element
 
-The response-meta-data element contains information about the grading system used to grade the submission, like the grader's name and version, as well as an any namespace for any additional meta data relevant to the submission response.
+The response-meta-data element contains the creation date of the response file and information about the grading system used to grade the submission, such as the grader's name and version, as well as an any namespace for additional meta data relevant to the submission response.
 
 ###### Code
 
 ```xml
 <xs:complexType name="response-meta-data-type">
   <xs:sequence>
+    <xs:element name="response-datetime" minOccurs="0" type="xs:dateTime"/>
     <xs:element name="grader-engine" type="tns:grader-engine-type"/>
     <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
   </xs:sequence>
