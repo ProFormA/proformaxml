@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:proforma:v2.0.1" xmlns:tns="urn:proforma:v2.0.1" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:proforma:v2.1" xmlns:tns="urn:proforma:v2.1" elementFormDefault="qualified">
 
   <xs:element name="task" type="tns:task-type">
     <xs:key name="task-fileids">
