@@ -864,10 +864,9 @@ The timeout element specifies the CPU time limit (in seconds) for a particular t
 
 #### The test-meta-data element
 
-The test-meta-data element holds a namespace for test-specific meta-data
-of each system. This is particularly useful for attributes that are
-required for ex- and import in one system but which are not relevant for
-other systems.
+The test-meta-data element holds a namespace for test-specific meta-data of each system. This is particularly useful for attributes that are required for ex- and import in one system but which are not relevant for other systems.
+
+The test-meta-data element can also be used to specify resource usage limits consumed by a particular test, such as memory and disk quota limits.
 
 ## 7 The Submission Part
 
