@@ -174,9 +174,9 @@ The attached-txt-file element is used to attach files containing plaintext conte
     
     The value of the natural-lang attribute must comply with the ISO 639-1 standard for language codes (e.g. `de`) and ISO 3166-1 alpha-2 for country codes (e.g. `de-CH`). The country code (e.g. `-CH`) is optional.
     
-    It should be said that the natural-lang attribute does not necessarily have to be the same as the one provided in the task's [lang](#52-task-attributes) attribute. While the lang attribute indicates the language that the task has been written in, a student might use an entirely different language when writing their text.
+    It should be noted that the natural-lang attribute does not necessarily have to be the same language as the one provided in the task's [lang](#52-task-attributes) attribute, which only indicates the natural language used by a task author for assignment texts presented to students. A student might use a different natural language entirely when writing their source code solution. For example, the student might add source code comments or annotations in a language other than indicated by the [lang](#52-task-attributes) attribute.
     
-    Providing a value for the natural-lang attribute could be as simple as retrieving a preconfigured value, such as the language the student configured in their user profile of the LMS.
+    Providing a value for the natural-lang attribute, for example, could be achieved by retrieving a pre-configured value, such as the preferred language the student set up in their user profile of the LMS.
 
 The relative path to the plaintext file within the ZIP archive is specified in the element content (i.e. the element's text node).
 
